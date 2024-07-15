@@ -11,6 +11,7 @@ var hbox_num = my_hitboxID.hbox_num;
 if (my_hitboxID.orig_player == player) {
 	hunger_meter += get_hitbox_value(hbox_atk, hbox_num, HG_HUNGER_GAIN);
 	hunger_meter = clamp(hunger_meter, 0, 100);
+	user_event(0);
 }
 
 

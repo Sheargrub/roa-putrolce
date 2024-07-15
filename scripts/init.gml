@@ -41,6 +41,7 @@ AG_WINDOW_CAN_WALLJUMP          = 77;   // if the player can walljump out of the
 
 AG_WINDOW_HAS_STANCE_LENGTHS    = 80;
 AG_WINDOW_STANCE_LENGTHS        = 81;
+AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS
 
 
 //                               HITBOX INDEXES                               //
@@ -74,6 +75,7 @@ HG_PROJECTILE_MAX_HITS          = 72;   // max number of times the projectile
 
 HG_HUNGER_GAIN                  = 80;
 HG_STANCE                       = 81;   // If uninitialized/set to 0, will appear in all stances
+                                        // NOTE: If using HG_STANCE, the hitbox must be included in set_num_hitboxes()
 
 // if you're making custom indexes for your character, I recommend starting at
 // 80 or 90, as slots up to 79 may be filled in future updates
