@@ -2,6 +2,30 @@
 // DEBUG
 if (should_debug && state == PS_PARRY && state_timer = 0) lightweight_debug = !lightweight_debug;
 
+// Stance updates
+var update_stance = false;
+switch stance {
+	case 1: // Famished
+		if (hunger_meter > 10) update_stance = true;
+		break;
+	case 2: // Voracious
+		if (hunger_meter <= 10 || hunger_meter > 30) update_stance = true;
+		break;
+	case 3: // Normal
+		if (hunger_meter <= 30 || hunger_meter > 80) update_stance = true;
+		break;
+	case 4: // Overstuffed
+		if (hunger_meter <= 80) update_stance = true;
+		break;
+}
+
+if (update_stance) {
+	if (hunger_meter <= 10) stance = 1;
+	else if (hunger_meter <= 30) stance = 2;
+	else if (hunger_meter <= 80) stance = 3;
+	else stance = 4;
+}
+
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_looping = false;

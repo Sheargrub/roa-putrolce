@@ -1,4 +1,18 @@
+var hbox_atk = my_hitboxID.attack;
+var hbox_num = my_hitboxID.hbox_num;
+
 //                           --hit stuff--                                    //
+
+
+
+
+// Apply hunger gains as appropriate
+// TODO: Kragg-proof once NSpecial is in
+if (my_hitboxID.orig_player == player) {
+	hunger_meter += get_hitbox_value(hbox_atk, hbox_num, HG_HUNGER_GAIN);
+	hunger_meter = clamp(hunger_meter, 0, 100);
+}
+
 
 switch(attack) {
 

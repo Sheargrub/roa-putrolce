@@ -7,6 +7,7 @@ set_attack_value(atk, AG_SPRITE                         , sprite_get("ftilt"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("ftilt_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 0);
+set_attack_value(atk, AG_HUNGER_COST                    , 5);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
@@ -69,6 +70,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 16);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_orca_crunch"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 15);
 
 
 

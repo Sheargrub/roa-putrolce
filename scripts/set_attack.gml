@@ -11,3 +11,8 @@ grabbed_player_relative_x = 0;
 grabbed_player_relative_y = 0;
 
 
+// Apply hunger cost
+if (move_cooldown[attack] <= 0) {
+    hunger_meter -= get_attack_value(attack, AG_HUNGER_COST);
+	hunger_meter = clamp(hunger_meter, 0, 100);
+}
