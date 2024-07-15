@@ -155,6 +155,8 @@ dash_moonwalks                  = false; // if the character has a moonwalk anim
 
 
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
+// Stance stat ordering goes from most to least hungry.
+// Stats should be initialized to Normal state (array index 2).
 
 //                              --hurtboxes--                                 //
 hurtbox_spr                     = asset_get("ex_guy_hurt_box");
@@ -173,11 +175,14 @@ pratfall_anim_speed             = 0.25;
 
 //                      --grounded movement stats--                           //
 walk_speed                      = 3.25;
+walk_speed_stances              = [2, 4, 3.25, 2.5];
 walk_accel                      = 0.2;
 walk_turn_time                  = 6;
 initial_dash_time               = 12;
 initial_dash_speed              = 6.5;
+initial_dash_speed_stances      = [4, 7.5, 6.5, 6];
 dash_speed                      = 6;
+dash_speed_stances              = [4.5, 7, 6, 5.5];
 dash_turn_time                  = 10;
 dash_turn_accel                 = 1.5;
 dash_stop_time                  = 4;

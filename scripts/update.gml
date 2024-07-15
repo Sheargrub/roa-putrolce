@@ -24,6 +24,11 @@ if (update_stance) {
 	else if (hunger_meter <= 30) stance = 2;
 	else if (hunger_meter <= 80) stance = 3;
 	else stance = 4;
+	
+	var i = stance-1;
+	walk_speed = walk_speed_stances[i];
+	initial_dash_speed = initial_dash_speed_stances[i];
+	dash_speed = dash_speed_stances[i];
 }
 
 // reset idle_air_looping if the character isn't in air idle anymore
