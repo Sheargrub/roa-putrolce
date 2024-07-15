@@ -199,8 +199,11 @@ short_hop_speed                 = 6.5;
 djump_speed                     = 11;
 
 leave_ground_max                = 7;
+leave_ground_max_stances        = [6, 8.5, 7, 6.5];
 max_jump_hsp                    = 6;
+max_jump_hsp_stances            = [5, 7.5, 6, 5.5];
 air_max_speed                   = 4;
+air_max_speed_stances           = [3, 5, 4, 4];
 jump_change                     = 3;
 
 air_accel                       = 0.3;
@@ -215,7 +218,9 @@ walljump_vsp                    = 7;
 walljump_time                   = 32;
 
 max_fall                        = 11;
+max_fall_stances                = [9.5, 11, 11, 11];
 fast_fall                       = 14;
+fast_fall_stances               = [12, 14, 14, 14];
 gravity_speed                   = 0.55;
 hitstun_grav                    = 0.51;
 

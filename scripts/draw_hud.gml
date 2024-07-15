@@ -16,8 +16,8 @@ if (should_debug) {
         draw_debug_text(temp_x - 70, temp_y - 60, "Attack: "        +string(attack));
         draw_debug_text(temp_x - 70, temp_y - 45, "Window: "        +string(window));
         draw_debug_text(temp_x - 70, temp_y - 30, "Window Timer: "  +string(window_timer));
-        draw_debug_text(temp_x + 70, temp_y - 60, "HSP: "   +string(round(hsp)));
-        draw_debug_text(temp_x + 70, temp_y - 45, "VSP: "   +string(round(vsp)));
+        draw_debug_text(temp_x + 70, temp_y - 60, "HSP: "   +string(hsp));
+        draw_debug_text(temp_x + 70, temp_y - 45, "VSP: "   +string(vsp));
         draw_debug_text(temp_x + 70, temp_y - 30, "Image Index: "   +string(image_index));
     }
 }
