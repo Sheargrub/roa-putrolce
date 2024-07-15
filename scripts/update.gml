@@ -1,24 +1,13 @@
 
+// DEBUG
+if (should_debug && state == PS_PARRY && state_timer = 0) lightweight_debug = !lightweight_debug;
+
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_looping = false;
 	idle_air_platfalling = false;
 }
 
-// remove attack air limit once character lands, respawns, walljumps or is hit
-//if (attack_air_limit_ver) {
-//	if ((!free || state == PS_RESPAWN || state == PS_WALL_JUMP || state == PS_HITSTUN) && state_timer == 1) {
-//		for(var i=0;i<array_length(attack_air_limit);i++) {
-//			attack_air_limit[i] = false;
-//		}
-//		attack_air_limit_ver = false;
-//	}
-//}
-
-// character recoloring / applying shade values
-// init_shader(); //unused for now
-// composite vfx update
-update_comp_hit_fx();
 
 
 #define spawn_base_dust // written by supersonic

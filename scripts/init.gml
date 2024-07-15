@@ -1,5 +1,6 @@
 //                                  debug                                     //
-should_debug                    = false;
+should_debug                    = get_match_setting(SET_PRACTICE);
+lightweight_debug               = true;
 
 
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
@@ -11,11 +12,13 @@ should_debug                    = false;
 make it look cleaner
 */
 
-// adds once-per-air limit to an attack
-AG_ATTACK_AIR_LIMIT             = 30;
-
-// might add ai indexes here later so you can tell the cpu when to use certain
-// moves
+AG_HUNGER_COST = 30;
+AG_LAST_STANCE = 31; // used on-the-fly, should not be set in attack scripts
+AG_HAS_STANCE_SPRITES = 32;
+AG_STANCE_SPRITES = 33;
+AG_HAS_STANCE_HURT_SPRITES = 34;
+AG_STANCE_HURT_SPRITES = 35;
+AG_NUM_STANCE_WINDOWS = 36; // may or may not be necessary?
 
 /*
 - free window data indexes technically start at 61 up to 99, went with 70 to
@@ -36,6 +39,8 @@ AG_WINDOW_GRAB_POS_Y            = 76;   // y position to hold grabbed opponent
 AG_WINDOW_CAN_WALLJUMP          = 77;   // if the player can walljump out of the
                                         // window
 
+AG_WINDOW_HAS_STANCE_LENGTHS    = 80;
+AG_WINDOW_STANCE_LENGTHS        = 81;
 
 
 //                               HITBOX INDEXES                               //
@@ -67,6 +72,9 @@ HG_PROJECTILE_MAX_HITS          = 72;   // max number of times the projectile
                                         // (individual per opponent)
                                         // put -1 for no limit
 
+HG_HUNGER_GAIN                  = 80;
+HG_STANCE                       = 81;   // If uninitialized/set to 0, will appear in all stances
+
 // if you're making custom indexes for your character, I recommend starting at
 // 80 or 90, as slots up to 79 may be filled in future updates
 
@@ -79,16 +87,16 @@ through enemies, otherwise it might just despawn on hit
 //=-(                    ~~//** CUSTOM VARIABLES **//~~                    )-=//
 //                              PUT YOURS HERE                                //
 
+hunger_meter                    = 50;
+stance                          = 3; // 1-4, see below
 
+ST_FAMISHED                     = 1;
+ST_VORACIOUS                    = 2;
+ST_NORMAL                       = 3;
+ST_OVERSTUFFED                  = 4;
 
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables
-attack_air_limit                = array_create(50, false);
-                                        // tracks per-air limit for attacks
-attack_air_limit_ver            = false;// if true, will check if air limits
-                                        // should be reset
-                                        // so that it doesn't go through the big
-                                        // array more often than needed
 grabbed_player_obj              = noone;// the player that got grabbed
 grabbed_player_relative_x       = 0;    // x position in relation to the player, 
                                         // for the grabbed player to be moved to
