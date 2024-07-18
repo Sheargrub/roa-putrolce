@@ -27,7 +27,7 @@ block_idle_state = false;
 block_active_state = false;
 
 targetted_player_id = noone;
-attempting_homing = false; // used to communicate with post_draw
+attempting_tracking = false; // used to communicate with post_draw
 
 petrified_hitbox = noone;
 active_hitbox = noone;

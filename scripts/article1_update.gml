@@ -6,7 +6,7 @@
 #macro SLP_PETRIFIED_LAUNCHED 02    // has lifetime checks, omits gravity
 
 // State category 1x: Active
-#macro SLP_ACTIVE_DEFAULT 10        // standard wave motion w/ light homing
+#macro SLP_ACTIVE_DEFAULT 10        // standard wave motion w/ light tracking
 #macro SLP_ACTIVE_ARC_UP 11         // used for diagonal venus reflect
 #macro SLP_ACTIVE_ARC_DOWN 12       // ditto
 #macro SLP_ACTIVE_RUSH 13           // fast, angled movement
@@ -23,7 +23,7 @@
 
 
 state_timer += 1;
-attempting_homing = false;
+attempting_tracking = false;
 
 // actual article behavior
 switch (state) {
@@ -59,7 +59,7 @@ switch (state) {
         
         else {
             
-            find_homing_target();
+            find_tracking_target();
             if (targetted_player_id != noone) {
                 var center_y = targetted_player_id.y - floor(player_id.char_height/2);
                 if (y < center_y - 20) vsp += 1;
@@ -169,23 +169,26 @@ if (should_die) { //despawn and exit script
     apply_hitbox_reflection(article_hitbox);
     return article_hitbox;
 
-#define find_homing_target()
+#define find_tracking_target()
     var old_mask = mask_index;
     var min_distance = 99999999999;
     mask_index = sprite_get("obj_sleeper_tracker_mask_"+string(spr_dir));
     targetted_player_id = noone;
-    attempting_homing = true;
+    attempting_tracking = true;
     
-    // Todo: adjust so that
-    // - homing filters respect teammates if team attack is off
-    // - homing filters adjust with reflected_owner
-    with pHurtBox if (player != other.player && place_meeting(x, y, other)) {
-        var center_y = playerID.y - floor(playerID.char_height/2);
-        var dist = point_distance(other.x, other.y, playerID.x, center_y);
+    var pseudo_owner = reflected_player_id;
+    if (pseudo_owner == noone) pseudo_owner = player_id;
+    with pHurtBox {
+        var is_valid_target = get_match_setting(SET_TEAMATTACK) ? (player != pseudo_owner.player) : (get_player_team(player) != get_player_team(pseudo_owner.player));
         
-        if (dist < min_distance) {
-            other.targetted_player_id = playerID;
-            min_distance = dist;
+        if (is_valid_target && place_meeting(x, y, other)) {
+            var center_y = playerID.y - floor(playerID.char_height/2);
+            var dist = point_distance(other.x, other.y, playerID.x, center_y);
+            
+            if (dist < min_distance) {
+                other.targetted_player_id = playerID;
+                min_distance = dist;
+            }
         }
     }
     
