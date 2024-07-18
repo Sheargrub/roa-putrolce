@@ -23,6 +23,7 @@
 
 
 state_timer += 1;
+attempting_homing = false;
 
 // actual article behavior
 switch (state) {
@@ -54,6 +55,17 @@ switch (state) {
             hsp = 0;
             vsp = 0;
             reflected_player_id = noone;
+        }
+        
+        else {
+            
+            find_homing_target();
+            if (targetted_player_id != noone) {
+                var center_y = targetted_player_id.y - floor(player_id.char_height/2);
+                if (y < center_y - 20) vsp += 1;
+                else if (y > center_y + 20) vsp -= 1;
+            }
+            
         }
         
         break;
@@ -156,6 +168,28 @@ if (should_die) { //despawn and exit script
     article_hitbox.faux_reflected = false;
     apply_hitbox_reflection(article_hitbox);
     return article_hitbox;
+
+#define find_homing_target()
+    var old_mask = mask_index;
+    var min_distance = 99999999999;
+    mask_index = sprite_get("obj_sleeper_tracker_mask_"+string(spr_dir));
+    targetted_player_id = noone;
+    attempting_homing = true;
+    
+    // Todo: adjust so that
+    // - homing filters respect teammates if team attack is off
+    // - homing filters adjust with reflected_owner
+    with pHurtBox if (player != other.player && place_meeting(x, y, other)) {
+        var center_y = playerID.y - floor(playerID.char_height/2);
+        var dist = point_distance(other.x, other.y, playerID.x, center_y);
+        
+        if (dist < min_distance) {
+            other.targetted_player_id = playerID;
+            min_distance = dist;
+        }
+    }
+    
+    mask_index = old_mask;
 
 #define apply_hitbox_reflection(hitbox) // TODO
     if (reflected_player_id == noone) {

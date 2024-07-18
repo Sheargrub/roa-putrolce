@@ -25,7 +25,14 @@ vsp = -5;
 reflected_player_id = noone;
 block_idle_state = false;
 block_active_state = false;
+
+targetted_player_id = noone;
+attempting_homing = false; // used to communicate with post_draw
+
+petrified_hitbox = noone;
+active_hitbox = noone;
 despawn_vfx = player_id.fx_kragg_small;
+
 
 // state machine variables
 state = 0;
