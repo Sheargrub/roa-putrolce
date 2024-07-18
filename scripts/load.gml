@@ -53,11 +53,15 @@ sprite_change_offset("taunt"                , 16, 31, true);
 
 sprite_change_offset("plat"                 , 32, 47);
 
+sprite_change_offset("obj_sleeper_petrified_beta", 18, 18);
+sprite_change_offset("obj_sleeper_active_beta"  , 18, 18);
+sprite_change_offset("obj_sleeper_inactive_beta", 40, 40);
+
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
-sprite_change_offset("nspecial_proj"            , 68, 68);
+sprite_change_offset("nspecial_proj", 68, 68);
 
-sprite_change_offset("hfx_rock_small_bg"         , 64, 64);
-sprite_change_offset("hfx_rock_large"         , 128, 128);
+sprite_change_offset("hfx_rock_small_bg", 64, 64);
+sprite_change_offset("hfx_rock_large", 128, 128);
 
 

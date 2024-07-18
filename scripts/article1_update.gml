@@ -1,47 +1,171 @@
-//a
+// State macros
+
+// State category 0x: Petrified
+#macro SLP_PETRIFIED_DEFAULT 00     // has both gravity and lifetime checks
+#macro SLP_PETRIFIED_PERMANENT 01   // has gravity, but omits lifetime checks
+#macro SLP_PETRIFIED_LAUNCHED 02    // has lifetime checks, omits gravity
+
+// State category 1x: Active
+#macro SLP_ACTIVE_DEFAULT 10        // standard wave motion w/ light homing
+#macro SLP_ACTIVE_ARC_UP 11         // used for diagonal venus reflect
+#macro SLP_ACTIVE_ARC_DOWN 12       // ditto
+#macro SLP_ACTIVE_RUSH 13           // fast, angled movement
+#macro SLP_ACTIVE_HOMING 14         // homing attack
+
+// State category 2x: Inactive
+#macro SLP_INACTIVE_DEFAULT 20
+
+// State category 3x: Despawning
+#macro SLP_DESPAWN_PETRIFIED 30
+#macro SLP_DESPAWN_ACTIVE 31
+#macro SLP_DESPAWN_INACTIVE 32
+
+
+
 state_timer += 1;
 
-switch(state) { // use this one for doing actual article behavior
-    case 0: // spawn
-        if (state_timer == 25) { // go to idle state after 25 frames
-            set_state(1);
+// actual article behavior
+switch (state) {
+    
+    case SLP_PETRIFIED_DEFAULT:
+        if (state_timer >= 30) {
+            spawn_hit_fx(x, y, player_id.fx_kragg_small); // temp
+            set_state(SLP_ACTIVE_DEFAULT);
+            hsp = 1*spr_dir;
+            vsp = 0*spr_dir;
+            reflected_player_id = noone;
+        }
+        // no break - most logic is shared with petrified-permanent
+    
+    case SLP_PETRIFIED_PERMANENT:
+        hsp = clamp(hsp, -6, 6);
+        vsp = clamp(vsp+0.3, -6, 6);
+        break;
+    
+    // ------------------
+    
+    case SLP_ACTIVE_DEFAULT:
+    
+        hsp = clamp(hsp+0.2*spr_dir, -6, 6);
+        vsp = 2*sin(pi*state_timer/20);
+        
+        if (state_timer >= 50) {
+            set_state(SLP_INACTIVE_DEFAULT);
+            hsp = 0;
+            vsp = 0;
+            reflected_player_id = noone;
+        }
+        
+        break;
+        
+    // ------------------
+    
+    case SLP_INACTIVE_DEFAULT:
+        hsp = 0;
+        vsp = 0;
+        if (state_timer > 300) {
+            set_state(SLP_DESPAWN_INACTIVE);
         }
         break;
-    case 1: // idle
-        if (state_timer == 50) { // go to dead state after 50 frames
-            set_state(2);
-        }
+    
+    // ------------------
+    
+    case SLP_DESPAWN_PETRIFIED:
+    case SLP_DESPAWN_ACTIVE:
+    case SLP_DESPAWN_INACTIVE:
+        // This block shouldn't be reached_but just in case...
+        should_die = true;
         break;
-    case 2: //die
-        if (state_timer == 20) { // die after 20 frames
-            should_die = true;
-        }
+    
+    // ------------------
+    
+    default:
+        print_debug("article1 error: Invalid state " + state +  " reached. Destroying.");
+        instance_destroy();
+        exit;
+        
+}
+
+
+// sprites and animations
+switch(state) {
+    case 00: // Petrified
+    case 01:
+    case 02:
+        sprite_index = sprite_get("obj_sleeper_petrified_beta");
+        break;
+        
+    case 10: // Active
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+        sprite_index = sprite_get("obj_sleeper_active_beta");
+        break;
+        
+    case 20: // Inactive
+        sprite_index = sprite_get("obj_sleeper_inactive_beta");
+        break;
+        
+    case 30: // Despawning
+    case 31: 
+    case 32: 
+        sprite_index = sprite_get("null");
         break;
 }
 
-switch(state) { // use this one for changing sprites and animating
-    case 0: // spawn
-        sprite_index = sprite_get("nair");
-        image_index = state_timer * anim_speed;
-        break;
-    case 1: // idle
-        sprite_index = sprite_get("idle");
-        image_index = state_timer * anim_speed;
-        break;
-    case 2: //die
-        sprite_index = sprite_get("hurt");
-        image_index = state_timer * anim_speed;
-        break;
-}
-// don't forget that articles aren't affected by small_sprites
 
 if (should_die) { //despawn and exit script
+    spawn_hit_fx(x, y, despawn_vfx);
     instance_destroy();
     exit;
 }
 
 
-#define set_state
-var _state = argument0;
-state = _state;
-state_timer = 0;
+#define set_state(_state)
+    state = _state;
+    state_timer = 0;
+    should_die = false;
+    
+    // state inits
+    switch _state {
+        
+        case SLP_ACTIVE_DEFAULT:
+            hsp = 1*spr_dir;
+            vsp = 0;
+            break;
+        
+        case SLP_INACTIVE_DEFAULT:
+            hsp = 0;
+            vsp = 0;
+            reflected_player_id = noone;
+            break;
+        
+        case SLP_DESPAWN_PETRIFIED:
+        case SLP_DESPAWN_ACTIVE:
+        case SLP_DESPAWN_INACTIVE:
+            should_die = true;
+            // TODO: set despawn_vfx based on despawn state
+            break;
+        
+    }
+
+#define create_article_hitbox(atk, hitbox_num, _x, _y)
+    var article_hitbox = create_hitbox(atk, hitbox_num, _x, _y);
+    article_hitbox.sleeper_owner = self;
+    article_hitbox.faux_reflected = false;
+    apply_hitbox_reflection(article_hitbox);
+    return article_hitbox;
+
+#define apply_hitbox_reflection(hitbox) // TODO
+    if (reflected_player_id == noone) {
+        if (hitbox.faux_reflected) {
+            // clear reflection
+            // hitbox.faux_reflected = false;
+        }
+    }
+    else {
+        // apply reflecting info (accounting for faux_reflected)
+        // hitbox.faux_reflected = true;
+    }
+    return hitbox;

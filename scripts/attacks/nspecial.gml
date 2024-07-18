@@ -33,7 +33,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 1);
+set_num_hitboxes(atk, 0);
 var hbox_num = 1;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);

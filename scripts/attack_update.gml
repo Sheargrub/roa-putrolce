@@ -74,7 +74,9 @@ switch(attack) {
         break;
     
     case AT_NSPECIAL:
-        //a
+        if (window == 2 && window_timer == 1) {
+        	instance_create(x+(30*spr_dir), y-30, "obj_article1");
+        }
         break;
     case AT_FSPECIAL:
         //a
