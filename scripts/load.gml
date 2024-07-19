@@ -62,9 +62,17 @@ sprite_change_offset("nspecial_proj", 68, 68);
 sprite_change_offset("hfx_rock_small_bg", 64, 64);
 sprite_change_offset("hfx_rock_large", 128, 128);
 
-sprite_change_offset("obj_sleeper_petrified_beta", 18, 18);
-sprite_change_offset("obj_sleeper_active_beta"  , 18, 18);
-sprite_change_offset("obj_sleeper_inactive_beta", 40, 40);
+sprite_change_offset("slp_statue_temp", 76, 54); // main sprites
+sprite_change_offset("slp_statue_to_active_temp", 76, 54);
+// active (?)
+sprite_change_offset("slp_active_to_inactive_temp", 76, 54);
+sprite_change_offset("slp_idle_passive", 76, 54);
+sprite_change_offset("slp_homing_temp", 76, 54);
 
-sprite_change_offset("obj_sleeper_tracker_mask_1", 0, 60);
-sprite_change_offset("obj_sleeper_tracker_mask_-1", 240, 60);
+sprite_change_offset("slp_passive_sleepcloud_temprange", 76, 54); // auxillary sprites
+sprite_change_offset("slp_tracker_mask_1", 0, 60);
+sprite_change_offset("slp_tracker_mask_-1", 240, 60);
+
+sprite_change_offset("slp_phase", 76, 54); // vfx
+sprite_change_offset("slp_destroyed", 76, 54);
+sprite_change_offset("slp_sleepingvfx_temp", 12, 14);

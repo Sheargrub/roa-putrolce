@@ -17,8 +17,8 @@
 
 // State category 3x: Despawning
 #macro SLP_DESPAWN_PETRIFIED 30
-#macro SLP_DESPAWN_ACTIVE 31
-#macro SLP_DESPAWN_INACTIVE 32
+#macro SLP_DESPAWN_FADE 31
+#macro SLP_DESPAWN_DIE 32
 
 
 
@@ -76,15 +76,15 @@ switch (state) {
         hsp = 0;
         vsp = 0;
         if (state_timer > 300) {
-            set_state(SLP_DESPAWN_INACTIVE);
+            set_state(SLP_DESPAWN_FADE);
         }
         break;
     
     // ------------------
     
     case SLP_DESPAWN_PETRIFIED:
-    case SLP_DESPAWN_ACTIVE:
-    case SLP_DESPAWN_INACTIVE:
+    case SLP_DESPAWN_FADE:
+    case SLP_DESPAWN_DIE:
         // This block shouldn't be reached_but just in case...
         should_die = true;
         break;
@@ -104,19 +104,23 @@ switch(state) {
     case 00: // Petrified
     case 01:
     case 02:
-        sprite_index = sprite_get("obj_sleeper_petrified_beta");
+        sprite_index = sprite_get("slp_statue_temp");
         break;
         
     case 10: // Active
     case 11:
     case 12:
-    case 13:
+        sprite_index = sprite_get("slp_statue_to_active_temp");
+        break;
+    
+    case 13: // Active, aggressive
     case 14:
-        sprite_index = sprite_get("obj_sleeper_active_beta");
+        sprite_index = sprite_get("slp_homing_temp");
         break;
         
     case 20: // Inactive
-        sprite_index = sprite_get("obj_sleeper_inactive_beta");
+        sprite_index = sprite_get("slp_idle_passive");
+        image_index = (state_timer / 12);
         break;
         
     case 30: // Despawning
@@ -154,8 +158,8 @@ if (should_die) { //despawn and exit script
             break;
         
         case SLP_DESPAWN_PETRIFIED:
-        case SLP_DESPAWN_ACTIVE:
-        case SLP_DESPAWN_INACTIVE:
+        case SLP_DESPAWN_FADE:
+        case SLP_DESPAWN_DIE:
             should_die = true;
             // TODO: set despawn_vfx based on despawn state
             break;
@@ -172,7 +176,7 @@ if (should_die) { //despawn and exit script
 #define find_tracking_target()
     var old_mask = mask_index;
     var min_distance = 99999999999;
-    mask_index = sprite_get("obj_sleeper_tracker_mask_"+string(spr_dir));
+    mask_index = sprite_get("slp_tracker_mask_"+string(spr_dir));
     targetted_player_id = noone;
     attempting_tracking = true;
     

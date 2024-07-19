@@ -9,7 +9,7 @@
 */
 
 // sprite and mask indexes; + default article variables
-sprite_index = sprite_get("obj_sleeper_petrified_beta");
+sprite_index = sprite_get("slp_statue_temp");
 mask_index = asset_get("ex_guy_hurt_box");
 can_be_grounded = false;
 ignores_walls = true; // Sometimes performs place_meeting checks for par_blocks, but generally ignores ground
