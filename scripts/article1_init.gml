@@ -22,6 +22,7 @@ hsp = 3.5*spr_dir;
 vsp = -5;
 
 // article variables
+was_parried = false;
 reflected_player_id = noone;
 block_idle_state = false;
 block_active_state = false;

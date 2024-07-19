@@ -9,6 +9,9 @@ var is_kragg_rocks = false;
 if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.orig_player == player) {
 	if ("sleeper_owner" in my_hitboxID) {
 		my_hitboxID.sleeper_owner.hit_player_id = hit_player_obj;
+		if (my_hitboxID.sleeper_owner.state == 13 || my_hitboxID.sleeper_owner.state == 14) { // Rush and homing attacks
+			sound_play(asset_get("sfx_orca_crunch"));
+		}
 	}
 	else is_kragg_rocks = true;
 }

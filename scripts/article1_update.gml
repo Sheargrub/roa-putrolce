@@ -38,7 +38,7 @@ switch (state) {
             active_hitbox = auto_gen_hitbox();
             hsp = 1*spr_dir;
             vsp = 0*spr_dir;
-            reflected_player_id = noone;
+            reflected_player_id = noone; // ...should this actually clear reflected ownership?
         }
         // no break - most logic is shared with petrified-permanent
     
@@ -46,16 +46,21 @@ switch (state) {
         hsp = clamp(hsp, -6, 6);
         vsp = clamp(vsp+0.3, -6, 6);
         
+        if (was_parried) {
+            was_parried = false;
+            var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
+            break_fx.depth = depth-1;
+            sound_play(asset_get("sfx_kragg_rock_shatter"));
+            targetted_player_id = player_id;
+            set_state(SLP_ACTIVE_HOMING);
+        }
+        
         if (hit_player_id != noone) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             targetted_player_id = hit_player_id;
-            move_speed = -15;
-            move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
-            set_state(SLP_ACTIVE_RUSH);
-            hit_player_id = noone;
-            reflected_player_id = noone;
+            set_state(SLP_ACTIVE_HOMING);
         }
         
         break;
@@ -67,7 +72,13 @@ switch (state) {
         hsp = clamp(hsp+0.2*spr_dir, -6, 6);
         vsp = 2*sin(pi*state_timer/20);
         
-        if (state_timer >= 50 || hit_player_id != noone) {
+        if (was_parried) {
+            was_parried = false;
+            targetted_player_id = player_id;
+            set_state(SLP_ACTIVE_HOMING);
+        }
+        
+        else if (state_timer >= 50 || hit_player_id != noone) {
             set_state(SLP_INACTIVE_DEFAULT);
             vsp = 0;
             hit_player_id = noone;
@@ -87,14 +98,20 @@ switch (state) {
         
         break;
     
-    case SLP_ACTIVE_RUSH:
+    case SLP_ACTIVE_HOMING:
         if (targetted_player_id != noone) move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
         move_speed = clamp(move_speed+0.8, -20, 20);
         hsp = lengthdir_x(move_speed, move_angle);
         vsp = lengthdir_y(move_speed, move_angle);
         spr_dir = (90 < move_angle && move_angle <= 270) ? -1 : 1;
         
-        if (move_speed <= 0.9) {
+        if (was_parried) {
+            was_parried = false;
+            targetted_player_id = player_id;
+            set_state(SLP_ACTIVE_HOMING);
+        }
+        
+        else if (move_speed <= 0.9) {
             block_hitbox_checks = true;
             if (place_meeting(x, y, asset_get("plasma_field_obj"))) {
                 sound_play(asset_get("sfx_clairen_hit_weak"));
@@ -103,7 +120,7 @@ switch (state) {
             else if (move_speed >= 0 && active_hitbox == noone) active_hitbox = auto_gen_hitbox();
         }
         
-        if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
+        else if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
           || (instance_exists(targetted_player_id) && point_distance(x, y, targetted_player_id.x, get_center_y(targetted_player_id)) < move_speed)
           || (state_timer >= 200)
         ) {
@@ -141,8 +158,8 @@ switch (state) {
     case SLP_DESPAWN_PETRIFIED:
     case SLP_DESPAWN_FADE:
     case SLP_DESPAWN_DIE:
-        // This block shouldn't be reached_but just in case...
-        should_die = true;
+        // These despawn states should normally only reached through external interference, so set_state() needs to be re-run.
+        set_state(state);
         break;
     
     // ------------------
@@ -167,6 +184,7 @@ if (state <= 9) { // petrified
         petrified_hitbox.y = y;
         petrified_hitbox.hsp = vsp;
         petrified_hitbox.vsp = vsp;
+        petrified_hitbox.spr_dir = spr_dir;
     }
     else if (!block_hitbox_checks) {
         set_state(SLP_DESPAWN_PETRIFIED);
@@ -176,7 +194,6 @@ else if (state <= 19) { // active
     if (instance_exists(petrified_hitbox)) {
         petrified_hitbox.destroyed = true;
         petrified_hitbox = noone;
-        
     }
     if (instance_exists(active_hitbox)) {
         active_hitbox.hitbox_timer--;
@@ -184,6 +201,7 @@ else if (state <= 19) { // active
         active_hitbox.y = y;
         active_hitbox.hsp = vsp;
         active_hitbox.vsp = vsp;
+        active_hitbox.spr_dir = spr_dir;
     }
     else if (!block_hitbox_checks) {
         set_state(SLP_DESPAWN_DIE);
@@ -246,15 +264,28 @@ if (should_die) { //despawn and exit script
             vsp = 0;
             break;
         
-        case SLP_ACTIVE_RUSH:
-            // precondition: move_angle and move_speed should be set
+        case SLP_ACTIVE_HOMING:
+            // precondition: targetted_player_id should be set
+            move_speed = -15;
+            if (instance_exists(targetted_player_id)) move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
+            else move_angle = (spr_dir == 1) ? 0 : 180;
             hsp = lengthdir_x(move_speed, move_angle);
             vsp = lengthdir_y(move_speed, move_angle);
+            if (instance_exists(active_hitbox)) {
+                active_hitbox.destroyed = true;
+                active_hitbox = noone;
+            }
             block_hitbox_checks = true;
+            hit_player_id = noone;
             break;
         
         case SLP_INACTIVE_DEFAULT:
-            reflected_player_id = noone;
+            if (block_idle_state) set_state(SLP_DESPAWN_FADE);
+            else {
+                sound_play(asset_get("sfx_forsburn_consume_fail"));
+                hit_player_id = noone;
+                reflected_player_id = noone;
+            }
             break;
         
         case SLP_DESPAWN_PETRIFIED:
@@ -317,16 +348,19 @@ if (should_die) { //despawn and exit script
     
     mask_index = old_mask;
 
-#define apply_hitbox_reflection(hitbox) // TODO
+#define apply_hitbox_reflection(hitbox)
     if (reflected_player_id == noone) {
         if (hitbox.faux_reflected_owner != noone) {
-            // clear reflection
-            // hitbox.faux_reflected_owner = noone;
+            hitbox.can_hit[@ hitbox.faux_reflected_owner.player] = true;
+            hitbox.can_hit_self = false;
+            hitbox.faux_reflected_owner = noone;
         }
     }
     else {
-        // apply reflecting info (accounting for faux_reflected_owner != noone)
-        // hitbox.faux_reflected_owner = reflected_player_id;
+        if (hitbox.faux_reflected_owner != noone) for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
+    	hitbox.can_hit_self = true;
+    	hitbox.can_hit[@ reflected_player_id.player] = false;
+        hitbox.faux_reflected_owner = reflected_player_id;
     }
     return hitbox;
 
