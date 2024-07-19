@@ -25,12 +25,16 @@ vsp = -5;
 reflected_player_id = noone;
 block_idle_state = false;
 block_active_state = false;
+block_hitbox_checks = false;
 
 targetted_player_id = noone;
 attempting_tracking = false; // used to communicate with post_draw
+move_angle = 90 - (90*spr_dir);
+move_speed = 0;
 
 petrified_hitbox = noone;
 active_hitbox = noone;
+hit_player_id = noone;
 despawn_vfx = player_id.fx_kragg_small;
 
 
@@ -38,3 +42,16 @@ despawn_vfx = player_id.fx_kragg_small;
 state = 0;
 state_timer = 0;
 should_die = false; //if the article should be despawned
+
+
+// inital hitbox
+petrified_hitbox = create_article_hitbox(AT_NSPECIAL, 1, x, y)
+
+
+
+
+#define create_article_hitbox(atk, hitbox_num, _x, _y)
+    var article_hitbox = create_hitbox(atk, hitbox_num, _x, _y);
+    article_hitbox.sleeper_owner = self;
+    article_hitbox.faux_reflected_owner = noone;
+    return article_hitbox;

@@ -24,14 +24,17 @@
 
 state_timer += 1;
 attempting_tracking = false;
+block_hitbox_checks = false;
 
 // actual article behavior
 switch (state) {
     
     case SLP_PETRIFIED_DEFAULT:
-        if (state_timer >= 30) {
-            spawn_hit_fx(x, y, player_id.fx_kragg_small); // temp
+        if (state_timer >= 30 && hit_player_id == noone) {
+            var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
+            break_fx.depth = depth-1;
             set_state(SLP_ACTIVE_DEFAULT);
+            active_hitbox = auto_gen_hitbox();
             hsp = 1*spr_dir;
             vsp = 0*spr_dir;
             reflected_player_id = noone;
@@ -41,6 +44,18 @@ switch (state) {
     case SLP_PETRIFIED_PERMANENT:
         hsp = clamp(hsp, -6, 6);
         vsp = clamp(vsp+0.3, -6, 6);
+        
+        if (hit_player_id != noone) {
+            var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
+            break_fx.depth = depth-1;
+            targetted_player_id = hit_player_id;
+            move_speed = -15;
+            move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
+            set_state(SLP_ACTIVE_RUSH);
+            hit_player_id = noone;
+            reflected_player_id = noone;
+        }
+        
         break;
     
     // ------------------
@@ -50,10 +65,11 @@ switch (state) {
         hsp = clamp(hsp+0.2*spr_dir, -6, 6);
         vsp = 2*sin(pi*state_timer/20);
         
-        if (state_timer >= 50) {
+        if (state_timer >= 50 || hit_player_id != noone) {
             set_state(SLP_INACTIVE_DEFAULT);
             hsp = 0;
             vsp = 0;
+            hit_player_id = noone;
             reflected_player_id = noone;
         }
         
@@ -61,13 +77,36 @@ switch (state) {
             
             find_tracking_target();
             if (targetted_player_id != noone) {
-                var center_y = targetted_player_id.y - floor(player_id.char_height/2);
+                var center_y = get_center_y(targetted_player_id);
                 if (y < center_y - 20) vsp += 1;
                 else if (y > center_y + 20) vsp -= 1;
             }
             
         }
         
+        break;
+    
+    case SLP_ACTIVE_RUSH:
+        if (targetted_player_id != noone) move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
+        move_speed = clamp(move_speed+0.8, -20, 20);
+        hsp = lengthdir_x(move_speed, move_angle);
+        vsp = lengthdir_y(move_speed, move_angle);
+        
+        if (move_speed <= 0.9) {
+            block_hitbox_checks = true;
+            if (move_speed >= 0 && active_hitbox == noone) active_hitbox = auto_gen_hitbox();
+        }
+        
+        if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
+          || (instance_exists(targetted_player_id) && point_distance(x, y, targetted_player_id.x, get_center_y(targetted_player_id)) < move_speed)
+          || (state_timer >= 200)
+        ) {
+            set_state(SLP_INACTIVE_DEFAULT);
+            hsp = 0;
+            vsp = 0;
+            hit_player_id = noone;
+            reflected_player_id = noone;
+        }
         break;
         
     // ------------------
@@ -107,6 +146,36 @@ switch (state) {
 }
 
 
+// hitboxes
+if (state <= 9) { // petrified
+    if (instance_exists(petrified_hitbox)) {
+        petrified_hitbox.hitbox_timer--;
+        petrified_hitbox.x = x;
+        petrified_hitbox.y = y;
+        petrified_hitbox.hsp = vsp;
+        petrified_hitbox.vsp = vsp;
+    }
+    if (instance_exists(active_hitbox)) {
+        active_hitbox.destroyed = true;
+        active_hitbox = noone;
+    }
+}
+else if (state <= 19) { // active
+    if (instance_exists(petrified_hitbox)) {
+        petrified_hitbox.destroyed = true;
+        petrified_hitbox = noone;
+        
+    }
+    if (instance_exists(active_hitbox)) {
+        active_hitbox.hitbox_timer--;
+        active_hitbox.x = x;
+        active_hitbox.y = y;
+        active_hitbox.hsp = vsp;
+        active_hitbox.vsp = vsp;
+    }
+}
+
+
 // sprites and animations
 switch(state) {
     case 00: // Petrified
@@ -123,7 +192,7 @@ switch(state) {
     
     case 13: // Active, aggressive
     case 14:
-        sprite_index = sprite_get("slp_homing_temp");
+        sprite_index = sprite_get("null"); // draw angled; see post_draw
         break;
         
     case 20: // Inactive
@@ -159,6 +228,12 @@ if (should_die) { //despawn and exit script
             vsp = 0;
             break;
         
+        case SLP_ACTIVE_RUSH:
+            // precondition: move_angle and move_speed should be set
+            hsp = lengthdir_x(move_speed, move_angle);
+            vsp = lengthdir_y(move_speed, move_angle);
+            break;
+        
         case SLP_INACTIVE_DEFAULT:
             hsp = 0;
             vsp = 0;
@@ -182,10 +257,18 @@ if (should_die) { //despawn and exit script
         
     }
 
+
+// Assumes that state has already been set.
+#define auto_gen_hitbox()
+    var article_hitbox = noone;
+    if (state <= 9) article_hitbox = create_article_hitbox(AT_NSPECIAL, 1+block_active_state, x, y);
+    else if (state <= 19) article_hitbox = create_article_hitbox(AT_NSPECIAL, 3, x, y);
+    return article_hitbox
+
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
     var article_hitbox = create_hitbox(atk, hitbox_num, _x, _y);
     article_hitbox.sleeper_owner = self;
-    article_hitbox.faux_reflected = false;
+    article_hitbox.faux_reflected_owner = noone;
     apply_hitbox_reflection(article_hitbox);
     return article_hitbox;
 
@@ -216,13 +299,16 @@ if (should_die) { //despawn and exit script
 
 #define apply_hitbox_reflection(hitbox) // TODO
     if (reflected_player_id == noone) {
-        if (hitbox.faux_reflected) {
+        if (hitbox.faux_reflected_owner != noone) {
             // clear reflection
-            // hitbox.faux_reflected = false;
+            // hitbox.faux_reflected_owner = noone;
         }
     }
     else {
-        // apply reflecting info (accounting for faux_reflected)
-        // hitbox.faux_reflected = true;
+        // apply reflecting info (accounting for faux_reflected_owner != noone)
+        // hitbox.faux_reflected_owner = reflected_player_id;
     }
     return hitbox;
+
+#define get_center_y(in_player_id)
+    return in_player_id.y - floor(in_player_id.char_height/2)
