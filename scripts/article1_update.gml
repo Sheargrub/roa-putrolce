@@ -33,6 +33,7 @@ switch (state) {
         if (state_timer >= 30 && hit_player_id == noone) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
+            sound_play(asset_get("sfx_kragg_rock_shatter"));
             set_state(SLP_ACTIVE_DEFAULT);
             active_hitbox = auto_gen_hitbox();
             hsp = 1*spr_dir;
@@ -48,6 +49,7 @@ switch (state) {
         if (hit_player_id != noone) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
+            sound_play(asset_get("sfx_kragg_rock_shatter"));
             targetted_player_id = hit_player_id;
             move_speed = -15;
             move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
@@ -67,7 +69,6 @@ switch (state) {
         
         if (state_timer >= 50 || hit_player_id != noone) {
             set_state(SLP_INACTIVE_DEFAULT);
-            hsp = 0;
             vsp = 0;
             hit_player_id = noone;
             reflected_player_id = noone;
@@ -91,10 +92,15 @@ switch (state) {
         move_speed = clamp(move_speed+0.8, -20, 20);
         hsp = lengthdir_x(move_speed, move_angle);
         vsp = lengthdir_y(move_speed, move_angle);
+        spr_dir = (90 < move_angle && move_angle <= 270) ? -1 : 1;
         
         if (move_speed <= 0.9) {
             block_hitbox_checks = true;
-            if (move_speed >= 0 && active_hitbox == noone) active_hitbox = auto_gen_hitbox();
+            if (place_meeting(x, y, asset_get("plasma_field_obj"))) {
+                sound_play(asset_get("sfx_clairen_hit_weak"));
+                set_state(SLP_DESPAWN_DIE);
+            }
+            else if (move_speed >= 0 && active_hitbox == noone) active_hitbox = auto_gen_hitbox();
         }
         
         if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
@@ -102,8 +108,6 @@ switch (state) {
           || (state_timer >= 200)
         ) {
             set_state(SLP_INACTIVE_DEFAULT);
-            hsp = 0;
-            vsp = 0;
             hit_player_id = noone;
             reflected_player_id = noone;
         }
@@ -112,10 +116,15 @@ switch (state) {
     // ------------------
     
     case SLP_INACTIVE_DEFAULT:
-        hsp = 0;
-        vsp = 0;
+        hsp *= 0.85;
+        vsp *= 0.85;
         
-        if (state_timer >= 300) {
+        if (place_meeting(x, y, asset_get("plasma_field_obj"))) {
+            sound_play(asset_get("sfx_clairen_hit_weak"));
+            set_state(SLP_DESPAWN_DIE);
+        }
+        
+        else if (state_timer >= 300) {
             set_state(SLP_DESPAWN_FADE);
         }
         
@@ -148,6 +157,10 @@ switch (state) {
 
 // hitboxes
 if (state <= 9) { // petrified
+    if (instance_exists(active_hitbox)) {
+        active_hitbox.destroyed = true;
+        active_hitbox = noone;
+    }
     if (instance_exists(petrified_hitbox)) {
         petrified_hitbox.hitbox_timer--;
         petrified_hitbox.x = x;
@@ -155,9 +168,8 @@ if (state <= 9) { // petrified
         petrified_hitbox.hsp = vsp;
         petrified_hitbox.vsp = vsp;
     }
-    if (instance_exists(active_hitbox)) {
-        active_hitbox.destroyed = true;
-        active_hitbox = noone;
+    else if (!block_hitbox_checks) {
+        set_state(SLP_DESPAWN_PETRIFIED);
     }
 }
 else if (state <= 19) { // active
@@ -172,6 +184,9 @@ else if (state <= 19) { // active
         active_hitbox.y = y;
         active_hitbox.hsp = vsp;
         active_hitbox.vsp = vsp;
+    }
+    else if (!block_hitbox_checks) {
+        set_state(SLP_DESPAWN_DIE);
     }
 }
 
@@ -209,7 +224,10 @@ switch(state) {
 
 
 if (should_die) { //despawn and exit script
-    spawn_hit_fx(x, y, despawn_vfx);
+    var despawn_fx = spawn_hit_fx(x, y, despawn_vfx);
+    despawn_fx.depth = depth;
+    despawn_fx.spr_dir = spr_dir;
+    sound_play(despawn_sfx);
     instance_destroy();
     exit;
 }
@@ -232,25 +250,27 @@ if (should_die) { //despawn and exit script
             // precondition: move_angle and move_speed should be set
             hsp = lengthdir_x(move_speed, move_angle);
             vsp = lengthdir_y(move_speed, move_angle);
+            block_hitbox_checks = true;
             break;
         
         case SLP_INACTIVE_DEFAULT:
-            hsp = 0;
-            vsp = 0;
             reflected_player_id = noone;
             break;
         
         case SLP_DESPAWN_PETRIFIED:
+            despawn_sfx = asset_get("sfx_kragg_rock_shatter");
             despawn_vfx = player_id.fx_kragg_small;
             should_die = true;
             break;
         
         case SLP_DESPAWN_FADE:
+            despawn_sfx = asset_get("sfx_birdflap");
             despawn_vfx = player_id.fx_slp_phase;
             should_die = true;
             break;
         
         case SLP_DESPAWN_DIE:
+            despawn_sfx = asset_get("sfx_absa_cloud_crackle");
             despawn_vfx = player_id.fx_slp_destroyed;
             should_die = true;
             break;

@@ -3,8 +3,7 @@
 
 
 if (state == SLP_ACTIVE_RUSH) {
-    var y_scale = (90 < move_angle && move_angle <= 270) ? -1 : 1;
-    draw_sprite_ext(sprite_get("slp_homing_temp"), 0, x, y, 1, y_scale, move_angle, c_white, 1);
+    draw_sprite_ext(sprite_get("slp_homing_temp"), 0, x, y, 1, spr_dir, move_angle, c_white, 1);
 }
 
 if (get_match_setting(SET_HITBOX_VIS)) {

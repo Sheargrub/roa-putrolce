@@ -36,6 +36,7 @@ petrified_hitbox = noone;
 active_hitbox = noone;
 hit_player_id = noone;
 despawn_vfx = player_id.fx_kragg_small;
+despawn_sfx = asset_get("sfx_kragg_rock_shatter");
 
 
 // state machine variables
