@@ -45,7 +45,7 @@ sprite_change_offset("dair"                 , 32, 47, true);
 sprite_change_offset("fstrong"              , 32, 47, true);
 sprite_change_offset("ustrong"              , 32, 79, true);
 sprite_change_offset("dstrong"              , 32, 47, true);
-sprite_change_offset("nspecial"             , 32, 47, true);
+sprite_change_offset("nspecial"             , 64, 80, true);
 sprite_change_offset("fspecial"             , 32, 47, true);
 sprite_change_offset("uspecial"             , 48, 63, true);
 sprite_change_offset("dspecial"             , 32, 47, true);
@@ -57,7 +57,6 @@ sprite_change_offset("plat"                 , 32, 47);
 
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
-sprite_change_offset("nspecial_proj", 68, 68);
 
 sprite_change_offset("hfx_rock_small_bg", 64, 64);
 sprite_change_offset("hfx_rock_large", 128, 128);

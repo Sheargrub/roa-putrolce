@@ -75,9 +75,17 @@ switch (state) {
     case SLP_INACTIVE_DEFAULT:
         hsp = 0;
         vsp = 0;
-        if (state_timer > 300) {
+        
+        if (state_timer >= 300) {
             set_state(SLP_DESPAWN_FADE);
         }
+        
+        else if (state_timer % 50 == 0) {
+            var vfx = spawn_hit_fx(x+20, y-20, player_id.fx_slp_sleeping);
+            vfx.depth = depth-1;
+            vfx.spr_dir = 1;
+        }
+        
         break;
     
     // ------------------
@@ -158,10 +166,18 @@ if (should_die) { //despawn and exit script
             break;
         
         case SLP_DESPAWN_PETRIFIED:
-        case SLP_DESPAWN_FADE:
-        case SLP_DESPAWN_DIE:
+            despawn_vfx = player_id.fx_kragg_small;
             should_die = true;
-            // TODO: set despawn_vfx based on despawn state
+            break;
+        
+        case SLP_DESPAWN_FADE:
+            despawn_vfx = player_id.fx_slp_phase;
+            should_die = true;
+            break;
+        
+        case SLP_DESPAWN_DIE:
+            despawn_vfx = player_id.fx_slp_destroyed;
+            should_die = true;
             break;
         
     }

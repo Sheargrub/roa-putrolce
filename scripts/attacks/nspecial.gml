@@ -14,7 +14,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_bubblepop"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_fstrong"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
