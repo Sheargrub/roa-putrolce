@@ -69,6 +69,7 @@ sprite_change_offset("slp_idle_passive", 76, 54);
 sprite_change_offset("slp_homing_temp", 76, 54);
 
 sprite_change_offset("slp_passive_sleepcloud_temprange", 76, 54); // auxillary sprites
+sprite_change_offset("slp_mask", 20, 20);
 sprite_change_offset("slp_tracker_mask_1", 0, 60);
 sprite_change_offset("slp_tracker_mask_-1", 240, 60);
 

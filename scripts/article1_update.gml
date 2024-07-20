@@ -21,12 +21,81 @@
 #macro SLP_DESPAWN_DIE 32
 
 
-
 state_timer += 1;
 attempting_tracking = false;
 block_hitbox_checks = false;
 
-// actual article behavior
+
+//#region Venus reflect checks
+if (venus_article_reflect == 2 && (venus_reflected || instance_exists(venus_rune_ID))) {
+    var colliding = false;
+    
+    if (instance_exists(venus_rune_ID)) with (venus_rune_ID) {
+        if (state == "mirror" && place_meeting(x, y, other)) colliding = true;
+    }
+    
+    if (!colliding) venus_reflected = 0;
+    else if (colliding && !venus_reflected) venus_reflected = 1;
+}
+
+if (venus_reflected && !venus_late_reflect_frame) {
+    
+    if (hsp != 0) spr_dir = (hsp < 0) ? -1 : 1;
+    venus_was_reflected = true;
+    
+    if (instance_exists(venus_rune_ID)) {
+		venus_rune_ID.hp -= 0.5;
+		reflected_player_id = venus_rune_ID.player_id;
+		venus_rune_angle = venus_rune_ID.rune_angle;
+	}
+    
+    switch state {
+        case SLP_ACTIVE_DEFAULT:
+            
+            // Horizontal: bounce backward, maintaining sine motion progress
+            if (venus_rune_angle < 10 || (170 < venus_rune_angle && venus_rune_angle < 190) || 350 < venus_rune_angle) {
+                hsp *= -1;
+                active_move_offset = (state_timer*active_move_coefficient + active_move_offset) % (2*pi);
+                state_timer = 0;
+            }
+            
+            // Vertical: bounce off vertically if appropriate, but do not change trajectory
+            else if ((80 < venus_rune_angle && venus_rune_angle < 100) || (260 < venus_rune_angle && venus_rune_angle < 280)) {
+                if (!instance_exists(venus_rune_ID) || (hsp < 0) == (y < venus_rune_ID.y)) active_move_offset = (active_move_offset + pi) % (2*pi);
+            }
+            
+            else {
+                print_debug("unhandled");
+            }
+            
+            
+            
+            break;
+        case SLP_ACTIVE_ARC_UP:
+            break;
+        case SLP_ACTIVE_ARC_DOWN:
+            break;
+        case SLP_ACTIVE_RUSH:
+            state_timer = 0;
+            break;
+        case SLP_ACTIVE_HOMING:
+            move_angle = point_direction(hsp, vsp, 0, 0); // since it starts by moving backwards
+            move_speed = -15;
+            if (!instance_exists(active_hitbox)) auto_gen_hitbox();
+            if (instance_exists(venus_rune_ID) && venus_rune_ID.player_id == targetted_player_id) targetted_player_id = player_id;
+            break;
+    }
+    
+	apply_hitbox_reflection(petrified_hitbox);
+    apply_hitbox_reflection(active_hitbox);
+    
+    // venus_late_reflect_frame is set at the bottom of the script to allow checks for frame 1 of a reflect.
+    
+}
+//#endregion
+
+
+//#region Article behavior -----------------------------------------------------
 switch (state) {
     
     case SLP_PETRIFIED_DEFAULT:
@@ -38,7 +107,6 @@ switch (state) {
             active_hitbox = auto_gen_hitbox();
             hsp = 1*spr_dir;
             vsp = 0*spr_dir;
-            reflected_player_id = noone; // ...should this actually clear reflected ownership?
         }
         // no break - most logic is shared with petrified-permanent
     
@@ -70,7 +138,7 @@ switch (state) {
     case SLP_ACTIVE_DEFAULT:
     
         hsp = clamp(hsp+0.2*spr_dir, -6, 6);
-        vsp = 2*sin(pi*state_timer/20);
+        vsp = 2*sin(active_move_coefficient*state_timer + active_move_offset);
         
         if (was_parried) {
             was_parried = false;
@@ -99,7 +167,13 @@ switch (state) {
         break;
     
     case SLP_ACTIVE_HOMING:
-        if (targetted_player_id != noone) move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
+        if (targetted_player_id != noone) {
+            var target_move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
+            var diff = angle_difference(move_angle, target_move_angle);
+            if (abs(diff) < 10) move_angle = target_move_angle;
+            else if (diff < 0) move_angle += 10;
+            else move_angle -= 10;
+        }
         move_speed = clamp(move_speed+0.8, -20, 20);
         hsp = lengthdir_x(move_speed, move_angle);
         vsp = lengthdir_y(move_speed, move_angle);
@@ -170,9 +244,10 @@ switch (state) {
         exit;
         
 }
+//#endregion
 
 
-// hitboxes
+//#region Hitboxes
 if (state <= 9) { // petrified
     if (instance_exists(active_hitbox)) {
         active_hitbox.destroyed = true;
@@ -207,9 +282,10 @@ else if (state <= 19) { // active
         set_state(SLP_DESPAWN_DIE);
     }
 }
+//#endregion
 
 
-// sprites and animations
+//#region Sprites and animation
 switch(state) {
     case 00: // Petrified
     case 01:
@@ -239,9 +315,11 @@ switch(state) {
         sprite_index = sprite_get("null");
         break;
 }
+//#endregion
 
 
-if (should_die) { //despawn and exit script
+//#region Despawn handling
+if (should_die) {
     var despawn_fx = spawn_hit_fx(x, y, despawn_vfx);
     despawn_fx.depth = depth;
     despawn_fx.spr_dir = spr_dir;
@@ -249,6 +327,11 @@ if (should_die) { //despawn and exit script
     instance_destroy();
     exit;
 }
+//#endregion
+
+
+// venus compat / logical operator abuse
+venus_late_reflect_frame = venus_reflected;
 
 
 #define set_state(_state)
@@ -259,9 +342,16 @@ if (should_die) { //despawn and exit script
     // state inits
     switch _state {
         
+        case SLP_PETRIFIED_DEFAULT:
+        case SLP_PETRIFIED_PERMANENT:
+        case SLP_PETRIFIED_LAUNCHED:
+            venus_article_reflect = 1;
+            break;
+        
         case SLP_ACTIVE_DEFAULT:
             hsp = 1*spr_dir;
             vsp = 0;
+            venus_article_reflect = 2;
             break;
         
         case SLP_ACTIVE_HOMING:
@@ -277,6 +367,7 @@ if (should_die) { //despawn and exit script
             }
             block_hitbox_checks = true;
             hit_player_id = noone;
+            venus_article_reflect = 1;
             break;
         
         case SLP_INACTIVE_DEFAULT:
@@ -286,6 +377,7 @@ if (should_die) { //despawn and exit script
                 hit_player_id = noone;
                 reflected_player_id = noone;
             }
+            venus_article_reflect = 0;
             break;
         
         case SLP_DESPAWN_PETRIFIED:
@@ -316,10 +408,12 @@ if (should_die) { //despawn and exit script
     else if (state <= 19) article_hitbox = create_article_hitbox(AT_NSPECIAL, 3, x, y);
     return article_hitbox
 
+// Mirror changes in init.gml
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
     var article_hitbox = create_hitbox(atk, hitbox_num, _x, _y);
     article_hitbox.sleeper_owner = self;
     article_hitbox.faux_reflected_owner = noone;
+    article_hitbox.venus_article_proj_ignore = true;
     apply_hitbox_reflection(article_hitbox);
     return article_hitbox;
 
@@ -349,7 +443,8 @@ if (should_die) { //despawn and exit script
     mask_index = old_mask;
 
 #define apply_hitbox_reflection(hitbox)
-    if (reflected_player_id == noone) {
+    if (!instance_exists(hitbox)) return noone;
+    else if (reflected_player_id == noone) {
         if (hitbox.faux_reflected_owner != noone) {
             hitbox.can_hit[@ hitbox.faux_reflected_owner.player] = true;
             hitbox.can_hit_self = false;
