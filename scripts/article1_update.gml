@@ -7,8 +7,8 @@
 
 // State category 1x: Active
 #macro SLP_ACTIVE_DEFAULT 10        // standard wave motion w/ light tracking
-#macro SLP_ACTIVE_ARC_UP 11         // used for diagonal venus reflect
-#macro SLP_ACTIVE_ARC_DOWN 12       // ditto
+#macro SLP_ACTIVE_RECENTER 11   // attempt to arc back to forward motion
+// index 12 empty
 #macro SLP_ACTIVE_RUSH 13           // fast, angled movement
 #macro SLP_ACTIVE_HOMING 14         // homing attack
 
@@ -64,17 +64,21 @@ if (venus_reflected && !venus_late_reflect_frame) {
                 if (!instance_exists(venus_rune_ID) || (hsp < 0) == (y < venus_rune_ID.y)) active_move_offset = (active_move_offset + pi) % (2*pi);
             }
             
+            // Diagonal: proceed to SLP_ACTIVE_RECENTER
             else {
-                print_debug("unhandled");
+                vsp = 0; // eliminate sine movement from the calc
+                var current_speed = point_distance(0, 0, hsp, vsp);
+                var current_angle = point_direction(hsp, vsp, 0, 0);
+                var new_angle = venus_rune_angle - angle_difference(current_angle, venus_rune_angle);
+                
+                hsp = lengthdir_x(current_speed, new_angle);
+                vsp = lengthdir_y(current_speed, new_angle);
+                
+                set_state(SLP_ACTIVE_RECENTER);
             }
             
-            
-            
             break;
-        case SLP_ACTIVE_ARC_UP:
-            break;
-        case SLP_ACTIVE_ARC_DOWN:
-            break;
+        case SLP_ACTIVE_RECENTER:
         case SLP_ACTIVE_RUSH:
             state_timer = 0;
             break;
@@ -162,6 +166,36 @@ switch (state) {
                 else if (y > center_y + 20) vsp -= 1;
             }
             
+        }
+        
+        break;
+    
+    case SLP_ACTIVE_RECENTER:
+        
+        if (was_parried) {
+            was_parried = false;
+            targetted_player_id = player_id;
+            set_state(SLP_ACTIVE_HOMING);
+        }
+        
+        else {
+            var target_move_angle = (spr_dir == 1) ? 0 : 180;
+            var diff = angle_difference(move_angle, target_move_angle);
+            if (abs(diff) < 3) {
+                move_angle = target_move_angle;
+                active_move_offset = -(state_timer*active_move_coefficient);
+                
+                var old_state_timer = state_timer;
+                set_state(SLP_ACTIVE_DEFAULT);
+                state_timer = old_state_timer;
+            }
+            else if (diff < 0) move_angle += 3;
+            else move_angle -= 3;
+            
+            move_speed = clamp(move_speed+0.2, 0, 6);
+            
+            hsp = lengthdir_x(move_speed, move_angle);
+            vsp = lengthdir_y(move_speed, move_angle);
         }
         
         break;
@@ -352,6 +386,12 @@ venus_late_reflect_frame = venus_reflected;
             hsp = 1*spr_dir;
             vsp = 0;
             venus_article_reflect = 2;
+            break;
+        
+        case SLP_ACTIVE_RECENTER:
+            move_speed = point_distance(0, 0, hsp, vsp);
+            move_angle = point_direction(0, 0, hsp, vsp);
+            venus_article_reflect = 1;
             break;
         
         case SLP_ACTIVE_HOMING:

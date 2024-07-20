@@ -30,7 +30,7 @@ block_hitbox_checks = false;
 
 targetted_player_id = noone;
 attempting_tracking = false; // used to communicate with post_draw
-move_angle = 90 - (90*spr_dir);
+move_angle = (spr_dir == 1) ? 0 : 180;
 move_speed = 0;
 
 petrified_hitbox = noone;
