@@ -318,7 +318,7 @@ switch (state) {
         }
         
         else if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
-          || (instance_exists(targetted_player_id) && point_distance(x, y, targetted_player_id.x, get_center_y(targetted_player_id)) < move_speed)
+          || (instance_exists(targetted_player_id) && move_speed > 0 && point_distance(x, y, targetted_player_id.x, get_center_y(targetted_player_id)) < move_speed)
           || (state_timer >= 200)
         ) {
             set_state(SLP_INACTIVE_DEFAULT);
