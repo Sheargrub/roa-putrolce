@@ -10,7 +10,7 @@
 
 // sprite and mask indexes; + default article variables
 sprite_index = sprite_get("slp_statue_temp");
-mask_index = asset_get("slp_mask");
+mask_index = sprite_get("slp_mask");
 can_be_grounded = false;
 ignores_walls = true; // Sometimes performs place_meeting checks for par_blocks, but generally ignores ground
 spr_dir = player_id.spr_dir;
@@ -46,15 +46,9 @@ active_move_polarity = 1; // used to smooth the transition into the active state
 active_move_coefficient = 2*pi / 40; // denominator should be the period of the motion in frames
 active_move_offset = 0; // used by reflects to maintain continuity
 
-
-// state machine variables
-state = 0;
-state_timer = 0;
-should_die = false; //if the article should be despawned
-
-
-// inital hitbox
-petrified_hitbox = create_article_hitbox(AT_NSPECIAL, 1, x, y)
+unbashable = false;
+orig_player = player; // because ori is a thief >:(
+venus_article_reflect = 1;
 venus_reflected = false; // managed externally
 venus_late_reflect_frame = false; // managed internally
 venus_was_reflected = false; // managed internally
@@ -62,8 +56,13 @@ venus_rune_ID = noone;
 venus_rune_angle = 0;
 venus_sine_offset = 0; // used for reflections of ST_ACTIVE_DEFAULT
 
-// Venus compat
-venus_article_reflect = 1;
+// state machine variables
+state = 0;
+state_timer = 0;
+should_die = false; //if the article should be despawned
+
+// inital hitbox
+petrified_hitbox = create_article_hitbox(AT_NSPECIAL, 1, x, y)
 
 
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
@@ -71,4 +70,5 @@ venus_article_reflect = 1;
     article_hitbox.sleeper_owner = self;
     article_hitbox.faux_reflected_owner = noone;
     article_hitbox.venus_article_proj_ignore = true;
+    article_hitbox.unbashable = true;
     return article_hitbox;

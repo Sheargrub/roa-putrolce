@@ -26,6 +26,25 @@ attempting_tracking = false;
 block_hitbox_checks = false;
 block_ground_checks = false;
 
+//#region Bash check
+if (getting_bashed) { // halt time progress
+	venus_article_reflect = 0;
+	reflected_player_id = bashed_id;
+	if (instance_exists(petrified_hitbox)) petrified_hitbox.destroyed = true;
+	if (instance_exists(active_hitbox)) active_hitbox.destroyed = true;
+	exit;
+}
+if (player != orig_player) { // bash release
+    player = orig_player;
+	move_angle = point_direction(0, 0, hsp, vsp);
+	set_state((state <= 09) ? SLP_PETRIFIED_LAUNCHED : SLP_ACTIVE_RUSH);
+	auto_gen_hitbox();
+	
+	block_hitbox_checks = true;
+	block_idle_state = true;
+	venus_article_reflect = 1;
+}
+//#endregion
 
 //#region Venus reflect checks
 if (venus_article_reflect == 2 && (venus_reflected || instance_exists(venus_rune_ID))) {
@@ -97,7 +116,7 @@ if (venus_reflected && !venus_late_reflect_frame) {
 //#endregion
 
 
-//#region Article behavior -----------------------------------------------------
+//#region Article behavior
 switch (state) {
     
     case SLP_PETRIFIED_DEFAULT:
@@ -106,7 +125,7 @@ switch (state) {
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             set_state(SLP_ACTIVE_DEFAULT);
-            active_hitbox = auto_gen_hitbox();
+            auto_gen_hitbox();
         }
         // no break - most logic is shared with petrified-permanent
     
@@ -139,7 +158,32 @@ switch (state) {
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             set_state(SLP_ACTIVE_DEFAULT);
-            active_hitbox = auto_gen_hitbox();
+            auto_gen_hitbox();
+        }
+        
+        break;
+    
+    case SLP_PETRIFIED_LAUNCHED:
+    
+        hsp = old_hsp; // unchanging
+        vsp = old_vsp;
+        
+        if (hit_player_id != noone) {
+            var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
+            break_fx.depth = depth-1;
+            sound_play(asset_get("sfx_kragg_rock_shatter"));
+            targetted_player_id = hit_player_id;
+            set_state(SLP_ACTIVE_HOMING);
+        }
+        
+        else if (hit_wall || !free || state_timer > 20) {
+            if (hit_wall) spr_dir *= -1;
+            var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
+            break_fx.depth = depth-1;
+            sound_play(asset_get("sfx_kragg_rock_shatter"));
+            set_state(SLP_INACTIVE_DEFAULT);
+            hit_player_id = noone;
+            reflected_player_id = noone;
         }
         
         break;
@@ -167,7 +211,6 @@ switch (state) {
         
         else if (state_timer >= 50 || hit_player_id != noone) {
             set_state(SLP_INACTIVE_DEFAULT);
-            //vsp = 0;
             hit_player_id = noone;
             reflected_player_id = noone;
         }
@@ -223,6 +266,19 @@ switch (state) {
         
         break;
     
+    case SLP_ACTIVE_RUSH:
+        
+        hsp = old_hsp;
+        vsp = old_vsp;
+    
+        if (hit_wall || !free || state_timer > 20 || hit_player_id != noone) {
+            set_state(SLP_INACTIVE_DEFAULT);
+            hit_player_id = noone;
+            reflected_player_id = noone;
+        }
+        
+        break;
+    
     case SLP_ACTIVE_HOMING:
         block_ground_checks = true;
     
@@ -245,12 +301,12 @@ switch (state) {
         }
         
         else if (move_speed <= 0.9) {
-            block_hitbox_checks = true;
-            if (place_meeting(x, y, asset_get("plasma_field_obj"))) {
+            if (place_meeting(x, y, asset_get("plasma_field_obj"))) { // since there's no hitbox to do the detection
                 sound_play(asset_get("sfx_clairen_hit_weak"));
                 set_state(SLP_DESPAWN_DIE);
             }
-            else if (move_speed >= 0 && active_hitbox == noone) active_hitbox = auto_gen_hitbox();
+            else if (move_speed >= 0 && active_hitbox == noone) auto_gen_hitbox();
+            else block_hitbox_checks = true;
         }
         
         else if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
@@ -319,7 +375,7 @@ if (state <= 9) { // petrified
         petrified_hitbox.hitbox_timer--;
         petrified_hitbox.x = x;
         petrified_hitbox.y = y;
-        petrified_hitbox.hsp = vsp;
+        petrified_hitbox.hsp = hsp;
         petrified_hitbox.vsp = vsp;
         petrified_hitbox.spr_dir = spr_dir;
     }
@@ -336,7 +392,7 @@ else if (state <= 19) { // active
         active_hitbox.hitbox_timer--;
         active_hitbox.x = x;
         active_hitbox.y = y;
-        active_hitbox.hsp = vsp;
+        active_hitbox.hsp = hsp;
         active_hitbox.vsp = vsp;
         active_hitbox.spr_dir = spr_dir;
     }
@@ -410,13 +466,24 @@ venus_late_reflect_frame = venus_reflected;
     state_timer = 0;
     should_die = false;
     
+    if (block_active_state && 10 <= state && state <= 19) state = SLP_INACTIVE_DEFAULT;
+    
     // state inits
     switch _state {
         
         case SLP_PETRIFIED_DEFAULT:
         case SLP_PETRIFIED_PERMANENT:
-        case SLP_PETRIFIED_LAUNCHED:
             venus_article_reflect = 1;
+            hit_player_id = noone;
+            break;
+        
+        case SLP_PETRIFIED_LAUNCHED:
+            // precondition: move_angle set
+            move_speed = 15;
+            old_hsp = lengthdir_x(move_speed, move_angle);
+            old_vsp = lengthdir_y(move_speed, move_angle);
+            venus_article_reflect = 1;
+            hit_player_id = noone;
             break;
         
         case SLP_ACTIVE_DEFAULT:
@@ -430,6 +497,15 @@ venus_late_reflect_frame = venus_reflected;
             move_speed = point_distance(0, 0, hsp, vsp);
             move_angle = point_direction(0, 0, hsp, vsp);
             venus_article_reflect = 1;
+            break;
+        
+        case SLP_ACTIVE_RUSH:
+            // precondition: move_angle set
+            move_speed = 15;
+            old_hsp = lengthdir_x(move_speed, move_angle);
+            old_vsp = lengthdir_y(move_speed, move_angle);
+            venus_article_reflect = 1;
+            hit_player_id = noone;
             break;
         
         case SLP_ACTIVE_HOMING:
@@ -455,7 +531,7 @@ venus_late_reflect_frame = venus_reflected;
                 hit_player_id = noone;
                 reflected_player_id = noone;
             }
-            venus_article_reflect = 0;
+            venus_article_reflect = 1;
             break;
         
         case SLP_DESPAWN_PETRIFIED:
@@ -482,8 +558,14 @@ venus_late_reflect_frame = venus_reflected;
 // Assumes that state has already been set.
 #define auto_gen_hitbox()
     var article_hitbox = noone;
-    if (state <= 9) article_hitbox = create_article_hitbox(AT_NSPECIAL, 1+block_active_state, x, y);
-    else if (state <= 19) article_hitbox = create_article_hitbox(AT_NSPECIAL, 3, x, y);
+    if (state <= 9) {
+        article_hitbox = create_article_hitbox(AT_NSPECIAL, 1+block_active_state, x, y);
+        petrified_hitbox = article_hitbox;
+    }
+    else if (state <= 19) {
+        article_hitbox = create_article_hitbox(AT_NSPECIAL, 3, x, y-99);
+        active_hitbox = article_hitbox;
+    }
     return article_hitbox
 
 // Mirror changes in init.gml
@@ -492,6 +574,7 @@ venus_late_reflect_frame = venus_reflected;
     article_hitbox.sleeper_owner = self;
     article_hitbox.faux_reflected_owner = noone;
     article_hitbox.venus_article_proj_ignore = true;
+    article_hitbox.unbashable = true;
     apply_hitbox_reflection(article_hitbox);
     return article_hitbox;
 
