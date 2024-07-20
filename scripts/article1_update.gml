@@ -42,7 +42,6 @@ if (player != orig_player) { // bash release
 	
 	block_hitbox_checks = true;
 	block_idle_state = true;
-	venus_article_reflect = 1;
 }
 //#endregion
 
@@ -67,6 +66,11 @@ if (venus_reflected && !venus_late_reflect_frame) {
 	}
     
     switch state {
+        case SLP_PETRIFIED_LAUNCHED:
+            move_angle = point_direction(0, 0, hsp, vsp);
+            old_hsp = lengthdir_x(move_speed, move_angle);
+            old_vsp = lengthdir_y(move_speed, move_angle);
+            break;
         case SLP_ACTIVE_DEFAULT:
             
             // Horizontal: bounce backward, maintaining sine motion progress
@@ -96,8 +100,12 @@ if (venus_reflected && !venus_late_reflect_frame) {
             
             break;
         case SLP_ACTIVE_RECENTER:
-        case SLP_ACTIVE_RUSH:
             state_timer = 0;
+            break;
+        case SLP_ACTIVE_RUSH:
+            move_angle = point_direction(0, 0, hsp, vsp);
+            old_hsp = lengthdir_x(move_speed, move_angle);
+            old_vsp = lengthdir_y(move_speed, move_angle);
             break;
         case SLP_ACTIVE_HOMING:
             move_angle = point_direction(hsp, vsp, 0, 0); // since it starts by moving backwards
