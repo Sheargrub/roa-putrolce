@@ -24,18 +24,16 @@
 state_timer += 1;
 attempting_tracking = false;
 block_hitbox_checks = false;
+block_ground_checks = false;
 
 
 //#region Venus reflect checks
 if (venus_article_reflect == 2 && (venus_reflected || instance_exists(venus_rune_ID))) {
-    var colliding = false;
-    
-    if (instance_exists(venus_rune_ID)) with (venus_rune_ID) {
-        if (state == "mirror" && place_meeting(x, y, other)) colliding = true;
+    venus_reflected = false;
+    if (instance_exists(venus_rune_ID) && venus_rune_ID.state == "mirror") {
+        if (place_meeting(x, y, venus_rune_ID)) venus_reflected = true;
+        else venus_rune_ID = noone;
     }
-    
-    if (!colliding) venus_reflected = 0;
-    else if (colliding && !venus_reflected) venus_reflected = 1;
 }
 
 if (venus_reflected && !venus_late_reflect_frame) {
@@ -109,12 +107,11 @@ switch (state) {
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             set_state(SLP_ACTIVE_DEFAULT);
             active_hitbox = auto_gen_hitbox();
-            hsp = 1*spr_dir;
-            vsp = 0*spr_dir;
         }
         // no break - most logic is shared with petrified-permanent
     
     case SLP_PETRIFIED_PERMANENT:
+        
         hsp = clamp(hsp, -6, 6);
         vsp = clamp(vsp+0.3, -6, 6);
         
@@ -125,14 +122,24 @@ switch (state) {
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             targetted_player_id = player_id;
             set_state(SLP_ACTIVE_HOMING);
+            break;
         }
         
-        if (hit_player_id != noone) {
+        else if (hit_player_id != noone) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             targetted_player_id = hit_player_id;
             set_state(SLP_ACTIVE_HOMING);
+        }
+    
+        else if (hit_wall || !free) {
+            if (hit_wall) spr_dir *= -1;
+            var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
+            break_fx.depth = depth-1;
+            sound_play(asset_get("sfx_kragg_rock_shatter"));
+            set_state(SLP_ACTIVE_DEFAULT);
+            active_hitbox = auto_gen_hitbox();
         }
         
         break;
@@ -140,9 +147,17 @@ switch (state) {
     // ------------------
     
     case SLP_ACTIVE_DEFAULT:
-    
+        
+        if (!free) {
+            active_move_polarity = -1;
+            active_move_offset = active_move_coefficient - (active_move_coefficient*state_timer + active_move_offset);
+        }
+        if (hit_wall) {
+            spr_dir *= -1;
+            hsp = spr_dir;
+        }
         hsp = clamp(hsp+0.2*spr_dir, -6, 6);
-        vsp = 2*sin(active_move_coefficient*state_timer + active_move_offset);
+        vsp = active_move_polarity*2*sin(active_move_coefficient*state_timer + active_move_offset);
         
         if (was_parried) {
             was_parried = false;
@@ -152,7 +167,7 @@ switch (state) {
         
         else if (state_timer >= 50 || hit_player_id != noone) {
             set_state(SLP_INACTIVE_DEFAULT);
-            vsp = 0;
+            //vsp = 0;
             hit_player_id = noone;
             reflected_player_id = noone;
         }
@@ -178,6 +193,14 @@ switch (state) {
             set_state(SLP_ACTIVE_HOMING);
         }
         
+        else if (!free) {
+            old_hsp = hsp;
+            var old_state_timer = state_timer;
+            set_state(SLP_ACTIVE_DEFAULT);
+            hsp = old_hsp;
+            state_timer = old_state_timer;
+        }
+        
         else {
             var target_move_angle = (spr_dir == 1) ? 0 : 180;
             var diff = angle_difference(move_angle, target_move_angle);
@@ -201,6 +224,8 @@ switch (state) {
         break;
     
     case SLP_ACTIVE_HOMING:
+        block_ground_checks = true;
+    
         if (targetted_player_id != noone) {
             var target_move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
             var diff = angle_difference(move_angle, target_move_angle);
@@ -241,6 +266,9 @@ switch (state) {
     // ------------------
     
     case SLP_INACTIVE_DEFAULT:
+    
+        if (hit_wall) hsp = -old_hsp;
+        if (!free) vsp = -old_vsp;
         hsp *= 0.85;
         vsp *= 0.85;
         
@@ -364,9 +392,18 @@ if (should_die) {
 //#endregion
 
 
-// venus compat / logical operator abuse
-venus_late_reflect_frame = venus_reflected;
+//#region End-script updates
+// Ground checks
+if (!block_ground_checks && state < 30) ignores_walls = !place_meeting(x+hsp, y+vsp, asset_get("par_block"));
+else ignores_walls = true;
 
+// Save old hsp/vsp
+old_hsp = hsp;
+old_vsp = vsp;
+
+// Venus compat
+venus_late_reflect_frame = venus_reflected;
+//#endregion
 
 #define set_state(_state)
     state = _state;
@@ -383,7 +420,8 @@ venus_late_reflect_frame = venus_reflected;
             break;
         
         case SLP_ACTIVE_DEFAULT:
-            hsp = 1*spr_dir;
+            active_move_polarity = (!free || vsp < 0) ? -1 : 1;
+            hsp = spr_dir;
             vsp = 0;
             venus_article_reflect = 2;
             break;

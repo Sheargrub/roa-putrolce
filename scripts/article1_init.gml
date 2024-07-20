@@ -20,6 +20,8 @@ uses_shader = true;
 // initial movement
 hsp = 3.5*spr_dir;
 vsp = -5;
+old_hsp = hsp;
+old_vsp = vsp;
 
 // article variables
 was_parried = false;
@@ -27,6 +29,7 @@ reflected_player_id = noone;
 block_idle_state = false;
 block_active_state = false;
 block_hitbox_checks = false;
+block_ground_checks = false;
 
 targetted_player_id = noone;
 attempting_tracking = false; // used to communicate with post_draw
@@ -39,6 +42,7 @@ hit_player_id = noone;
 despawn_vfx = player_id.fx_kragg_small;
 despawn_sfx = asset_get("sfx_kragg_rock_shatter");
 
+active_move_polarity = 1; // used to smooth the transition into the active state
 active_move_coefficient = 2*pi / 40; // denominator should be the period of the motion in frames
 active_move_offset = 0; // used by reflects to maintain continuity
 
