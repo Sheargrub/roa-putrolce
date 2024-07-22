@@ -24,11 +24,13 @@ block_idle_state = false;
 block_active_state = false;
 block_hitbox_checks = false;
 block_ground_checks = false;
+force_plat_checks = false;
 
 targetted_player_id = noone;
 attempting_tracking = false; // used to communicate with post_draw
 move_angle = (spr_dir == 1) ? 0 : 180;
 move_speed = 0;
+refresh_hitboxes = false;
 
 petrified_hitbox = noone;
 active_hitbox = noone;

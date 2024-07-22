@@ -28,6 +28,11 @@ transition_timer++;
 attempting_tracking = false;
 block_hitbox_checks = false;
 block_ground_checks = false;
+force_plat_checks = false;
+if (refresh_hitboxes) {
+	auto_gen_hitbox();
+	refresh_hitboxes = false;
+}
 
 //#region Bash check
 if (getting_bashed) { // halt time progress
@@ -193,6 +198,7 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 			other.dspec_skewered = false;
 			other.dspec_ignore = true;
     		player_id.hunger_meter = clamp(player_id.hunger_meter + other.dspec_hunger_value, 0, 100);
+    		with (player_id) user_event(0);
     		
     		// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
@@ -304,6 +310,9 @@ switch (state) {
             set_state(SLP_ACTIVE_DEFAULT);
             auto_gen_hitbox();
         }
+        
+        // PETRIFIED_PERMANENT needs to be able to hit plats.
+        force_plat_checks = (state == SLP_PETRIFIED_PERMANENT);
         
         break;
     
@@ -461,6 +470,7 @@ switch (state) {
             hit_player_id = noone;
             reflected_player_id = noone;
         }
+        
         break;
         
     // ------------------
@@ -504,7 +514,8 @@ switch (state) {
     
     default:
         print_debug("article1 error: Invalid state " + state +  " reached. Destroying.");
-        instance_destroy();
+        state = SLP_DESPAWN_SILENT;
+        should_die = true;
         exit;
         
 }
@@ -614,8 +625,10 @@ if (should_die) {
 
 //#region End-script updates
 // Ground checks
-if (!block_ground_checks && state < 30) ignores_walls = !place_meeting(x+hsp, y+vsp, asset_get("par_block"));
+if (force_plat_checks) ignores_walls = false;
+else if (!block_ground_checks && state < 30) ignores_walls = !place_meeting(x+hsp, y+vsp, asset_get("par_block"));
 else ignores_walls = true;
+can_be_grounded = force_plat_checks;
 
 // Save old hsp/vsp
 old_hsp = hsp;
@@ -684,10 +697,8 @@ venus_late_reflect_frame = venus_reflected;
             else move_angle = (spr_dir == 1) ? 0 : 180;
             hsp = lengthdir_x(move_speed, move_angle);
             vsp = lengthdir_y(move_speed, move_angle);
-            if (instance_exists(active_hitbox)) {
-                active_hitbox.destroyed = true;
-                active_hitbox = noone;
-            }
+            if (instance_exists(active_hitbox)) active_hitbox.destroyed = true;
+            active_hitbox = noone;
             block_hitbox_checks = true;
             hit_player_id = noone;
             venus_article_reflect = 1;
@@ -749,7 +760,7 @@ venus_late_reflect_frame = venus_reflected;
 
 // Mirror changes in init.gml
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
-    var article_hitbox = create_hitbox(atk, hitbox_num, _x, _y);
+    var article_hitbox = create_hitbox(atk, hitbox_num, floor(_x), floor(_y));
     article_hitbox.sleeper_owner = self;
     article_hitbox.faux_reflected_owner = noone;
     article_hitbox.venus_article_proj_ignore = true;

@@ -84,17 +84,46 @@ switch(attack) {
     case AT_DSPECIAL:
     	if (window == 1) {
     		dspec_sleeper_id = noone;
+    		dspec_sfx_instance = noone;
+    		dspec_rethrow = false;
     	}
     	else if (4 <= window && window <= 6) {
     		can_move = false;
-    		if (window < 6 && instance_exists(dspec_sleeper_id) && (special_pressed || is_special_pressed(DIR_ANY))) {
-    			print_debug("spit");
+    		if (window == 4 && window_timer == window_length) {
+    			dspec_sfx_instance = sound_play(get_window_value(attack, window, AG_WINDOW_SFX));
     		}
+    		if (window < 6 && (special_pressed || is_special_pressed(DIR_ANY)) && instance_exists(dspec_sleeper_id)) {
+    			dspec_rethrow = true;
+    		}
+	        if (dspec_rethrow) {
+	        	attack_end();
+    			set_attack(AT_DSPECIAL_2);
+	        }
 	        if (window == 5) {
-	        	if (window_timer == window_length) hsp = 20*spr_dir;
+	        	if (window_timer == window_length && !dspec_rethrow) hsp = 20*spr_dir;
 	        	else hsp = 0;
 	        }
     	}
+        break;
+    case AT_DSPECIAL_2:
+    	if (window == 2 && window_timer == 1 && instance_exists(dspec_sleeper_id)) {
+        	dspec_sleeper_id.state = 1; // petrified, no lifetime checks
+        	dspec_sleeper_id.reflected_player_id = (player == dspec_sleeper_id.player) ? noone : self;
+        	dspec_sleeper_id.refresh_hitboxes = true;
+        	dspec_sleeper_id.dspec_skewered = false;
+        	dspec_sleeper_id.block_idle_state = false;
+			dspec_sleeper_id.block_active_state = false;
+        	dspec_sleeper_id.venus_article_reflect = 1;
+            dspec_sleeper_id.hit_player_id = noone;
+        	dspec_sleeper_id.hsp = 7*spr_dir;
+        	dspec_sleeper_id.vsp = -5;
+        	dspec_sleeper_id.spr_dir = spr_dir;
+        	
+        	grabbed_player_obj = noone;
+        	
+        	if (dspec_sfx_instance != noone) sound_stop(dspec_sfx_instance);
+        	spawn_hit_fx(dspec_sleeper_id.x + 12*spr_dir, dspec_sleeper_id.y, fx_kragg_small);
+        }
         break;
     case AT_USPECIAL:
         //

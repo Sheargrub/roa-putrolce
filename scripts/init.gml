@@ -107,6 +107,8 @@ pultroce_status_timer = 0;
 forcing_transparency = false;
 
 dspec_sleeper_id = noone;
+dspec_sfx_instance = noone;
+dspec_rethrow = false;
 
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables

@@ -40,8 +40,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, sound_get("sword2"));
+//set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, sound_get("sword2")); // handled in code to account for cancel into dspec-2
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 set_window_value(atk, window_num                        , AG_WINDOW_GRAB_OPPONENT, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, 40);
