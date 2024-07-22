@@ -1,6 +1,7 @@
 var hbox_atk = my_hitboxID.attack;
 var hbox_num = my_hitboxID.hbox_num;
 var is_kragg_rocks = false;
+var is_melee = my_hitboxID.type == 1;
 
 //                           --hit stuff--                                    //
 
@@ -173,7 +174,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_DSPECIAL:
-        //a
+        if (hbox_num <= 2 && is_melee) sound_play(sound_get("cut2"));
         break;
     case AT_USPECIAL:
         //a
