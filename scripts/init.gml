@@ -104,8 +104,6 @@ ST_OVERSTUFFED                  = 4;
 pultroce_status_owner = 0;  // reflected in other_init.gml
 pultroce_status_timer = 0;
 
-forcing_transparency = false;
-
 dspec_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
@@ -306,3 +304,49 @@ fx_slp_phase = hit_fx_create(sprite_get("slp_phase"), 24);
 fx_slp_destroyed = hit_fx_create(sprite_get("slp_destroyed"), 32);
 fx_slp_destroyed_homing = hit_fx_create(sprite_get("slp_homing_death"), 32);
 fx_slp_sleeping = hit_fx_create(sprite_get("slp_sleepingvfx_temp"), 24);
+
+// Transparency matrices (courtesy of Supersonic - used for drawing enemy outlines)
+outline_catch_colorI = [
+    1, 1, 1, 1, // catch all
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 1 // catch outline
+    ]
+outline_catch_colorT = [
+    1, 1, 1, 1, // catch all
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    1, 1, 0.1, 0.2 // outline tolerance
+    ]
+outline_catch_colorO = [
+    1, 1, 1, 0, // force 0 in alpha for everything other than the outline
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 1 // this is the outline color
+    ]
+outline_catch_colorB = [
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
+    ]
