@@ -1,6 +1,5 @@
 //a
 
-print_debug(unbashable);
 
 //multihit projectiles
 if (hitbox_multihits) {

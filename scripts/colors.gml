@@ -4,7 +4,7 @@ var col_slot = 0;
 
 // Sweater
 set_color_profile_slot( 0, 0, 85, 24, 110 );
-set_color_profile_slot_range( 0, 2, 7, 15 );
+set_color_profile_slot_range( 0, 2, 7, 15 ); // copy into init_shader.gml
 
 // Hair
 set_color_profile_slot( 0, 1, 166, 126, 176 );

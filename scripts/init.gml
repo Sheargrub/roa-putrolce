@@ -102,6 +102,8 @@ ST_OVERSTUFFED                  = 4;
 pultroce_status_owner = 0;  // reflected in other_init.gml
 pultroce_status_timer = 0;
 
+forcing_transparency = false;
+
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables
 grabbed_player_obj              = noone;// the player that got grabbed
