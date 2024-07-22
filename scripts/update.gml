@@ -1,6 +1,21 @@
 
 // DEBUG
-if (should_debug && state == PS_PARRY && state_timer = 0) lightweight_debug = !lightweight_debug;
+if (shield_pressed && taunt_pressed) {
+	should_debug = !should_debug
+	lightweight_debug = true;
+	clear_button_buffer(PC_SHIELD_PRESSED);
+}
+else if (should_debug && state == PS_PARRY && state_timer = 0) lightweight_debug = !lightweight_debug;
+if (up_down && taunt_pressed) {
+	hunger_meter = clamp(hunger_meter+10, 0, 100);
+	clear_button_buffer(PC_TAUNT_PRESSED);
+	user_event(0);
+}
+if (down_down && taunt_pressed) {
+	hunger_meter = clamp(hunger_meter-10, 0, 100);
+	clear_button_buffer(PC_TAUNT_PRESSED);
+	user_event(0);
+}
 
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
