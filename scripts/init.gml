@@ -292,4 +292,5 @@ fx_kragg_big = hit_fx_create(sprite_get("hfx_rock_large"),20);
 
 fx_slp_phase = hit_fx_create(sprite_get("slp_phase"), 24);
 fx_slp_destroyed = hit_fx_create(sprite_get("slp_destroyed"), 32);
+fx_slp_destroyed_homing = hit_fx_create(sprite_get("slp_homing_death"), 32);
 fx_slp_sleeping = hit_fx_create(sprite_get("slp_sleepingvfx_temp"), 24);

@@ -61,12 +61,13 @@ sprite_change_offset("plat"                 , 32, 47);
 sprite_change_offset("hfx_rock_small_bg", 64, 64);
 sprite_change_offset("hfx_rock_large", 128, 128);
 
-sprite_change_offset("slp_statue_temp", 76, 54); // main sprites
-sprite_change_offset("slp_statue_to_active_temp", 76, 54);
-// active (?)
-sprite_change_offset("slp_active_to_inactive_temp", 76, 54);
+sprite_change_offset("slp_rock", 76, 54); // main sprites
+sprite_change_offset("slp_rock_to_wave", 76, 54);
+sprite_change_offset("slp_wave", 76, 54);
+sprite_change_offset("slp_wave_to_homing", 76, 54);
+sprite_change_offset("slp_homing", 76, 54);
 sprite_change_offset("slp_idle_passive", 76, 54);
-sprite_change_offset("slp_homing_temp", 76, 54);
+
 
 sprite_change_offset("slp_passive_sleepcloud_temprange", 76, 54); // auxillary sprites
 sprite_change_offset("slp_mask", 20, 20);
@@ -75,4 +76,5 @@ sprite_change_offset("slp_tracker_mask_-1", 240, 60);
 
 sprite_change_offset("slp_phase", 76, 54); // vfx
 sprite_change_offset("slp_destroyed", 76, 54);
+sprite_change_offset("slp_homing_death", 76, 54);
 sprite_change_offset("slp_sleepingvfx_temp", 12, 14);

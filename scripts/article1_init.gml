@@ -9,7 +9,7 @@
 */
 
 // sprite and mask indexes; + default article variables
-sprite_index = sprite_get("slp_statue_temp");
+sprite_index = sprite_get("slp_rock");
 mask_index = sprite_get("slp_mask");
 can_be_grounded = false;
 ignores_walls = true; // Sometimes performs place_meeting checks for par_blocks, but generally ignores ground
@@ -60,6 +60,12 @@ venus_sine_offset = 0; // used for reflections of ST_ACTIVE_DEFAULT
 state = 0;
 state_timer = 0;
 should_die = false; //if the article should be despawned
+
+// m
+transition_timer = 0; // used for anims
+rot_sprite_index = sprite_get("slp_wave_to_homing");
+rot_image_index = 0;
+rot_sprite_angle = 0;
 
 // inital hitbox
 petrified_hitbox = create_article_hitbox(AT_NSPECIAL, 1, x, y)

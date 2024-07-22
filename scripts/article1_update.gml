@@ -19,9 +19,11 @@
 #macro SLP_DESPAWN_PETRIFIED 30
 #macro SLP_DESPAWN_FADE 31
 #macro SLP_DESPAWN_DIE 32
+#macro SLP_DESPAWN_DIE_HOMING 33
 
 
 state_timer += 1;
+transition_timer++;
 attempting_tracking = false;
 block_hitbox_checks = false;
 block_ground_checks = false;
@@ -358,6 +360,7 @@ switch (state) {
     case SLP_DESPAWN_PETRIFIED:
     case SLP_DESPAWN_FADE:
     case SLP_DESPAWN_DIE:
+    case SLP_DESPAWN_DIE_HOMING:
         // These despawn states should normally only reached through external interference, so set_state() needs to be re-run.
         set_state(state);
         break;
@@ -405,7 +408,8 @@ else if (state <= 19) { // active
         active_hitbox.spr_dir = spr_dir;
     }
     else if (!block_hitbox_checks) {
-        set_state(SLP_DESPAWN_DIE);
+    	if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
+        else set_state(SLP_DESPAWN_DIE);
     }
 }
 //#endregion
@@ -416,18 +420,33 @@ switch(state) {
     case 00: // Petrified
     case 01:
     case 02:
-        sprite_index = sprite_get("slp_statue_temp");
+        sprite_index = sprite_get("slp_rock");
         break;
         
     case 10: // Active
     case 11:
     case 12:
-        sprite_index = sprite_get("slp_statue_to_active_temp");
+    	if (transition_timer < 6) {
+    		sprite_index = sprite_get("slp_rock_to_wave");
+	        image_index = (transition_timer / 3);
+    	} else {
+	        sprite_index = sprite_get("slp_wave");
+	        image_index = (state_timer / 6);
+    	}
         break;
     
     case 13: // Active, aggressive
     case 14:
-        sprite_index = sprite_get("null"); // draw angled; see post_draw
+        if (transition_timer < 6) {
+    		rot_sprite_index = sprite_get("slp_wave_to_homing");
+	        rot_image_index = (transition_timer / 3);
+	        var forward_angle = (spr_dir == 1) ? 0 : 180;
+	        rot_sprite_angle = forward_angle - (angle_difference(forward_angle, move_angle) * transition_timer / 6);
+    	} else {
+	        rot_sprite_index = sprite_get("slp_homing");
+	        rot_image_index = (state_timer / 4);
+	        rot_sprite_angle = move_angle;
+    	}
         break;
         
     case 20: // Inactive
@@ -470,6 +489,7 @@ venus_late_reflect_frame = venus_reflected;
 //#endregion
 
 #define set_state(_state)
+	var old_state = state;
     state = _state;
     state_timer = 0;
     should_die = false;
@@ -495,6 +515,7 @@ venus_late_reflect_frame = venus_reflected;
             break;
         
         case SLP_ACTIVE_DEFAULT:
+        	if (old_state < SLP_ACTIVE_DEFAULT) transition_timer = 0;
             active_move_polarity = (!free || vsp < 0) ? -1 : 1;
             hsp = spr_dir;
             vsp = 0;
@@ -502,6 +523,7 @@ venus_late_reflect_frame = venus_reflected;
             break;
         
         case SLP_ACTIVE_RECENTER:
+        	if (old_state < SLP_ACTIVE_DEFAULT) transition_timer = 0;
             move_speed = point_distance(0, 0, hsp, vsp);
             move_angle = point_direction(0, 0, hsp, vsp);
             venus_article_reflect = 1;
@@ -509,6 +531,7 @@ venus_late_reflect_frame = venus_reflected;
         
         case SLP_ACTIVE_RUSH:
             // precondition: move_angle set
+            // if (old_state < SLP_ACTIVE_RUSH) transition_timer = 0;
             move_speed = 15;
             old_hsp = lengthdir_x(move_speed, move_angle);
             old_vsp = lengthdir_y(move_speed, move_angle);
@@ -518,6 +541,7 @@ venus_late_reflect_frame = venus_reflected;
         
         case SLP_ACTIVE_HOMING:
             // precondition: targetted_player_id should be set
+            if (old_state < SLP_ACTIVE_RUSH) transition_timer = 0;
             move_speed = -15;
             if (instance_exists(targetted_player_id)) move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
             else move_angle = (spr_dir == 1) ? 0 : 180;
@@ -538,8 +562,8 @@ venus_late_reflect_frame = venus_reflected;
                 sound_play(asset_get("sfx_forsburn_consume_fail"));
                 hit_player_id = noone;
                 reflected_player_id = noone;
+                venus_article_reflect = 1;
             }
-            venus_article_reflect = 1;
             break;
         
         case SLP_DESPAWN_PETRIFIED:
@@ -557,6 +581,12 @@ venus_late_reflect_frame = venus_reflected;
         case SLP_DESPAWN_DIE:
             despawn_sfx = asset_get("sfx_absa_cloud_crackle");
             despawn_vfx = player_id.fx_slp_destroyed;
+            should_die = true;
+            break;
+           
+        case SLP_DESPAWN_DIE_HOMING:
+        	despawn_sfx = asset_get("sfx_absa_cloud_crackle");
+            despawn_vfx = player_id.fx_slp_destroyed_homing;
             should_die = true;
             break;
         

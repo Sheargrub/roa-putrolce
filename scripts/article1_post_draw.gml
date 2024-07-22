@@ -5,7 +5,7 @@
 
 
 if (state == SLP_ACTIVE_RUSH || state == SLP_ACTIVE_HOMING) {
-    draw_sprite_ext(sprite_get("slp_homing_temp"), 0, x, y, 1, spr_dir, move_angle, c_white, 1);
+    draw_sprite_ext(rot_sprite_index, rot_image_index, x, y, 1, spr_dir, rot_sprite_angle, c_white, 1);
 }
 
 if (get_match_setting(SET_HITBOX_VIS)) {
