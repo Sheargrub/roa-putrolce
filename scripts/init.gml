@@ -99,6 +99,9 @@ ST_VORACIOUS                    = 2;
 ST_NORMAL                       = 3;
 ST_OVERSTUFFED                  = 4;
 
+pultroce_status_owner = 0;  // reflected in other_init.gml
+pultroce_status_timer = 0;
+
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables
 grabbed_player_obj              = noone;// the player that got grabbed

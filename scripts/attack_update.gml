@@ -82,12 +82,11 @@ switch(attack) {
         //a
         break;
     case AT_DSPECIAL:
-        //spawns test article
-        /*
-        if (window == 1 && window_timer == 1) {
-        	article_id = instance_create(x + 30 * spr_dir, y, "obj_article1");
+    	if (4 <= window && window <= 6) can_move = false;
+        if (window == 5) {
+        	if (window_timer == window_length) hsp = 20*spr_dir;
+        	else hsp = 0;
         }
-        */
         break;
     case AT_USPECIAL:
         //

@@ -28,17 +28,15 @@ if (my_hitboxID.orig_player == player && !is_kragg_rocks) {
 
 
 
-
+// Functional per-attack effect (sfx/vfx/gamefeel should go instead under hit gamefeel)
 switch(attack) {
-
-    case AT_FAIR:
-    if (my_hitboxID.hbox_num == 1){
-    		sound_play(asset_get("sfx_kragg_rock_pull"), 0, noone, 0.3, 1)
-    }
-    if (my_hitboxID.hbox_num == 2){
-    		sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
-	}
-	break;
+	
+	case AT_DSPECIAL:
+		if (hbox_num == 3 && is_melee) {
+		    hit_player_obj.pultroce_status_owner = player;
+		    hit_player_obj.pultroce_status_timer = 0;
+		}
+		break;
 	
 }
 
@@ -119,10 +117,6 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_PROJECTILE_MUL
 
 //                          --hit gamefeel--                                  //
 
-// this used to have vfx but it was a mess and I solved some of the initial
-// problems on pohaku
-
-// I'll redo it later with the improvements n new vfx
 switch(my_hitboxID.attack) {
     case AT_JAB:
         //a
@@ -144,7 +138,8 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_FAIR:
-        //a
+        if (my_hitboxID.hbox_num == 1 && is_melee) sound_play(asset_get("sfx_kragg_rock_pull"), 0, noone, 0.3, 1)
+    	else if (my_hitboxID.hbox_num == 2 && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
         break;
     case AT_BAIR:
         //a

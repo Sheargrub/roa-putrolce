@@ -23,6 +23,46 @@ if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_platfalling = false;
 }
 
+// status management
+var status_proc_list = [];
+
+with oPlayer {
+    
+    if (pultroce_status_owner == other.player) {
+        if (!hitpause) pultroce_status_timer++;
+        can_tech = false;
+        can_bounce = false;
+        
+        if (activated_kill_effect) {
+            pultroce_status_timer = 0;
+            pultroce_status_owner = 0;
+            spawn_hit_fx(x, floor(y+char_height/2), fx_kragg_big);
+        }
+        else if (hitpause && pultroce_status_timer > 10) pultroce_status_timer = 10;
+        
+        var hit_wall = false;
+        if (hsp == 0) hit_wall = (place_meeting(x+1, y, asset_get("par_block")) || place_meeting(x-1, y, asset_get("par_block")));
+        if (pultroce_status_timer >= 30 || !free || hit_wall) array_push(status_proc_list, self);
+        
+    }
+    
+}
+
+for (var i = 0; i < array_length(status_proc_list); i++) {
+    
+    var target = status_proc_list[i];
+    var _x = floor(target.x);
+    var _y = floor(target.y - (target.char_height/2));
+    
+    var hbox = create_hitbox(AT_DSPECIAL, 4, _x, _y);
+	
+	var break_sfx = sound_get("hero_quake_impact");
+	with target sound_play(break_sfx); // ensures accurate panning
+	
+    target.pultroce_status_timer = 0;
+    target.pultroce_status_owner = 0;
+    
+}
 
 
 #define spawn_base_dust // written by supersonic
