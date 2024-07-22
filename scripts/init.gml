@@ -92,6 +92,7 @@ through enemies, otherwise it might just despawn on hit
 hunger_meter                    = 50; // 0 to 100, used to update stance
 stance                          = 3; // 1-4, see below
 stance_names                    = ["Famished", "Voracious", "Normal", "Overstuffed"] // For debug and training mode elements
+stance_suffixes                 = ["_famished", "_voracious", "", "_overstuffed"] // for movement anim handling
 
 ST_FAMISHED                     = 1; // remember, these are incompatible with switch statements
 ST_VORACIOUS                    = 2;
