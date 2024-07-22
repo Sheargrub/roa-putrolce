@@ -56,6 +56,11 @@ venus_rune_ID = noone;
 venus_rune_angle = 0;
 venus_sine_offset = 0; // used for reflections of ST_ACTIVE_DEFAULT
 
+dspec_skewered = false;
+dspec_ignore = false;
+dspec_player_id = noone;
+dspec_hunger_value = 25;
+
 // state machine variables
 state = 0;
 state_timer = 0;

@@ -1,5 +1,5 @@
 
-if ("pultroce_status_owner" not in self || !instance_exists(other_player_id)) exit;
+if ("other_player_id" not in self || !instance_exists(other_player_id)) exit;
 
 // Petrified visual (temp)
 if (pultroce_status_owner = other_player_id.player) {

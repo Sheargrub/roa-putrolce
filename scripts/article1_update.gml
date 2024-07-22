@@ -20,6 +20,7 @@
 #macro SLP_DESPAWN_FADE 31
 #macro SLP_DESPAWN_DIE 32
 #macro SLP_DESPAWN_DIE_HOMING 33
+#macro SLP_DESPAWN_SILENT 39
 
 
 state_timer += 1;
@@ -123,6 +124,122 @@ if (venus_reflected && !venus_late_reflect_frame) {
     // venus_late_reflect_frame is set at the bottom of the script to allow checks for frame 1 of a reflect.
     
 }
+//#endregion
+
+
+//#region DSpecial checks
+if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && get_char_info(player, INFO_STR_NAME) == "Putrolce") {
+	if (place_meeting(x, y, other)) {
+		
+		// Skewer hit
+		if (!other.dspec_skewered && hbox_num <= 2) {
+			other.dspec_skewered = true;
+			other.dspec_player_id = player_id;
+			print_debug(player);
+			print_debug(player_id);
+			
+			// SFX/VFX
+			spawn_hit_fx(other.x, other.y, hit_effect);
+			if (!player_id.has_hit) sound_play(sound_effect);
+			
+			// Emulate hit_player stuff
+			with player_id {
+				
+				// Hitstop
+				has_hit = true;
+				hitpause = true;
+				if (hitstop < other.hitpause) {
+					hitstop = other.hitpause;
+					hitstop_full = other.hitpause;
+				}
+				
+				// Grab windows
+				if (get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOW_GOTO) != -1) {
+					destroy_hitboxes();
+					attack_end();
+					window = get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOW_GOTO);
+					window_timer = 0;
+					old_hsp = get_window_value(other.attack, window, AG_WINDOW_HSPEED);
+					old_vsp = get_window_value(other.attack, window, AG_WINDOW_VSPEED);
+					
+					if (get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOWS_NUM) != -1) {
+						set_attack_value(attack,AG_NUM_WINDOWS,get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOWS_NUM));
+					}
+				}
+			}
+			// Apply hitpause to article
+			other.hitstop = floor(player_id.hitstop);
+			
+		}
+		
+		else if (hbox_num == 3) {
+			other.dspec_skewered = false;
+			other.dspec_ignore = true;
+    		player_id.hunger_meter = clamp(player_id.hunger_meter + other.dspec_hunger_value, 0, 100);
+    		
+    		// SFX/VFX
+			spawn_hit_fx(other.x, other.y, hit_effect);
+			if (!player_id.has_hit) sound_play(sound_effect);
+			
+			// Emulate hit_player stuff
+			with player_id {
+				// Hitstop
+				has_hit = true;
+				hitpause = true;
+				if (hitstop < other.hitpause) {
+					hitstop = other.hitpause;
+					hitstop_full = other.hitpause;
+				}
+			}
+			// Apply hitpause to article
+			other.hitstop = floor(player_id.hitstop);
+			
+			// Queue death
+			with other {
+				if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
+	    		else set_state(SLP_DESPAWN_DIE);
+			}
+		}
+		
+	}
+}
+
+if (hitstop > 0 || dspec_skewered) {
+	hsp = 0;
+	vsp = 0;
+	if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) sprite_index = sprite_get("slp_homing_death");
+    else sprite_index = sprite_get("slp_destroyed");
+    image_index = 0;
+    
+    if (dspec_player_id.state != PS_ATTACK_GROUND && dspec_player_id.state != PS_ATTACK_AIR) {
+    	dspec_skewered = false;
+    }
+    
+    else if (dspec_skewered && hitstop <= 0) {
+    	spr_dir = dspec_player_id.spr_dir * -1;
+    	// template grab code from attack_update
+    	with (dspec_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
+    	if (is_grabbing) {
+			var relative_x = floor(x - dspec_player_id.x);
+			var relative_y = floor(y - dspec_player_id.y);
+			with (dspec_player_id) {
+				var pull_to_x = get_window_value(attack, window, AG_WINDOW_GRAB_POS_X) * spr_dir;
+				var pull_to_y = get_window_value(attack, window, AG_WINDOW_GRAB_POS_Y) - 20; // sleeper offset differs from player offsets
+				var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
+			}
+			x = dspec_player_id.x + ease_circOut( relative_x, pull_to_x, dspec_player_id.window_timer, window_length);
+			y = dspec_player_id.y + ease_circOut( relative_y, pull_to_y, dspec_player_id.window_timer, window_length);
+    	}
+    }
+    
+	if (dspec_skewered || hitstop > 0) exit;
+	else {
+		if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
+    	else set_state(SLP_DESPAWN_DIE);
+	}
+	
+}
+
 //#endregion
 
 
@@ -361,6 +478,7 @@ switch (state) {
     case SLP_DESPAWN_FADE:
     case SLP_DESPAWN_DIE:
     case SLP_DESPAWN_DIE_HOMING:
+    case SLP_DESPAWN_SILENT:
         // These despawn states should normally only reached through external interference, so set_state() needs to be re-run.
         set_state(state);
         break;
@@ -465,10 +583,12 @@ switch(state) {
 
 //#region Despawn handling
 if (should_die) {
-    var despawn_fx = spawn_hit_fx(x, y, despawn_vfx);
-    despawn_fx.depth = depth;
-    despawn_fx.spr_dir = spr_dir;
-    sound_play(despawn_sfx);
+	if (state != SLP_DESPAWN_SILENT) {
+	    var despawn_fx = spawn_hit_fx(x, y, despawn_vfx);
+	    despawn_fx.depth = depth;
+	    despawn_fx.spr_dir = spr_dir;
+	    sound_play(despawn_sfx);
+	}
     instance_destroy();
     exit;
 }
@@ -589,6 +709,10 @@ venus_late_reflect_frame = venus_reflected;
             despawn_vfx = player_id.fx_slp_destroyed_homing;
             should_die = true;
             break;
+        
+        case SLP_DESPAWN_SILENT:
+        	should_die = true;
+        	break;
         
     }
 

@@ -32,7 +32,10 @@ if (my_hitboxID.orig_player == player && !is_kragg_rocks) {
 switch(attack) {
 	
 	case AT_DSPECIAL:
-		if (hbox_num == 3 && is_melee) {
+		if (hbox_num <= 2 && is_melee) {
+			hit_player_obj.should_make_shockwave = false;
+		}
+		else if (hbox_num == 3 && is_melee) {
 		    hit_player_obj.pultroce_status_owner = player;
 		    hit_player_obj.pultroce_status_timer = 0;
 		}
