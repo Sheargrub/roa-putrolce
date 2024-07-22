@@ -128,22 +128,39 @@ if (venus_reflected && !venus_late_reflect_frame) {
 
 
 //#region DSpecial checks
-if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && get_char_info(player, INFO_STR_NAME) == "Putrolce") {
+if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_putrolce" in player_id) {
 	if (place_meeting(x, y, other)) {
 		
 		// Skewer hit
 		if (!other.dspec_skewered && hbox_num <= 2) {
-			other.dspec_skewered = true;
+			
+			var player_claimed = true;
+			if (player_id.dspec_sleeper_id == noone) player_id.dspec_sleeper_id = other;
+			else if (player_id.dspec_sleeper_id.player != player && other.player == player) {
+				with (player_id.dspec_sleeper_id) {
+					if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
+	    			else set_state(SLP_DESPAWN_DIE);
+	    			dspec_ignore = true;
+	    			dspec_skewered = false;
+				}
+				player_id.dspec_sleeper_id = other;
+			}
+			else with other {
+				if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
+	    		else set_state(SLP_DESPAWN_DIE);
+	    		dspec_ignore = true;
+	    		player_claimed = false;
+			}
+			
+			other.dspec_skewered = player_claimed;
 			other.dspec_player_id = player_id;
-			print_debug(player);
-			print_debug(player_id);
 			
 			// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
 			if (!player_id.has_hit) sound_play(sound_effect);
 			
 			// Emulate hit_player stuff
-			with player_id {
+			with player_id if player_claimed {
 				
 				// Hitstop
 				has_hit = true;

@@ -1,12 +1,6 @@
 //                              ARTICLE  STUFF                                //
-/*
-    considering that articles are p much empty things that you can do whatever
-    with, I'll only set up a really basic state machine since those tend to be 
-    pretty useful for most situations
-    
-    although sometimes you'll probably want to delete it and start from scratch
-    if it's a really simple article
-*/
+
+is_putrolce_sleeper             = true;
 
 // sprite and mask indexes; + default article variables
 sprite_index = sprite_get("slp_rock");

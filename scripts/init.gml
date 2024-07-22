@@ -89,6 +89,8 @@ through enemies, otherwise it might just despawn on hit
 //=-(                    ~~//** CUSTOM VARIABLES **//~~                    )-=//
 //                              PUT YOURS HERE                                //
 
+is_putrolce                     = true;
+
 hunger_meter                    = 50; // 0 to 100, used to update stance
 stance                          = 3; // 1-4, see below
 stance_names                    = ["Famished", "Voracious", "Normal", "Overstuffed"] // For debug and training mode elements
@@ -103,6 +105,8 @@ pultroce_status_owner = 0;  // reflected in other_init.gml
 pultroce_status_timer = 0;
 
 forcing_transparency = false;
+
+dspec_sleeper_id = noone;
 
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables

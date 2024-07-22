@@ -82,12 +82,19 @@ switch(attack) {
         //a
         break;
     case AT_DSPECIAL:
-    	if (window == 1) dspec_sleeper_eaten = false;
-    	else if (4 <= window && window <= 6) can_move = false;
-        if (window == 5) {
-        	if (window_timer == window_length) hsp = 20*spr_dir;
-        	else hsp = 0;
-        }
+    	if (window == 1) {
+    		dspec_sleeper_id = noone;
+    	}
+    	else if (4 <= window && window <= 6) {
+    		can_move = false;
+    		if (window < 6 && instance_exists(dspec_sleeper_id) && (special_pressed || is_special_pressed(DIR_ANY))) {
+    			print_debug("spit");
+    		}
+	        if (window == 5) {
+	        	if (window_timer == window_length) hsp = 20*spr_dir;
+	        	else hsp = 0;
+	        }
+    	}
         break;
     case AT_USPECIAL:
         //
