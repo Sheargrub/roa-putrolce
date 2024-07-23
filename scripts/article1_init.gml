@@ -1,6 +1,7 @@
 //                              ARTICLE  STUFF                                //
 
-is_putrolce_sleeper             = true;
+is_putrolce_sleeper = true;
+player_id.nspec_sleepers_active++;
 
 // sprite and mask indexes; + default article variables
 sprite_index = sprite_get("slp_rock");

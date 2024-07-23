@@ -676,6 +676,7 @@ if (should_die) {
 	    despawn_fx.spr_dir = spr_dir;
 	    sound_play(despawn_sfx);
 	}
+	player_id.nspec_sleepers_active--;
     instance_destroy();
     exit;
 }
@@ -768,7 +769,6 @@ venus_late_reflect_frame = venus_reflected;
             break;
         
         case SLP_INACTIVE_DEFAULT:
-        	print_debug(get_gameplay_time())
             if (block_idle_state) set_state(SLP_DESPAWN_FADE);
             else {
                 sound_play(asset_get("sfx_forsburn_consume_fail"));

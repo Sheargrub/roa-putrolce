@@ -108,6 +108,8 @@ ST_OVERSTUFFED                  = 4;
 pultroce_status_owner = 0;  // reflected in other_init.gml
 pultroce_status_timer = 0;
 
+nspec_sleepers_active = 0;
+
 dspec_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;

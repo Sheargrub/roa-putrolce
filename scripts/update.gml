@@ -66,6 +66,20 @@ for (var i = 0; i < array_length(status_proc_list); i++) {
     
 }
 
+// Every 3 seconds, poll for discrepancies in the sleeper count.
+// (This shouldn't really come up, hence the infrequency of the check.)
+// (If opponents are improperly destroying articles, though, this will trigger.)
+if (get_gameplay_time() % 177 == 174) {
+	var detected_sleepers = 0;
+	with (obj_article1) if (player_id == other) detected_sleepers++;
+	if (detected_sleepers != nspec_sleepers_active) {
+		nspec_sleepers_active = detected_sleepers;
+		print_debug("Discrepancy corrected in sleeper count. Opponent may be improperly destroying articles.");
+	}
+}
+// NSpec cooldown management
+if (nspec_sleepers_active >= 2) move_cooldown[AT_NSPECIAL] = 2;
+
 
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)
