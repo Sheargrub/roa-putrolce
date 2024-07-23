@@ -536,7 +536,13 @@ switch (state) {
         if (!in_dspec && place_meeting(x, y, player_id)) {
         	if (player_id.stance == player_id.ST_FAMISHED) {
         		// There'll be a special attack for this eventually, but prat gets the effect across for now.
-        		with (player_id) set_state(PS_PRATFALL);
+        		with (player_id) if (!invincible && !attack_invince && !initial_invince && !perfect_dodging) {
+        			attack_end();
+        			destroy_hitboxes();
+        			state = PS_PRATFALL;
+        			state_timer = 0;
+        		}
+        		set_state(SLP_DESPAWN_FADE);
         	} else {
         		spr_dir = player_id.spr_dir
         		if (player_id.hsp != 0) spr_dir = (player_id.hsp > 0) ? 1 : -1;
