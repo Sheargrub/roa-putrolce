@@ -139,26 +139,33 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 		// Skewer hit
 		if (!other.dspec_skewered && hbox_num <= 2) {
 			
+			other.spr_dir = player_id.spr_dir * -1;
+			
 			var player_claimed = true;
 			if (player_id.dspec_sleeper_id == noone) player_id.dspec_sleeper_id = other;
 			else if (player_id.dspec_sleeper_id.player != player && other.player == player) {
 				with (player_id.dspec_sleeper_id) {
-					if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
-	    			else set_state(SLP_DESPAWN_DIE);
+					var is_homing = (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH);
+					set_state(is_homing ? SLP_DESPAWN_DIE_HOMING : SLP_DESPAWN_DIE);
+	    			sprite_index = sprite_get(is_homing ? "slp_homing_death" : "slp_destroyed")
+	    			image_index = 0;
 	    			dspec_ignore = true;
 	    			dspec_skewered = false;
+	    			hitstop = 0;
 				}
 				player_id.dspec_sleeper_id = other;
 			}
 			else with other {
-				if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
-	    		else set_state(SLP_DESPAWN_DIE);
+				var is_homing = (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH);
+				set_state(is_homing ? SLP_DESPAWN_DIE_HOMING : SLP_DESPAWN_DIE);
 	    		dspec_ignore = true;
 	    		player_claimed = false;
 			}
 			
 			other.dspec_skewered = player_claimed;
 			other.dspec_player_id = player_id;
+			other.relative_x = floor(other.x - player_id.x);
+			other.relative_y = floor(other.y - player_id.y);
 			
 			// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
@@ -190,13 +197,27 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 				}
 			}
 			// Apply hitpause to article
-			other.hitstop = floor(player_id.hitstop);
+			if (player_claimed) other.hitstop = floor(player_id.hitstop);
 			
 		}
 		
 		else if (hbox_num == 3) {
+			
+			other.spr_dir = player_id.spr_dir * -1;
+			
+			// Queue death
+			with other {
+				if (dspec_skewered || state <= 09) {
+					set_state(SLP_DESPAWN_SILENT);
+					spawn_hit_fx(x, y, player_id.fx_kragg_small);
+				}
+				else if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
+	    		else set_state(SLP_DESPAWN_DIE);
+			}
+			
 			other.dspec_skewered = false;
 			other.dspec_ignore = true;
+			other.dspec_player_id = player_id;
     		player_id.hunger_meter = clamp(player_id.hunger_meter + other.dspec_hunger_value, 0, 100);
     		with (player_id) user_event(0);
     		
@@ -217,11 +238,6 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 			// Apply hitpause to article
 			other.hitstop = floor(player_id.hitstop);
 			
-			// Queue death
-			with other {
-				if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
-	    		else set_state(SLP_DESPAWN_DIE);
-			}
 		}
 		
 	}
@@ -230,36 +246,54 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 if (hitstop > 0 || dspec_skewered) {
 	hsp = 0;
 	vsp = 0;
-	if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) sprite_index = sprite_get("slp_homing_death");
-    else sprite_index = sprite_get("slp_destroyed");
-    image_index = 0;
+	if (dspec_skewered) {
+		sprite_index = sprite_get("slp_rock");
+    	image_index = 0;
+	}
     
     if (dspec_player_id.state != PS_ATTACK_GROUND && dspec_player_id.state != PS_ATTACK_AIR) {
     	dspec_skewered = false;
     }
     
-    else if (dspec_skewered && hitstop <= 0) {
+    else if (dspec_skewered) {
     	spr_dir = dspec_player_id.spr_dir * -1;
     	// template grab code from attack_update
     	with (dspec_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
     	if (is_grabbing) {
-			var relative_x = floor(x - dspec_player_id.x);
-			var relative_y = floor(y - dspec_player_id.y);
 			with (dspec_player_id) {
 				var pull_to_x = get_window_value(attack, window, AG_WINDOW_GRAB_POS_X) * spr_dir;
-				var pull_to_y = get_window_value(attack, window, AG_WINDOW_GRAB_POS_Y) - 20; // sleeper offset differs from player offsets
+				var pull_to_y = get_window_value(attack, window, AG_WINDOW_GRAB_POS_Y) - 30; // sleeper offset differs from player offsets
 				var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
+				
+				if (window_timer == 1 && !hitpause) {
+					other.relative_x = floor(other.x - x);
+					other.relative_y = floor(other.y - y);
+				}
+				
+				if (get_window_value(attack, window, AG_WINDOW_GRAB_HITPAUSE_PULL)) {
+					if (hitpause) {
+						var current = floor(hitstop_full - hitstop);
+						var duration = floor(hitstop_full)
+						other.x = x + ease_circOut(other.relative_x, pull_to_x, current, duration);
+						other.y = y + ease_circOut(other.relative_y, pull_to_y, current, duration);
+					}
+					else { // upon leaving hitpause, just lock their position
+						other.x = x + pull_to_x;
+						other.y = y + pull_to_y;
+					}
+				}
+				
+				else { // using an easing function, smoothly pull the opponent into the grab over the duration of this window.
+					other.x = x + ease_circOut( other.relative_x, pull_to_x, window_timer, window_length);
+					other.y = y + ease_circOut( other.relative_y, pull_to_y, window_timer, window_length);
+				}
+				
 			}
-			x = dspec_player_id.x + ease_circOut( relative_x, pull_to_x, dspec_player_id.window_timer, window_length);
-			y = dspec_player_id.y + ease_circOut( relative_y, pull_to_y, dspec_player_id.window_timer, window_length);
     	}
     }
     
 	if (dspec_skewered || hitstop > 0) exit;
-	else {
-		if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
-    	else set_state(SLP_DESPAWN_DIE);
-	}
+	else set_state(SLP_DESPAWN_PETRIFIED);
 	
 }
 

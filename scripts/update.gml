@@ -29,6 +29,7 @@ var break_sfx = sound_get("hero_quake_impact");
 
 with oPlayer {
     if (pultroce_status_owner == other.player) {
+    	state_timer = 0;
         if (!hitpause) pultroce_status_timer++;
         can_tech = false;
         can_bounce = false;
@@ -45,7 +46,7 @@ with oPlayer {
         	
 	        var hit_wall = false;
 	        if (hsp == 0) hit_wall = (place_meeting(x+1, y, asset_get("par_block")) || place_meeting(x-1, y, asset_get("par_block")));
-	        if (pultroce_status_timer >= 30 || !free || hit_wall) array_push(status_proc_list, self);
+	        if (pultroce_status_timer >= 30 || !free || hit_wall || state_cat != SC_HITSTUN) array_push(status_proc_list, self);
         }
     }
 }

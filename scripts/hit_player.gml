@@ -35,7 +35,7 @@ switch(attack) {
 		if (hbox_num <= 2 && is_melee) {
 			hit_player_obj.should_make_shockwave = false;
 		}
-		else if (hbox_num == 3 && is_melee) {
+		else if (hbox_num == 3 && has_rune("A") && is_melee) {
 		    hit_player_obj.pultroce_status_owner = player;
 		    hit_player_obj.pultroce_status_timer = 0;
 		}
@@ -96,6 +96,7 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_GRAB) == t
 			grabbed_player_relative_x = grabbed_player_obj.x - x;
 			grabbed_player_relative_y = grabbed_player_obj.y - y;
 		}
+		
 	}
 }
 
@@ -173,6 +174,7 @@ switch(my_hitboxID.attack) {
         break;
     case AT_DSPECIAL:
         if (hbox_num <= 2 && is_melee) sound_play(sound_get("cut2"));
+        if (hbox_num == 3 && grabbed_player_obj != noone && !has_rune("A")) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
         break;
     case AT_USPECIAL:
         //a
@@ -180,6 +182,8 @@ switch(my_hitboxID.attack) {
     
 
 }
+
+
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)
 var dlen; //dust_length value
@@ -211,3 +215,11 @@ newdust.dust_color = dust_color; //set the dust color
 if dir != 0 newdust.spr_dir = dir; //set the spr_dir
 newdust.draw_angle = dfa;
 return newdust;
+
+#define get_effect_offset_x
+
+return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
+
+#define get_effect_offset_y
+
+return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;

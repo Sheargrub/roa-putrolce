@@ -35,13 +35,17 @@ AG_WINDOW_GRAB_OPPONENT         = 74;   // if the window is a grab window (1),
                                         // hold opponent, otherwise let them go
 AG_WINDOW_GRAB_POS_X            = 75;   // x position to hold grabbed opponent
 AG_WINDOW_GRAB_POS_Y            = 76;   // y position to hold grabbed opponent
+AG_WINDOW_GRAB_HITPAUSE_PULL    = 77;   // If true, the opponent will be pulled
+                                        // over the duration of hitpause instead
+                                        // of during the attack window.
 
-AG_WINDOW_CAN_WALLJUMP          = 77;   // if the player can walljump out of the
+AG_WINDOW_CAN_WALLJUMP          = 79;   // if the player can walljump out of the
                                         // window
 
 AG_WINDOW_HAS_STANCE_LENGTHS    = 80;
 AG_WINDOW_STANCE_LENGTHS        = 81;
 AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS
+
 
 
 //                               HITBOX INDEXES                               //
@@ -115,10 +119,6 @@ grabbed_player_relative_x       = 0;    // x position in relation to the player,
                                         // for the grabbed player to be moved to
 grabbed_player_relative_y       = 0;    // y position in relation to the player, 
                                         // for the grabbed player to be moved to
-
-// article variables
-article_id                      = noone;// id that refers to a spawned article
-                                        // change name to whatever you want
 
 // composite vfx array
 comp_vfx_array                  = [[{cur_timer: 1, max_timer: 0}]];

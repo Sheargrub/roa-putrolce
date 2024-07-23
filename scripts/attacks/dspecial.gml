@@ -44,8 +44,9 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, sound_get("sword2")); // handled in code to account for cancel into dspec-2
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 set_window_value(atk, window_num                        , AG_WINDOW_GRAB_OPPONENT, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, 40);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, 80);
 set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_Y, -4);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_HITPAUSE_PULL, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_VSPEED_TYPE, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 0);
@@ -107,7 +108,7 @@ set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 3);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 60);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 16);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 20);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.5);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
@@ -133,7 +134,7 @@ set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 3);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 60);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 20);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.5);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);

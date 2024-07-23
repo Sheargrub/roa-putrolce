@@ -1,8 +1,8 @@
 
-if ("other_player_id" not in self || !instance_exists(other_player_id)) exit;
+if ("other_player_id" not in self || !instance_exists(other_player_id) || "is_putrolce" not in other_player_id) exit;
 
 // Petrified visual (temp)
-if (pultroce_status_owner = other_player_id.player) {
+if ((other_player_id.attack == AT_DSPECIAL && other_player_id.grabbed_player_obj == self) || pultroce_status_owner = other_player_id.player) {
     
     // Draw pattern (currently using a temp flat color)
     with other_player_id {
@@ -27,7 +27,7 @@ if (pultroce_status_owner = other_player_id.player) {
     static_colorB = other_player_id.outline_catch_colorB
     // Draw the sprite. This will only display the outlines, assuming the arrays in init are set up correctly.
     shader_start()
-    draw_sprite_ext(sprite_index, image_index, x+draw_x, y+draw_y, 1+small_sprites*spr_dir, 1+small_sprites, spr_angle, -1, 1);
+    draw_sprite_ext(sprite_index, image_index, x+draw_x, y+draw_y, (1+small_sprites)*spr_dir, 1+small_sprites, spr_angle, -1, 1);
     shader_end()
     // Swap em back so we don't mess up the opponent's article colors lol
     static_colorO = tmp_colorO
