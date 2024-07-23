@@ -531,6 +531,25 @@ switch (state) {
             vfx.spr_dir = 1;
         }
         
+        // Player contact effect
+        var in_dspec = (player_id.attack == AT_DSPECIAL && (player_id.state == PS_ATTACK_AIR || player_id.state == PS_ATTACK_GROUND));
+        if (!in_dspec && place_meeting(x, y, player_id)) {
+        	if (player_id.stance == player_id.ST_FAMISHED) {
+        		// There'll be a special attack for this eventually, but prat gets the effect across for now.
+        		with (player_id) set_state(PS_PRATFALL);
+        	} else {
+        		spr_dir = player_id.spr_dir
+        		if (player_id.hsp != 0) spr_dir = (player_id.hsp > 0) ? 1 : -1;
+        		move_angle = (spr_dir == 1) ? 0 : 180;
+        		set_state(SLP_PETRIFIED_LAUNCHED);
+        		auto_gen_hitbox();
+        		spawn_hit_fx(x, y, player_id.fx_kragg_small);
+        		sound_play(sound_get("weakshadowlaunch"));
+        		block_active_state = true;
+        		block_idle_state = true;
+        	}
+        }
+        
         break;
     
     // ------------------
@@ -681,7 +700,7 @@ venus_late_reflect_frame = venus_reflected;
     if (block_active_state && 10 <= state && state <= 19) state = SLP_INACTIVE_DEFAULT;
     
     // state inits
-    switch _state {
+    switch state {
         
         case SLP_PETRIFIED_DEFAULT:
         case SLP_PETRIFIED_PERMANENT:
@@ -694,6 +713,8 @@ venus_late_reflect_frame = venus_reflected;
             move_speed = 15;
             old_hsp = lengthdir_x(move_speed, move_angle);
             old_vsp = lengthdir_y(move_speed, move_angle);
+            hsp = old_hsp;
+            vsp = old_vsp;
             venus_article_reflect = 1;
             hit_player_id = noone;
             break;
@@ -719,6 +740,8 @@ venus_late_reflect_frame = venus_reflected;
             move_speed = 15;
             old_hsp = lengthdir_x(move_speed, move_angle);
             old_vsp = lengthdir_y(move_speed, move_angle);
+            hsp = old_hsp;
+            vsp = old_vsp;
             venus_article_reflect = 1;
             hit_player_id = noone;
             break;
@@ -739,6 +762,7 @@ venus_late_reflect_frame = venus_reflected;
             break;
         
         case SLP_INACTIVE_DEFAULT:
+        	print_debug(get_gameplay_time())
             if (block_idle_state) set_state(SLP_DESPAWN_FADE);
             else {
                 sound_play(asset_get("sfx_forsburn_consume_fail"));
