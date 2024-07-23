@@ -532,20 +532,30 @@ switch (state) {
         }
         
         // Player contact effect
-        var in_dspec = (player_id.attack == AT_DSPECIAL && (player_id.state == PS_ATTACK_AIR || player_id.state == PS_ATTACK_GROUND));
-        if (!in_dspec && place_meeting(x, y, player_id)) {
-        	if (player_id.stance == player_id.ST_FAMISHED) {
+        var min_distance = 200
+        var fspec_pusher = noone;
+        with oPlayer if ("is_putrolce" in self) {
+        	var in_fspec = (attack == AT_FSPECIAL && (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND));
+        	if (in_fspec && point_distance(x, y, other.x, other.y) < min_distance && place_meeting(x, y, other)) {
+        		min_distance = point_distance(x, y, other.x, other.y);
+        		fspec_pusher = self;
+        	}
+        }
+        
+        if (fspec_pusher != noone) {
+        	if (fspec_pusher.stance == player_id.ST_FAMISHED) {
         		// There'll be a special attack for this eventually, but prat gets the effect across for now.
-        		with (player_id) if (!invincible && !attack_invince && !initial_invince && !perfect_dodging) {
+        		with (fspec_pusher) if (!invincible && !attack_invince && !initial_invince && !perfect_dodging) {
         			attack_end();
         			destroy_hitboxes();
         			state = PS_PRATFALL;
         			state_timer = 0;
+        			hsp = clamp(hsp, -air_max_speed, air_max_speed);
         		}
-        		set_state(SLP_DESPAWN_FADE);
         	} else {
-        		spr_dir = player_id.spr_dir
-        		if (player_id.hsp != 0) spr_dir = (player_id.hsp > 0) ? 1 : -1;
+        		reflected_player_id = fspec_pusher;
+        		spr_dir = fspec_pusher.spr_dir
+        		if (fspec_pusher.hsp != 0) spr_dir = (fspec_pusher.hsp > 0) ? 1 : -1;
         		move_angle = (spr_dir == 1) ? 0 : 180;
         		set_state(SLP_PETRIFIED_LAUNCHED);
         		auto_gen_hitbox();
@@ -864,10 +874,11 @@ venus_late_reflect_frame = venus_reflected;
             hitbox.can_hit[@ hitbox.faux_reflected_owner.player] = true;
             hitbox.can_hit_self = false;
             hitbox.faux_reflected_owner = noone;
+            for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
         }
     }
     else {
-        if (hitbox.faux_reflected_owner != noone) for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
+        if (hitbox.faux_reflected_owner != reflected_player_id) for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
     	hitbox.can_hit_self = true;
     	hitbox.can_hit[@ reflected_player_id.player] = false;
         hitbox.faux_reflected_owner = reflected_player_id;
