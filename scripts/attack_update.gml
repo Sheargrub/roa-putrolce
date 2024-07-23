@@ -55,11 +55,11 @@ switch(attack) {
         break;
         
     case AT_NAIR:
-    if (window == 1){
+    	if (window == 1){
     		if (window_timer == get_window_value(AT_NAIR, 1, AG_WINDOW_LENGTH)){
         	sound_play(sound_get("nair_yell"), false, noone, 0.6, 0.9 + (random_func(0, 20, true)/100))}
-    		}
-        break;
+    	}
+    break;
     case AT_FAIR:
     	//a
         break;
@@ -74,6 +74,7 @@ switch(attack) {
         break;
     
     case AT_NSPECIAL:
+    	move_cooldown[AT_NSPECIAL] = 20;
         if (window == 2 && window_timer == 1) {
         	instance_create(x+(30*spr_dir), y-30, "obj_article1");
         }
@@ -98,6 +99,7 @@ switch(attack) {
 	        if (dspec_rethrow) {
 	        	attack_end();
     			set_attack(AT_DSPECIAL_2);
+    			hurtboxID.sprite_index = get_attack_value(attack, AG_HURTBOX_SPRITE);
 	        }
 	        if (window == 5) {
 	        	if (window_timer == window_length && !dspec_rethrow) hsp = 20*spr_dir;

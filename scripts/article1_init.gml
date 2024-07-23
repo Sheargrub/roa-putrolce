@@ -76,7 +76,7 @@ petrified_hitbox = create_article_hitbox(AT_NSPECIAL, 1, x, y)
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
     var article_hitbox = create_hitbox(atk, hitbox_num, _x, _y);
     article_hitbox.sleeper_owner = self;
-    article_hitbox.faux_reflected_owner = noone;
+    article_hitbox.putrolce_reflected_owner = noone;
     article_hitbox.venus_article_proj_ignore = true;
     article_hitbox.unbashable = true;
     return article_hitbox;

@@ -78,7 +78,7 @@ if (get_gameplay_time() % 177 == 174) {
 	}
 }
 // NSpec cooldown management
-if (nspec_sleepers_active >= 2) move_cooldown[AT_NSPECIAL] = 2;
+if (nspec_sleepers_active >= 2 && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
 
 
 #define spawn_base_dust // written by supersonic

@@ -836,7 +836,7 @@ venus_late_reflect_frame = venus_reflected;
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
     var article_hitbox = create_hitbox(atk, hitbox_num, floor(_x), floor(_y));
     article_hitbox.sleeper_owner = self;
-    article_hitbox.faux_reflected_owner = noone;
+    article_hitbox.putrolce_reflected_owner = noone;
     article_hitbox.venus_article_proj_ignore = true;
     article_hitbox.unbashable = true;
     apply_hitbox_reflection(article_hitbox);
@@ -870,18 +870,20 @@ venus_late_reflect_frame = venus_reflected;
 #define apply_hitbox_reflection(hitbox)
     if (!instance_exists(hitbox)) return noone;
     else if (reflected_player_id == noone) {
-        if (hitbox.faux_reflected_owner != noone) {
-            hitbox.can_hit[@ hitbox.faux_reflected_owner.player] = true;
-            hitbox.can_hit_self = false;
-            hitbox.faux_reflected_owner = noone;
+        if (hitbox.putrolce_reflected_owner != noone) {
+            hitbox.last_player_id = player_id;
+            hitbox.player = player;
+            hitbox.putrolce_reflected_owner = noone;
+            hitbox.reflected = true;
             for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
         }
     }
     else {
-        if (hitbox.faux_reflected_owner != reflected_player_id) for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
-    	hitbox.can_hit_self = true;
-    	hitbox.can_hit[@ reflected_player_id.player] = false;
-        hitbox.faux_reflected_owner = reflected_player_id;
+        if (hitbox.putrolce_reflected_owner != reflected_player_id) for (var i = 0; i < 20; i++) hitbox.can_hit[@ i] = true;
+        hitbox.last_player_id = reflected_player_id;
+        hitbox.player = reflected_player_id.player;
+        hitbox.putrolce_reflected_owner = reflected_player_id;
+        hitbox.reflected = true;
     }
     return hitbox;
 
