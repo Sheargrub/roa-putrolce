@@ -7,7 +7,6 @@ set_attack_value(atk, AG_SPRITE                         , sprite_get("utilt"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("utilt_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 0);
-set_attack_value(atk, AG_HUNGER_COST                    , 6);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 7);
@@ -26,6 +25,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -6);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);

@@ -139,6 +139,14 @@ switch(attack) {
     
 }
 
+// Hunger gains
+var hunger_gain = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
+if (!hitpause && hunger_gain != 0 && window_timer == get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)+1) {
+	hunger_meter += hunger_gain;
+	hunger_meter = clamp(hunger_meter, 0, 100);
+	user_event(0);
+}
+
 // command grab code
 if (instance_exists(grabbed_player_obj) && get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT)) {
 	

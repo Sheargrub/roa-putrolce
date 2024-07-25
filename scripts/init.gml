@@ -12,7 +12,7 @@ lightweight_debug               = true;
 make it look cleaner
 */
 
-AG_HUNGER_COST = 30;
+// AG_HUNGER_COST = 30;
 AG_LAST_STANCE = 31; // used on-the-fly, should not be set in attack scripts
 AG_HAS_STANCE_SPRITES = 32;
 AG_STANCE_SPRITES = 33;
@@ -45,6 +45,9 @@ AG_WINDOW_CAN_WALLJUMP          = 79;   // if the player can walljump out of the
 AG_WINDOW_HAS_STANCE_LENGTHS    = 80;
 AG_WINDOW_STANCE_LENGTHS        = 81;
 AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS
+
+AG_WINDOW_HUNGER_GAIN           = 83;
+AG_WINDOW_HUNGER_GAIN_FRAME     = 84;
 
 
 
