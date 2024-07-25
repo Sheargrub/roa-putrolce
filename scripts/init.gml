@@ -117,6 +117,10 @@ dspec_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
 
+attack_sfx_instance = noone;
+sfx_attack = 0;
+do_sfx_cancel = false;
+
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables
 grabbed_player_obj              = noone;// the player that got grabbed

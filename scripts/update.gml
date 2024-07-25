@@ -80,6 +80,13 @@ if (get_gameplay_time() % 177 == 174) {
 // NSpec cooldown management
 if (nspec_sleepers_active >= 2 && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
 
+// SFX management
+if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state != PS_ATTACK_GROUND))) {
+	sound_stop(attack_sfx_instance);
+	attack_sfx_instance = noone;
+	sfx_attack = 0;
+}
+do_sfx_cancel = false;
 
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)
