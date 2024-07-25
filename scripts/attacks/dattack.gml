@@ -4,7 +4,7 @@ var window_length   = 0;
 
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("dattack"));
-set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("dattack_hurt"));
+set_attack_value(atk, AG_HURTBOX_SPRITE                 , hurtbox_spr); //sprite_get("dattack_hurt")
 set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 
@@ -54,19 +54,17 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -32);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 42);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -34);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 64);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 64);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 59);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 38);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 60);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 40);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 6);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.3);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.3);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 10);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
