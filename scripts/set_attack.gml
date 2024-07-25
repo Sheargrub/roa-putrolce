@@ -23,6 +23,16 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
     
     set_attack_value(attack, AG_LAST_STANCE, stance);
     
+    // Sprite updates
+    if (get_attack_value(attack, AG_HAS_STANCE_SPRITES)) {
+    	var spr_arr = get_attack_value(attack, AG_STANCE_SPRITES);
+    	set_attack_value(attack, AG_SPRITE, spr_arr[stance-1]);
+    }
+    if (get_attack_value(attack, AG_HAS_STANCE_HURT_SPRITES)) {
+    	var spr_arr = get_attack_value(attack, AG_STANCE_HURT_SPRITES);
+    	set_attack_value(attack, AG_HURTBOX_SPRITE, spr_arr[stance-1]);
+    }
+    
     // Frame data updates
     var num_windows = get_attack_value(attack, AG_NUM_WINDOWS); // TODO: should this be changed to a dedicated index?
     for (var i = 1; i <= num_windows; i++) {
