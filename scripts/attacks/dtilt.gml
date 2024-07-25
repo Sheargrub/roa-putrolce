@@ -23,6 +23,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -6);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -30,9 +31,11 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 24);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 6);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+//set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true); // handled manually
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_frog_dspecial_swallow"));
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, 18);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 16);
 window_num++;
 
 //                        --attack hitboxes--                                 //

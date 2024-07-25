@@ -45,7 +45,14 @@ switch(attack) {
         //a
         break;
     case AT_DTILT:
-        //a
+    	if (window == 3) {
+    		var whiff_lag_mult = (has_hit ? 1 : 1.5)
+    		if (window_timer == 1) sound_play_cancellable(get_window_value(attack, window, AG_WINDOW_SFX));
+        	if (window_timer >= 10*whiff_lag_mult) iasa_script();
+        	do_sfx_cancel = (window_timer-1 < floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult));
+    	}
+    	
+    	
         break;
     case AT_UTILT:
         //a
@@ -99,7 +106,7 @@ switch(attack) {
     	else if (4 <= window && window <= 6) {
     		can_move = false;
     		if (window == 4 && window_timer == window_length) {
-    			dspec_sfx_instance = sound_play(get_window_value(attack, window, AG_WINDOW_SFX));
+    			sound_play_cancellable(get_window_value(attack, window, AG_WINDOW_SFX));
     		}
     		if (window < 6 && (special_pressed || is_special_pressed(DIR_ANY)) && instance_exists(dspec_sleeper_id)) {
     			dspec_rethrow = true;
@@ -108,6 +115,7 @@ switch(attack) {
 	        	attack_end();
     			set_attack(AT_DSPECIAL_2);
     			hurtboxID.sprite_index = get_attack_value(attack, AG_HURTBOX_SPRITE);
+    			do_sfx_cancel = true;
 	        }
 	        if (window == 5) {
 	        	if (window_timer == window_length && !dspec_rethrow) hsp = 20*spr_dir;
@@ -131,7 +139,6 @@ switch(attack) {
         	
         	grabbed_player_obj = noone;
         	
-        	if (dspec_sfx_instance != noone) sound_stop(dspec_sfx_instance);
         	spawn_hit_fx(dspec_sleeper_id.x + 12*spr_dir, dspec_sleeper_id.y, fx_kragg_small);
         }
         break;
@@ -149,7 +156,8 @@ switch(attack) {
 
 // Hunger gains
 var hunger_gain = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
-if (!hitpause && hunger_gain != 0 && window_timer == get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)+1) {
+var whiff_lag_mult = (!has_hit && get_window_value(attack, window, AG_WINDOW_HAS_WHIFFLAG)) ? 1.5 : 1;
+if (!hitpause && hunger_gain != 0 && window_timer-1 == floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult)) {
 	hunger_meter += hunger_gain;
 	hunger_meter = clamp(hunger_meter, 0, 100);
 	user_event(0);
@@ -260,16 +268,20 @@ switch(attack) {
 }
 
 // Defines
-#define sound_window_play //basically a shortcut to avoid repeating if statements over and over
-/// sound_window_play(_window, _timer, _sound, _looping = false, _panning = noone, _volume = 1, _pitch = 1)
-var _window = argument[0], _timer = argument[1], _sound = argument[2];
-var _looping = argument_count > 3 ? argument[3] : false;
-var _panning = argument_count > 4 ? argument[4] : noone;
-var _volume = argument_count > 5 ? argument[5] : 1;
-var _pitch = argument_count > 6 ? argument[6] : 1;
-if window == _window && window_timer == _timer {
-    sound_play(_sound,_looping,_panning,_volume,_pitch)
-}
+
+// Plays a sound that will be cancelled given the following conditions:
+//	- do_sfx_cancel is set to true.
+//	- Putrolce is in a different attack or state.
+// SFX instances created by this will be stored at attack_sfx_instance, so only one at a time is supported.
+#define sound_play_cancellable 
+var _sound = argument[0];
+var _looping = argument_count > 1 ? argument[1] : false;
+var _panning = argument_count > 2 ? argument[2] : noone;
+var _volume = argument_count > 3 ? argument[3] : 1;
+var _pitch = argument_count > 4 ? argument[4] : 1;
+sound_stop(attack_sfx_instance);
+attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
+sfx_attack = attack;
 
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)
