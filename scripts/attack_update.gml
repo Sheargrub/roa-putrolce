@@ -70,7 +70,15 @@ switch(attack) {
         //a
         break;
     case AT_UAIR:
-        //a
+        if (window == 1 && window_timer == 1) {
+        	num_loops = 0;
+        	reset_window_value(attack, 3, AG_WINDOW_GOTO);
+        }
+        if (window == 3 && window_timer == 1) {
+        	attack_end();
+        	num_loops++;
+        	if (num_loops >= 2) set_window_value(attack, 3, AG_WINDOW_GOTO, 0);
+        }
         break;
     
     case AT_NSPECIAL:
