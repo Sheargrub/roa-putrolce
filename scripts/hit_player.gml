@@ -31,6 +31,10 @@ if (my_hitboxID.orig_player == player && !is_kragg_rocks) {
 // Functional per-attack effect (sfx/vfx/gamefeel should go instead under hit gamefeel)
 switch(attack) {
 	
+	case AT_UAIR:
+		if (old_vsp > 0) old_vsp = 0;
+		break;
+	
 	case AT_DSPECIAL:
 		if (hbox_num <= 2 && is_melee) {
 			hit_player_obj.should_make_shockwave = false;
@@ -129,7 +133,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_DTILT:
-        //a
+        sound_play(sound_get("slash3"), false, noone, 0.8, 0.8);
         break;
     case AT_UTILT:
         //a

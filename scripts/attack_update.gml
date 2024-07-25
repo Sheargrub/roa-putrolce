@@ -50,6 +50,7 @@ switch(attack) {
     		if (window_timer == 1) sound_play_cancellable(get_window_value(attack, window, AG_WINDOW_SFX));
         	if (window_timer >= 10*whiff_lag_mult) iasa_script();
         	do_sfx_cancel = (window_timer-1 < floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult));
+        	can_crouch = false;
     	}
     	
     	
@@ -77,15 +78,6 @@ switch(attack) {
         //a
         break;
     case AT_UAIR:
-        if (window == 1 && window_timer == 1) {
-        	num_loops = 0;
-        	reset_window_value(attack, 3, AG_WINDOW_GOTO);
-        }
-        if (window == 3 && window_timer == 1) {
-        	attack_end();
-        	num_loops++;
-        	if (num_loops >= 2) set_window_value(attack, 3, AG_WINDOW_GOTO, 0);
-        }
         break;
     
     case AT_NSPECIAL:
