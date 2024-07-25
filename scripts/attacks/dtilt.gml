@@ -12,24 +12,26 @@ set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_weak2"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_kragg_roll_end"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 24);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 6);
+set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_frog_dspecial_swallow"));
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 window_num++;
 

@@ -39,15 +39,15 @@ window_num++;
 
 // Finisher
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 window_num++;
 
 // Endlag (should include anim from window 3)
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 10);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 4);

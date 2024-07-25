@@ -5,7 +5,7 @@ var window_length   = 0;
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("ustrong"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("ustrong_hurt"));
-set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
+set_attack_value(atk, AG_NUM_WINDOWS                    , 6);
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 1);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 
@@ -13,35 +13,48 @@ set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 10);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_CHARGE_LOOP, true);
-set_window_value(atk, window_num                        , AG_WINDOW_CHARGE_FRAME_START, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_CHARGE_FRAMES, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_CHARGE_LOOP_SPEED, 0.25);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1); 
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy2"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_travel_start"));
+window_num++;
+
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
+    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_bigplant_eat"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 2);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 12);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 6);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
+window_num++;
+
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
+    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 8);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 window_num++;
 
