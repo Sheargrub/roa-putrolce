@@ -40,4 +40,6 @@ if (update_stance) {
 	
 	if (should_debug) print_debug("Stats refreshed! (" + string(get_gameplay_time()) + ")");
 	
+	init_shader();
+	
 }

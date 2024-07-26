@@ -6,3 +6,5 @@ if (get_player_color(player) == 0) {
     set_article_color_slot(6, 57, 33, 47);
     set_article_color_slot(7, 236, 0, 79);
 }
+
+if (object_index == oPlayer || object_index == oTestPlayer) outline_color = stance_outlines[stance-1];

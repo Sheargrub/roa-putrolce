@@ -121,6 +121,26 @@ attack_sfx_instance = noone;
 sfx_attack = 0;
 do_sfx_cancel = false;
 
+
+var default_outline = [0, 0, 0];
+switch get_player_color(player) {
+    
+    case 0:
+        var famished_outline = [30, 2, 50];
+        var voracious_outline = [57, 4, 3];
+        var overstuffed_outline = [0, 16, 67];
+        break;
+    
+    default:
+        var famished_outline = [30, 2, 50];
+        var voracious_outline = [57, 4, 3];
+        var overstuffed_outline = [0, 16, 67];
+        break;
+        
+}
+stance_outlines = [famished_outline, voracious_outline, default_outline, overstuffed_outline];
+
+
 //                               PRE-SET STUFF                                //
 // attack/hitbox index variables
 grabbed_player_obj              = noone;// the player that got grabbed
