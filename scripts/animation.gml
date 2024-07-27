@@ -2,8 +2,14 @@
 switch(state) {
     // grounded movement
     case PS_IDLE:
-        sprite_index = sprite_get("idle"+stance_suffixes[stance-1]);
-        image_index = state_timer*idle_anim_speed;
+        if (idle_flourish_timer > 0) {
+            sprite_index = sprite_get("idle_flourish"+stance_suffixes[stance-1]);
+            image_index = (idle_flourish_timer_max - idle_flourish_timer) * idle_flourish_speed_stances[stance-1];
+        }
+        else {
+            sprite_index = sprite_get("idle"+stance_suffixes[stance-1]);
+            image_index = state_timer*idle_anim_speed;
+        }
         break;
     case PS_CROUCH:
         

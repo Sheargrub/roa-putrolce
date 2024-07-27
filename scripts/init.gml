@@ -121,6 +121,8 @@ attack_sfx_instance = noone;
 sfx_attack = 0;
 do_sfx_cancel = false;
 
+idle_flourish_timer = 0;
+idle_flourish_speed_stances = [0.2, 0.2, 0.2, 0.2];
 
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {
@@ -209,6 +211,7 @@ hitstun_hurtbox_spr             = -1;
 //                  --animation speeds + %-arrow offset--                     //
 char_height                     = 52;
 idle_anim_speed                 = 0.1;
+idle_anim_speed_stances         = [0.08, 0.12, 0.1, 0.08];
 crouch_anim_speed               = 0.1;
 walk_anim_speed                 = 0.125;
 dash_anim_speed                 = 0.2;
