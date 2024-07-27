@@ -99,6 +99,7 @@ through enemies, otherwise it might just despawn on hit
 is_putrolce                     = true;
 
 hunger_meter                    = 50; // 0 to 100, used to update stance
+was_meter_increased             = false; // used to determine hud meter bump direction
 stance                          = 3; // 1-4, see below
 stance_names                    = ["Famished", "Voracious", "Normal", "Overstuffed"] // For debug and training mode elements
 stance_suffixes                 = ["_famished", "_voracious", "", "_overstuffed"] // for movement anim handling
@@ -123,6 +124,13 @@ do_sfx_cancel = false;
 
 idle_flourish_timer = 0;
 idle_flourish_speed_stances = [0.2, 0.2, 0.2, 0.2];
+
+vis_meter_falls = array_create(9);
+vis_meter_rises = array_create(9);
+vis_meter_bump_duration = 10;
+vis_meter_pass_time = 8;
+stance_sfx_instance = noone;
+sfx_stances = [sound_get("nuzl_cough"), asset_get("mfx_mm_coin"), asset_get("mfx_mm_coin_all"), sound_get("parachute")];
 
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {

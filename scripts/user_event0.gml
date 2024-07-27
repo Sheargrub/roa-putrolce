@@ -1,6 +1,9 @@
 // Stance updates
 // Should be called whenever hunger_meter is altered.
 
+if (was_meter_increased) vis_meter_rises[0] = vis_meter_bump_duration;
+else vis_meter_falls[clamp(ceil(hunger_meter/10)-1, 0, 8)] = vis_meter_bump_duration;
+
 var update_stance = false;
 switch stance {
 	case 1: // Famished
@@ -43,5 +46,8 @@ if (update_stance) {
 	
 	outline_color = stance_outlines[stance-1];
 	init_shader();
+	
+	sound_stop(stance_sfx_instance);
+	stance_sfx_instance = sound_play(sfx_stances[i]);
 	
 }

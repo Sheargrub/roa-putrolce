@@ -1,11 +1,31 @@
 
-if ("should_debug" not in self) exit;
+if ("stance" not in self) exit;
 
-var stance_
+var st = stance-1;
 
-draw_debug_text(temp_x - 70, temp_y - 15, "Hunger: " + string(hunger_meter));
-draw_debug_text(temp_x + 70, temp_y - 15, "Stance: " + stance_names[stance-1] + " (" + string(stance) + ")");
+draw_sprite_ext(sprite_get("hud"), 0, temp_x-8, temp_y-38, 2, 2, 0, c_white, 1);
+draw_sprite_ext(sprite_get("hud_playerarrows"), 0, temp_x-8, temp_y-38, 2, 2, 0, get_player_hud_color(player), 1);
+draw_sprite_ext(sprite_get("hud_stomach"), st, temp_x-10, temp_y-32, 2, 2, 0, c_white, 1);
 
+var pips = ceil(hunger_meter/10)-1;
+var has_pips = (pips > 0);
+if (!has_pips) pips = 9;
+
+var _x = temp_x + 30;
+var _y = temp_y - 33; // 28+5
+var x_offset = 0;
+var y_offset = 5;
+
+for (var i = 0; i < pips; i++) {
+    if (has_pips) y_offset = min(abs(5-vis_meter_falls[i]), abs(5-vis_meter_rises[i]));
+    draw_sprite_ext(sprite_get("hud_pips"), st, _x+x_offset, _y+y_offset, 2, 2, 0, c_white, 1);
+    x_offset += 18;
+}
+
+//draw_debug_text(temp_x - 70, temp_y - 15, "Hunger: " + string(hunger_meter));
+//draw_debug_text(temp_x + 70, temp_y - 15, "Stance: " + stance_names[stance-1] + " (" + string(stance) + ")");
+
+/*
 if (should_debug) {
     if (lightweight_debug) {
         draw_debug_text(temp_x - 70, temp_y - 45, "Input UP/DOWN+TAUNT to edit hunger");
@@ -24,3 +44,5 @@ if (should_debug) {
         draw_debug_text(temp_x + 70, temp_y - 30, "Image Index: "   +string(image_index));
     }
 }
+*/
+

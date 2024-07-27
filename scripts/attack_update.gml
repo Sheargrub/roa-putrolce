@@ -152,6 +152,7 @@ var whiff_lag_mult = (!has_hit && get_window_value(attack, window, AG_WINDOW_HAS
 if (!hitpause && hunger_gain != 0 && window_timer-1 == floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult)) {
 	hunger_meter += hunger_gain;
 	hunger_meter = clamp(hunger_meter, 0, 100);
+	was_meter_increased = (hunger_gain > 0);
 	user_event(0);
 }
 

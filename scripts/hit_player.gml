@@ -21,9 +21,13 @@ if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.orig_player == player) {
 
 // Apply hunger gains as appropriate
 if (my_hitboxID.orig_player == player && !is_kragg_rocks) {
-	hunger_meter += get_hitbox_value(hbox_atk, hbox_num, HG_HUNGER_GAIN);
-	hunger_meter = clamp(hunger_meter, 0, 100);
-	user_event(0);
+	var hunger_gain = get_hitbox_value(hbox_atk, hbox_num, HG_HUNGER_GAIN);
+	if (hunger_gain != 0) {
+		hunger_meter += hunger_gain;
+		hunger_meter = clamp(hunger_meter, 0, 100);
+		was_meter_increased = (hunger_gain > 0);
+		user_event(0);
+	}
 }
 
 

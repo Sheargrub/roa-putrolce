@@ -38,6 +38,21 @@ if (state == PS_IDLE) {
 }
 else idle_flourish_timer = 0;
 
+// Meter bump anim timer management
+var i;
+for (i = 0; i <= 8; i++) {
+	if (vis_meter_falls[i] > 0) vis_meter_falls[i]--;
+	if (vis_meter_falls[i] == vis_meter_pass_time && i != 0) {
+		vis_meter_falls[i-1] = vis_meter_bump_duration;
+	}
+}
+for (i = 8; i >= 0; i--) {
+	if (vis_meter_rises[i] > 0) vis_meter_rises[i]--;
+	if (vis_meter_rises[i] == vis_meter_pass_time && i != 8) {
+		vis_meter_rises[i+1] = vis_meter_bump_duration;
+	}
+}
+
 // status management
 var status_proc_list = [];
 var break_sfx = sound_get("hero_quake_impact");
