@@ -348,6 +348,10 @@ switch (state) {
         // PETRIFIED_PERMANENT needs to be able to hit plats.
         force_plat_checks = (state == SLP_PETRIFIED_PERMANENT);
         
+        if (!is_playtest && y > get_stage_data(SD_BOTTOM_BLASTZONE_Y)) {
+        	set_state(SLP_DESPAWN_PETRIFIED);
+        }
+        
         break;
     
     case SLP_PETRIFIED_LAUNCHED:
@@ -429,6 +433,11 @@ switch (state) {
             set_state(SLP_ACTIVE_DEFAULT);
             hsp = old_hsp;
             state_timer = old_state_timer;
+        }
+        
+        else if (state_timer > 180) { // anti-softlock. This should never occur.
+        	set_state(SLP_INACTIVE_DEFAULT);
+        	print_debug("State SLP_ACTIVE_RECENTER: possible softlock occurred. Defaulting to inactive.")
         }
         
         else {

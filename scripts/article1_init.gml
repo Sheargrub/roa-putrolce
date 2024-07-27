@@ -2,6 +2,7 @@
 
 is_putrolce_sleeper = true;
 player_id.nspec_sleepers_active++;
+is_playtest = (player_id.object_index == oTestPlayer);
 
 // sprite and mask indexes; + default article variables
 sprite_index = sprite_get("slp_rock");
