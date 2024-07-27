@@ -8,7 +8,7 @@ set_attack_value(atk, AG_HURTBOX_SPRITE                 , hurtbox_spr); //sprite
 set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 1);
 set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
-set_attack_value(atk, AG_LANDING_LAG                    , 6);
+set_attack_value(atk, AG_LANDING_LAG                    , 13);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
@@ -77,4 +77,4 @@ set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.75);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 8);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 304);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy2"));
