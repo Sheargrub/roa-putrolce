@@ -23,6 +23,21 @@ if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_platfalling = false;
 }
 
+// Idle flourish
+if (state == PS_IDLE) {
+	if (idle_flourish_timer > 0) {
+		idle_flourish_timer--;
+		if (idle_flourish_timer == 0) state_tiemr = 0; // anim reset
+	}
+	if (stance == ST_NORMAL && state_timer % 731 == 346) {
+		var frames = sprite_get_number(sprite_get("idle_flourish"))
+		var rate = idle_flourish_speed_stances[stance-1];
+		idle_flourish_timer = floor(frames/rate);
+		idle_flourish_timer_max = idle_flourish_timer;
+	}
+}
+else idle_flourish_timer = 0;
+
 // status management
 var status_proc_list = [];
 var break_sfx = sound_get("hero_quake_impact");

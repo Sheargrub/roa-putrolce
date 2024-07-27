@@ -26,10 +26,11 @@ if (update_stance) {
 	
 	var i = stance-1;
 	
+	idle_anim_speed = idle_anim_speed_stances[i];
+	
 	walk_speed = walk_speed_stances[i];
 	initial_dash_speed = initial_dash_speed_stances[i];
 	dash_speed = dash_speed_stances[i];
-	
 	
 	leave_ground_max = leave_ground_max_stances[i];
 	max_jump_hsp = max_jump_hsp_stances[i];
@@ -40,6 +41,7 @@ if (update_stance) {
 	
 	if (should_debug) print_debug("Stats refreshed! (" + string(get_gameplay_time()) + ")");
 	
+	outline_color = stance_outlines[stance-1];
 	init_shader();
 	
 }

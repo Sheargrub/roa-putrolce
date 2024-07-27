@@ -3,6 +3,7 @@ sprite_change_offset("idle"                 , 48, 63);
 sprite_change_offset("idle_overstuffed"     , 30, 47);
 sprite_change_offset("idle_voracious"       , 30, 47);
 sprite_change_offset("idle_famished"        , 30, 47);
+sprite_change_offset("idle_flourish"        , 48, 63);
 sprite_change_offset("hurt"                 , 48, 63);
 sprite_change_offset("crouch"               , 48, 63);
 sprite_change_offset("walk"                 , 48, 63);
