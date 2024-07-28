@@ -2,15 +2,15 @@
 putrolce_status_owner = 0;
 putrolce_status_timer = 0;
 
+// If compat is in effect, stop here - nothing below will ever be called on.
+if "putrolce_petrify_spr" in self exit;
 
 // Initialize rock positions for petrified state.
 // If needed, these can be custom-set, and this script will be overridden.
 if "putrolce_rocks_x" in self exit;
+putrolce_seed = (url == "" ? 0 : real(url)) % 200; // other_init is weirdly unsafe, so this may throw a harmless error
 
-
-putrolce_seed = (url == "" ? 0 : real(url)) % 200;
-
-var spr = hitstun_hurtbox_spr; // decent proxy for size boundaries
+var spr = hitstun_hurtbox_spr; // good proxy for char size in hitstun
 if (hitstun_hurtbox_spr == -1) spr = hurtbox_spr;
 var spread_x = (sprite_get_bbox_right(spr) - sprite_get_bbox_left(spr))*0.6;
 var spread_y = (sprite_get_bbox_bottom(spr) - sprite_get_bbox_top(spr))*0.6;
@@ -22,13 +22,11 @@ if (spread_x == 0 || spread_y == 0) {
     spread_y = char_height*0.6;
 }
 
-print_debug(spread_x);
-print_debug(spread_y);
-
 putrolce_rocks_x = [];
 putrolce_rocks_y = [];
 putrolce_rocks_rot = [];
 putrolce_rocks_type = [0, 0, 0, 0, 0];
+putrolce_rocks_y_offset = floor(spread_y * (5/6) / 2) * 2;
 
 // Randomly choose two rocks to use the larger sprite.
 var lrock = mass_random_func(5, true);

@@ -7,17 +7,31 @@ if ((other_player_id.attack == AT_DSPECIAL && other_player_id.grabbed_player_obj
     // Default behavior
     if ("putrolce_petrify_spr" not in self) {
         
-        // Draw texture
-        maskHeader();
-        draw_sprite_ext(sprite_index, image_index, x+draw_x, y+draw_y, spr_dir*(small_sprites+1), (small_sprites+1), spr_angle, c_white, 1);
-        maskMidder();
-        with (other_player_id) {
-            var texture_spr = sprite_get("petrify_texture");
-            shader_start();
+        // Standard match: draw petrified texture.
+        if (object_index == oPlayer) {
+            // Draw texture
+            maskHeader();
+            draw_sprite_ext(sprite_index, image_index, x+draw_x, y+draw_y, spr_dir*(small_sprites+1), (small_sprites+1), spr_angle, c_white, 1);
+            maskMidder();
+            with (other_player_id) {
+                var texture_spr = sprite_get("petrify_texture");
+                shader_start();
+            }
+            draw_sprite_tiled_ext(texture_spr, 0, x+draw_x, y+draw_y, 2, 2, c_white, 1)
+            shader_end();
+            maskFooter();
         }
-        draw_sprite_tiled_ext(texture_spr, 0, x+draw_x, y+draw_y, 2, 2, c_white, 1)
-        shader_end();
-        maskFooter();
+        
+        // Playtest mode: mask code won't behave nicely, so fall back to a solid color.
+        else {
+            with other_player_id {
+                var player_color = get_player_color(player);
+                var petrified_color = make_color_rgb(get_color_profile_slot_r(player_color, 4), get_color_profile_slot_g(player_color, 4), get_color_profile_slot_b(player_color, 4));
+            }
+            gpu_set_fog(true, petrified_color, 0, 99);
+            draw_sprite_ext(sprite_index, image_index, x, y, spr_dir*(small_sprites+1), (small_sprites+1), 0, c_white, 1);
+            gpu_set_fog(false, c_white, 0, 0);
+        }
         
         // Draw outline (thanks to Supersonic for finding these arrays-)
         // Store the old arrays
@@ -46,7 +60,7 @@ if ((other_player_id.attack == AT_DSPECIAL && other_player_id.grabbed_player_obj
             shader_start();
         }
         var _x = x+draw_x;
-        var _y = y+draw_y-(floor(char_height/4)*2);
+        var _y = y+draw_y-putrolce_rocks_y_offset;
         for (var i = 0; i < 5; i++) {
             draw_sprite_ext(rock_spr, putrolce_rocks_type[i], _x+(putrolce_rocks_x[i]*spr_dir), _y+putrolce_rocks_y[i], 2*spr_dir, 2, putrolce_rocks_rot[i], c_white, 1);
         }
@@ -73,6 +87,7 @@ if ((other_player_id.attack == AT_DSPECIAL && other_player_id.grabbed_player_obj
 // Draw shapes or sprites to be used as the stencil(s) by maskMidder.
 //================================================================================
 {
+    gpu_set_alphatestenable(false);
     gpu_set_blendenable(false);
     gpu_set_colorwriteenable(false,false,false,true);
     draw_set_alpha(0);
