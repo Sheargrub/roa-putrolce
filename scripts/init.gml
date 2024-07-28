@@ -130,7 +130,7 @@ vis_meter_rises = array_create(9);
 vis_meter_bump_duration = 10;
 vis_meter_pass_time = 8;
 stance_sfx_instance = noone;
-sfx_stances = [sound_get("nuzl_cough"), asset_get("mfx_mm_coin"), asset_get("mfx_mm_coin_all"), sound_get("parachute")];
+sfx_stances = [sound_get("famished_effect"), asset_get("mfx_mm_coin"), asset_get("mfx_mm_coin_all"), sound_get("parachute")];
 
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {
