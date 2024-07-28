@@ -44,8 +44,8 @@ switch(attack) {
 			hit_player_obj.should_make_shockwave = false;
 		}
 		else if (hbox_num == 3 && has_rune("A") && is_melee) {
-		    hit_player_obj.pultroce_status_owner = player;
-		    hit_player_obj.pultroce_status_timer = 0;
+		    hit_player_obj.putrolce_status_owner = player;
+		    hit_player_obj.putrolce_status_timer = 0;
 		}
 		break;
 	

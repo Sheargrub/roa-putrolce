@@ -109,8 +109,8 @@ ST_VORACIOUS                    = 2;
 ST_NORMAL                       = 3;
 ST_OVERSTUFFED                  = 4;
 
-pultroce_status_owner = 0;  // reflected in other_init.gml
-pultroce_status_timer = 0;
+putrolce_status_owner = 0;  // reflected in other_init.gml
+putrolce_status_timer = 0;
 
 nspec_sleepers_active = 0;
 

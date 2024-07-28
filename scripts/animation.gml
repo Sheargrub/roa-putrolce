@@ -137,3 +137,12 @@ switch(state) {
         }
         break;
 }
+
+
+// Petrify compat
+var nothing = sprite_get("null");
+with oPlayer if ("putrolce_petrify_spr" in self) {
+    if ((other.attack == AT_DSPECIAL && other.grabbed_player_obj == self) || putrolce_status_owner = other.player) {
+        sprite_index = nothing;
+    }
+}
