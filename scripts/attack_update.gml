@@ -135,13 +135,36 @@ switch(attack) {
         }
         break;
     case AT_USPECIAL:
-        //
-        if (window == 1) {
-        	can_move = false;	
+    	print_debug("> " + string(window));
+    
+        if (window == 1 || window >= 7) can_move = false;
+        if (window < 5 || window == 9) can_wall_jump = true;
+        
+        if ((window == 3 || window == 4) && (special_pressed || is_special_pressed(DIR_ANY))) {
+        	window = 7;
+        	window_timer = 0;
+        	set_attack_value(attack, AG_NUM_WINDOWS, 9);
+        	hsp = 0;
+        	vsp = 0;
         }
+        
         if (window == 5 && window_timer == 1 && !has_hit_player) {
         	shake_camera(3,6);	
         }
+        
+        if (window == 11 && window_timer == 1) {
+        	if (stance == ST_FAMISHED) set_window_value(attack, window, AG_WINDOW_GOTO, window+2);
+        	else reset_window_value(attack, window, AG_WINDOW_GOTO);
+        	num_loops = 0;
+        }
+        
+        if (window == 12 && window_timer == 1) {
+        	print_debug(num_loops)
+        	num_loops++;
+        	if (num_loops+1 >= stance) reset_window_value(attack, window, AG_WINDOW_GOTO);
+        	else set_window_value(attack, window, AG_WINDOW_GOTO, window);
+        }
+        
         break;
     
 }
@@ -207,58 +230,6 @@ if (get_window_value(attack,window,AG_WINDOW_CAN_WALLJUMP)) {
 	can_wall_jump = true;
 }
 
-// cosmetic attack fx
-switch(attack) {
-    case AT_JAB:
-    	//a
-        break;
-    case AT_FTILT:
-        //a
-        break;
-    case AT_DTILT:
-        //a
-        break;
-    case AT_UTILT:
-        //a
-        break;
-    case AT_DATTACK:
-        //a
-        break;
-        
-    case AT_NAIR:
-        //a
-        break;
-    case AT_FAIR:
-        //a
-        break;
-    case AT_BAIR:
-        //a
-        break;
-    case AT_DAIR:
-        //a
-        break;
-    case AT_UAIR:
-        //a
-        break;
-    
-    case AT_NSPECIAL:
-        //a
-        break;
-    case AT_FSPECIAL:
-        //a
-        break;
-    case AT_DSPECIAL:
-        //a
-        break;
-    case AT_USPECIAL:
-        //a
-        break;
-    
-    case AT_TAUNT:
-		//a
-    	break;
-    
-}
 
 // Defines
 
@@ -268,10 +239,10 @@ switch(attack) {
 // SFX instances created by this will be stored at attack_sfx_instance, so only one at a time is supported.
 #define sound_play_cancellable 
 var _sound = argument[0];
-var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
-var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
-var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
-var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
+var _looping = argument_count > 1 ? argument[1] : false;
+var _panning = argument_count > 2 ? argument[2] : noone;
+var _volume = argument_count > 3 ? argument[3] : 1;
+var _pitch = argument_count > 4 ? argument[4] : 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -284,7 +255,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 
