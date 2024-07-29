@@ -167,7 +167,7 @@ switch(my_hitboxID.attack) {
     	//a
     	break;
     case AT_USTRONG:
-    	//a
+    	if (my_hitboxID.hbox_num == 3 && is_melee) sound_play(sound_get("fire2"), 0, noone, 1, 0.7)
     	break;
     case AT_DSTRONG:
     	//a
