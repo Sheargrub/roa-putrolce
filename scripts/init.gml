@@ -1,6 +1,10 @@
-//                                  debug                                     //
-should_debug                    = get_match_setting(SET_PRACTICE);
-lightweight_debug               = true;
+
+// Debug flag: enables a few print_debug() statements for testing purposes.
+should_debug = false;
+if (get_match_setting(SET_PRACTICE)) {
+    var tag = get_player_name(player);
+    if (tag == "snom" || tag == "DEBUG") should_debug = true;
+}
 
 
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//

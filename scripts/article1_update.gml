@@ -437,7 +437,7 @@ switch (state) {
         
         else if (state_timer > 180) { // anti-softlock. This should never occur.
         	set_state(SLP_INACTIVE_DEFAULT);
-        	print_debug("State SLP_ACTIVE_RECENTER: possible softlock occurred. Defaulting to inactive.")
+        	print_debug("article1 error: possible softlock in state SLP_ACTIVE_RECENTER. Defaulting to inactive.")
         }
         
         else {
