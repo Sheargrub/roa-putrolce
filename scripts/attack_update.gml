@@ -87,7 +87,36 @@ switch(attack) {
         }
         break;
     case AT_FSPECIAL:
-        //a
+    	switch window {
+    		
+    		case 1:
+    			if (window_timer == 1) {
+    				var max_hsp_vals = [7, 8.5, 7, 7.75];
+	        		max_hsp = max_hsp_vals[stance-1];
+	        		if (vsp >= 1) vsp -= 1;
+	        		if (free) buffer_pratfall = true;
+	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
+	        	}
+	        	else if (vsp > 0) vsp = 0;
+	        	hsp = clamp(hsp, -2, 2);
+    			break;
+    		
+    		case 2:
+    			if (window_timer == 1 && !hitpause && buffer_pratfall && vsp > -4) vsp = -4;
+			
+    		case 3:
+    			can_move = false;
+        		if (!hitpause) hsp = max_hsp * spr_dir;
+        		super_armor = (fspec_armor_hits >= 1);
+    			break;
+    		
+    		case 4:
+    			super_armor = false;
+	    		if (max_hsp > air_max_speed) max_hsp -= 0.1;
+	        	hsp = clamp(hsp, -max_hsp, max_hsp); // this approach allows air drift to work as normal
+    			break;
+    			
+        }
         break;
     case AT_DSPECIAL:
     	if (window == 1) {
@@ -135,8 +164,6 @@ switch(attack) {
         }
         break;
     case AT_USPECIAL:
-    	print_debug("> " + string(window));
-    
         if (window == 1 || window >= 7) can_move = false;
         if (window < 5 || window == 9) can_wall_jump = true;
         
@@ -159,7 +186,6 @@ switch(attack) {
         }
         
         if (window == 12 && window_timer == 1) {
-        	print_debug(num_loops)
         	num_loops++;
         	if (num_loops+1 >= stance) reset_window_value(attack, window, AG_WINDOW_GOTO);
         	else set_window_value(attack, window, AG_WINDOW_GOTO, window);

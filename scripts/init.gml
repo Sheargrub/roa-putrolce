@@ -118,6 +118,8 @@ putrolce_status_timer = 0;
 
 nspec_sleepers_active = 0;
 
+fspec_armor_hits = 0;
+
 dspec_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
@@ -135,6 +137,11 @@ vis_meter_bump_duration = 10;
 vis_meter_pass_time = 8;
 stance_sfx_instance = noone;
 sfx_stances = [sound_get("famished_effect"), asset_get("mfx_mm_coin"), asset_get("mfx_mm_coin_all"), sound_get("parachute")];
+
+buffer_stance_update = false; // set to true when a change in hunger level is detected.
+buffer_pratfall = false; // applied as soon as a state change occurs.
+
+
 
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {

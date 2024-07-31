@@ -1,7 +1,7 @@
 //a
 
 //reset number of windows in case of a grab
-reset_attack_value(attack,AG_NUM_WINDOWS);
+reset_attack_value(attack, AG_NUM_WINDOWS);
 
 // reset grab variables on new attack
 // if your grab uses different attack indexes, you may want to add additional
@@ -10,9 +10,20 @@ grabbed_player_obj = noone;
 grabbed_player_relative_x = 0;
 grabbed_player_relative_y = 0;
 
+// Mirror set_state checks
+if (buffer_stance_update) {
+	user_event(1);
+	buffer_stance_update = false;
+}
 
-// If stance is mismatched...
-if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
+if (buffer_pratfall) {
+    buffer_pratfall = false;
+    can_attack = false;
+    if (free) set_state(PS_PRATFALL);
+}
+
+// If stance is mismatched (and the attack is going through)...
+if (state != PS_PRATFALL && move_cooldown[attack] <= 0 && get_attack_value(attack, AG_LAST_STANCE) != stance) {
     
     set_attack_value(attack, AG_LAST_STANCE, stance);
     
