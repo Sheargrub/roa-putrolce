@@ -94,8 +94,9 @@ switch(attack) {
     				var max_hsp_vals = [7, 8.5, 7, 7.75];
 	        		max_hsp = max_hsp_vals[stance-1];
 	        		if (vsp >= 1) vsp -= 1;
-	        		if (free) buffer_pratfall = true;
+	        		buffer_pratfall = free;
 	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
+	        		fspec_hit_sleeper = false;
 	        	}
 	        	else if (vsp > 0) vsp = 0;
 	        	hsp = clamp(hsp, -2, 2);
@@ -108,16 +109,56 @@ switch(attack) {
     			can_move = false;
         		if (!hitpause) hsp = max_hsp * spr_dir;
         		super_armor = (fspec_armor_hits >= 1);
+        		
+        		if (fspec_hit_sleeper && stance <= 2) {
+        			attack_end();
+        			destroy_hitboxes();
+        			buffer_pratfall = false;
+        			buffer_pratfall_paused = false;
+        			set_attack(AT_FSPECIAL_2);
+        			user_event(2); // update move data
+        		}
+        		
+        		else if (stance == 2 && !hitpause) {
+        			can_attack = true;
+        			can_jump = !free;
+        			buffer_pratfall_paused = free;
+        		}
+        		
     			break;
     		
     		case 4:
-    			super_armor = false;
 	    		if (max_hsp > air_max_speed) max_hsp -= 0.1;
 	        	hsp = clamp(hsp, -max_hsp, max_hsp); // this approach allows air drift to work as normal
+	        	
+	        	if (window_timer == 1) {
+    				super_armor = false;
+	    			buffer_pratfall_paused = false;
+    			}
+	        
     			break;
     			
         }
         break;
+    case AT_FSPECIAL_2:
+    	can_move = false;
+    	if (window == 1 && window_timer == 1) {
+    		hsp = ((stance == 1) ? 4 : 5.5) * spr_dir;
+			vsp = (stance == 1) ? -5 : -6;
+			num_loops = 0;
+    	}
+    	if (window == 2) {
+    		if (!free) {
+	    		window = 3;
+	    		window_timer = 0;
+	    		sound_play(asset_get("sfx_blow_medium2"));
+    		}
+    		else vsp -= 0.3; // reduce gravity
+    		
+    		if (window_timer == 1) num_loops++;
+    		if (num_loops > 2 || (has_hit && stance == 2)) can_jump = true;
+    	}
+    	break;
     case AT_DSPECIAL:
     	if (window == 1) {
     		dspec_sleeper_id = noone;

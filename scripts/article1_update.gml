@@ -543,8 +543,8 @@ switch (state) {
         // Player contact effect
         var min_distance = 200
         var fspec_pusher = noone;
-        with oPlayer if ("is_putrolce" in self) {
-        	var in_fspec = (attack == AT_FSPECIAL && (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND));
+        with oPlayer if ("is_putrolce" in self && !fspec_hit_sleeper) {
+        	var in_fspec = (attack == AT_FSPECIAL && (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND) && window == clamp(window, 2, 3));
         	if (in_fspec && point_distance(x, y, other.x, other.y) < min_distance && place_meeting(x, y, other)) {
         		min_distance = point_distance(x, y, other.x, other.y);
         		fspec_pusher = self;
@@ -552,16 +552,10 @@ switch (state) {
         }
         
         if (fspec_pusher != noone) {
-        	if (fspec_pusher.stance == player_id.ST_FAMISHED) {
-        		// There'll be a special attack for this eventually, but prat gets the effect across for now.
-        		with (fspec_pusher) if (!invincible && !attack_invince && !initial_invince && !perfect_dodging) {
-        			attack_end();
-        			destroy_hitboxes();
-        			state = PS_PRATFALL;
-        			state_timer = 0;
-        			hsp = clamp(hsp, -air_max_speed, air_max_speed);
-        		}
-        	} else {
+        	fspec_pusher.fspec_hit_sleeper = true;
+        	if (fspec_pusher.stance >= 3) {
+        		block_active_state = true;
+        		block_idle_state = true;
         		reflected_player_id = fspec_pusher;
         		spr_dir = fspec_pusher.spr_dir
         		if (fspec_pusher.hsp != 0) spr_dir = (fspec_pusher.hsp > 0) ? 1 : -1;
@@ -570,8 +564,6 @@ switch (state) {
         		auto_gen_hitbox();
         		spawn_hit_fx(x, y, player_id.fx_kragg_small);
         		sound_play(sound_get("weakshadowlaunch"));
-        		block_active_state = true;
-        		block_idle_state = true;
         	}
         }
         

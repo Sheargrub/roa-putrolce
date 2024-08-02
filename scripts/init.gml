@@ -118,6 +118,7 @@ putrolce_status_timer = 0;
 
 nspec_sleepers_active = 0;
 
+fspec_hit_sleeper = false;
 fspec_armor_hits = 0;
 
 dspec_sleeper_id = noone;
@@ -140,6 +141,7 @@ sfx_stances = [sound_get("famished_effect"), asset_get("mfx_mm_coin"), asset_get
 
 buffer_stance_update = false; // set to true when a change in hunger level is detected.
 buffer_pratfall = false; // applied as soon as a state change occurs.
+buffer_pratfall_paused = false; // causes the next application of buffer_pratfall to be delayed by one state change.
 
 
 

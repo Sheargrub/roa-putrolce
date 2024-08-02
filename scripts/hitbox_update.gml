@@ -1,6 +1,8 @@
 //a
 
 
+print_debug(hbox_num);
+
 //multihit projectiles
 if (hitbox_multihits) {
     if (!getting_bashed) {
