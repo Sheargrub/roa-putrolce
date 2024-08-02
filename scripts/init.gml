@@ -296,7 +296,7 @@ knockback_adj                   = 0.95;
 land_time                       = 4; 
 prat_land_time                  = 10;
 wave_land_time                  = 8;
-wave_land_adj                   = 1.35;
+wave_land_adj                   = 1.28;
 wave_friction                   = 0.33;
 
 //                          --animation frames--                              //
