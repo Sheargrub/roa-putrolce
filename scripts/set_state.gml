@@ -4,8 +4,9 @@ if (buffer_stance_update) {
 	buffer_stance_update = false;
 }
 
-if (buffer_pratfall) {
-    if (free && state != PS_WALL_JUMP) state = PS_PRATFALL;
+if (buffer_pratfall && !buffer_pratfall_paused) {
     buffer_pratfall = false;
     can_attack = false;
+    if (free) set_state(PS_PRATFALL);
 }
+buffer_pratfall_paused = false;

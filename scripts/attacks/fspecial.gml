@@ -18,11 +18,11 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_S
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_may_arc_cointoss"));
-set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
+set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 7);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [12, 8, 8, 8]);
 window_num++;
 
-// Bash active
+// Bash active 1
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_LENGTHS, 1);
@@ -31,9 +31,10 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_S
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_CAN_WALLJUMP, true);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_CUSTOM_FRICTION, true);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
 window_num++;
 
-// Bash dissipation
+// Bash active 2 (dissipation)
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
@@ -42,6 +43,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_CAN_WALLJUMP
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_CUSTOM_FRICTION, true);
 window_num++;
 
+// Endlag
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 16);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_LENGTHS, 1);
