@@ -83,7 +83,9 @@ switch(attack) {
     case AT_NSPECIAL:
     	move_cooldown[AT_NSPECIAL] = 20;
         if (window == 2 && window_timer == 1) {
-        	instance_create(x+(30*spr_dir), y-30, "obj_article1");
+        	instance_create(x+(30*spr_dir), y-30, "obj_article1");}
+        if (window == 1 && window_timer == 1){
+        	sound_play(sound_get("putro_spit"), false, noone, 1, 1)
         }
         break;
     case AT_FSPECIAL:
@@ -306,10 +308,10 @@ if (get_window_value(attack,window,AG_WINDOW_CAN_WALLJUMP)) {
 // SFX instances created by this will be stored at attack_sfx_instance, so only one at a time is supported.
 #define sound_play_cancellable 
 var _sound = argument[0];
-var _looping = argument_count > 1 ? argument[1] : false;
-var _panning = argument_count > 2 ? argument[2] : noone;
-var _volume = argument_count > 3 ? argument[3] : 1;
-var _pitch = argument_count > 4 ? argument[4] : 1;
+var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
+var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
+var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
+var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -322,7 +324,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

@@ -157,7 +157,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_DAIR:
-        //a
+        if (my_hitboxID.hbox_num == 7 && is_melee) sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
         break;
     case AT_UAIR:
         //a
@@ -200,7 +200,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

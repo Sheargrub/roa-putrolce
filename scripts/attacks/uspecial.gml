@@ -23,10 +23,10 @@ window_num++;
 
 // Active window
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
-set_window_value(atk, window_num, AG_WINDOW_LENGTH, 12);
+set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 4);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED, -16);
+set_window_value(atk, window_num, AG_WINDOW_VSPEED, -12);
 set_window_value(atk, window_num, AG_WINDOW_VSPEED_TYPE, 1);
 window_num++;
 
