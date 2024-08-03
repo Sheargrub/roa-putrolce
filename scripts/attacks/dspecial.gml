@@ -166,7 +166,6 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_orca_crunch"));
-set_hitbox_value(atk, hbox_num, HG_TECHABLE                 , 3);
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 25);
 hbox_num++;
 
