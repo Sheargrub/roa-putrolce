@@ -239,12 +239,9 @@ switch(attack) {
 }
 
 // Hunger gains
-var hunger_gain = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
 var whiff_lag_mult = (!has_hit && get_window_value(attack, window, AG_WINDOW_HAS_WHIFFLAG)) ? 1.5 : 1;
-if (!hitpause && hunger_gain != 0 && window_timer-1 == floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult)) {
-	hunger_meter += hunger_gain;
-	hunger_meter = clamp(hunger_meter, 0, 100);
-	was_meter_increased = (hunger_gain > 0);
+if (!hitpause && window_timer-1 == floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult)) {
+	hunger_change = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
 	user_event(0);
 }
 
@@ -308,10 +305,10 @@ if (get_window_value(attack,window,AG_WINDOW_CAN_WALLJUMP)) {
 // SFX instances created by this will be stored at attack_sfx_instance, so only one at a time is supported.
 #define sound_play_cancellable 
 var _sound = argument[0];
-var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
-var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
-var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
-var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
+var _looping = argument_count > 1 ? argument[1] : false;
+var _panning = argument_count > 2 ? argument[2] : noone;
+var _volume = argument_count > 3 ? argument[3] : 1;
+var _pitch = argument_count > 4 ? argument[4] : 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -324,7 +321,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 
