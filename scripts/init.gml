@@ -1,10 +1,13 @@
 
-// Debug flag: enables a few print_debug() statements for testing purposes.
-should_debug = false;
-if (get_match_setting(SET_PRACTICE)) {
+// Debug flag: enables some log messages and utilities for testing purposes.
+should_debug = true; // change to false before release
+is_practice = get_match_setting(SET_PRACTICE);
+if (is_practice) {
     var tag = get_player_name(player);
     if (tag == "snom" || tag == "DEBUG") should_debug = true;
 }
+hunger_locked = false;
+
 
 
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
@@ -103,7 +106,7 @@ through enemies, otherwise it might just despawn on hit
 is_putrolce                     = true;
 
 hunger_meter                    = 50; // 0 to 100, used to update stance
-was_meter_increased             = false; // used to determine hud meter bump direction
+hunger_change                   = 0; // how much user_event0 will change hunger byss
 stance                          = 3; // 1-4, see below
 stance_names                    = ["Famished", "Voracious", "Normal", "Overstuffed"] // For debug and training mode elements
 stance_suffixes                 = ["_famished", "_voracious", "", "_overstuffed"] // for movement anim handling

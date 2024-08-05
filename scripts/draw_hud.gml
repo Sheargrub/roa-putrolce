@@ -25,3 +25,8 @@ for (var i = 0; i < pips; i++) {
     draw_sprite_ext(sprite_get("hud_pips"), st, _x+x_offset, _y+y_offset, 2, 2, 0, c_white, 1);
     x_offset += 18;
 }
+
+if (hunger_locked) {
+    draw_debug_text(temp_x-6, temp_y+20, "DEBUG: Hunger lock activated.");
+    draw_debug_text(temp_x-6, temp_y+36, "Deactivate with SHIELD+TAUNT.");
+}

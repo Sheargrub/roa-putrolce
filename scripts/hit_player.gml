@@ -21,13 +21,8 @@ if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.orig_player == player) {
 
 // Apply hunger gains as appropriate
 if (my_hitboxID.orig_player == player && !is_kragg_rocks) {
-	var hunger_gain = get_hitbox_value(hbox_atk, hbox_num, HG_HUNGER_GAIN);
-	if (hunger_gain != 0) {
-		hunger_meter += hunger_gain;
-		hunger_meter = clamp(hunger_meter, 0, 100);
-		was_meter_increased = (hunger_gain > 0);
-		user_event(0);
-	}
+	hunger_change = get_hitbox_value(hbox_atk, hbox_num, HG_HUNGER_GAIN);
+	user_event(0);
 }
 
 
@@ -200,7 +195,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 
