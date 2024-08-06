@@ -52,8 +52,6 @@ switch(attack) {
         	do_sfx_cancel = (window_timer-1 < floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult));
         	can_crouch = false;
     	}
-    	
-    	
         break;
     case AT_UTILT:
         //a
@@ -61,7 +59,6 @@ switch(attack) {
     case AT_DATTACK:
         if (has_hit) { can_ustrong = true }
         break;
-        
     case AT_NAIR:
     	if (window == 1){
     		if (window_timer == get_window_value(AT_NAIR, 1, AG_WINDOW_LENGTH)){
