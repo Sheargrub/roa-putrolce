@@ -55,7 +55,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 3);
+set_num_hitboxes(atk, 4);
 var hbox_num = 1;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -105,7 +105,6 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -18);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_poison_hit_weak"));
 hbox_num++;
 
-
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 4);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
@@ -126,4 +125,28 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -18);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_poison_hit_med"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 15);
+hbox_num++;
+
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 4);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -67);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 54);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 9);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.75);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 9);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -18);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_poison_hit_strong"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 15);
