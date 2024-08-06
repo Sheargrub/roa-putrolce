@@ -80,12 +80,14 @@ switch(attack) {
     case AT_NSPECIAL:
     	move_cooldown[AT_NSPECIAL] = 20;
         if (window == 2 && window_timer == 1) {
-        	instance_create(x+(30*spr_dir), y-30, "obj_article1");}
-        //if (window == 1 && window_timer == 1){ 
-        	//sound_play(sound_get("putro_spit"), false, noone, 1, 1)
-        //}
-        //I commented out this part because the sound effect was too out of place without a voiced mode
+        	instance_create(x+(30*spr_dir), y-30, "obj_article1");
+        }
+        
+        // This SFX felt out of place outside of a voiced mode.
+        // if (window == 1 && window_timer == 1) sound_play(sound_get("putro_spit"), false, noone, 1, 1);
+        
         break;
+        
     case AT_FSPECIAL:
     	switch window {
     		
@@ -159,9 +161,10 @@ switch(attack) {
     		if (num_loops > 2 || (has_hit && stance == 2)) can_jump = true;
     	}
     	break;
+    	
     case AT_DSPECIAL:
     	if (window == 1) {
-    		dspec_sleeper_id = noone;
+    		grabbed_sleeper_id = noone;
     		dspec_sfx_instance = noone;
     		dspec_rethrow = false;
     	}
@@ -170,10 +173,10 @@ switch(attack) {
     		if (window == 4 && window_timer == window_length) {
     			sound_play_cancellable(get_window_value(attack, window, AG_WINDOW_SFX));
     		}
-    		if (window < 6 && (special_pressed || is_special_pressed(DIR_ANY)) && instance_exists(dspec_sleeper_id)) {
+    		if (window < 6 && (special_pressed || is_special_pressed(DIR_ANY)) && instance_exists(grabbed_sleeper_id)) {
     			dspec_rethrow = true;
     		}
-	        if (dspec_rethrow) {
+	        if (dspec_rethrow && !hitpause) {
 	        	attack_end();
     			set_attack(AT_DSPECIAL_2);
     			hurtboxID.sprite_index = get_attack_value(attack, AG_HURTBOX_SPRITE);
@@ -186,36 +189,39 @@ switch(attack) {
     	}
         break;
     case AT_DSPECIAL_2:
-    	if (window == 2 && window_timer == 1 && instance_exists(dspec_sleeper_id)) {
-        	dspec_sleeper_id.state = 1; // petrified, no lifetime checks
-        	dspec_sleeper_id.reflected_player_id = (player == dspec_sleeper_id.player) ? noone : self;
-        	dspec_sleeper_id.refresh_hitboxes = true;
-        	dspec_sleeper_id.dspec_skewered = false;
-        	dspec_sleeper_id.block_idle_state = false;
-			dspec_sleeper_id.block_active_state = false;
-        	dspec_sleeper_id.venus_article_reflect = 1;
-            dspec_sleeper_id.hit_player_id = noone;
-        	dspec_sleeper_id.hsp = 7*spr_dir;
-        	dspec_sleeper_id.vsp = -5;
-        	dspec_sleeper_id.spr_dir = spr_dir;
+    	if (window == 2 && window_timer == 1 && instance_exists(grabbed_sleeper_id)) {
+        	grabbed_sleeper_id.state = 1; // petrified, no lifetime checks
+        	grabbed_sleeper_id.state_timer = 0;
+        	grabbed_sleeper_id.reflected_player_id = (player == grabbed_sleeper_id.player) ? noone : self;
+        	grabbed_sleeper_id.refresh_hitboxes = true;
+        	grabbed_sleeper_id.is_grabbed = false;
+        	grabbed_sleeper_id.block_idle_state = false;
+			grabbed_sleeper_id.block_active_state = false;
+        	grabbed_sleeper_id.venus_article_reflect = 1;
+            grabbed_sleeper_id.hit_player_id = noone;
+        	grabbed_sleeper_id.hsp = 7*spr_dir;
+        	grabbed_sleeper_id.vsp = -5;
+        	grabbed_sleeper_id.spr_dir = spr_dir;
         	
         	grabbed_player_obj = noone;
         	
-        	spawn_hit_fx(dspec_sleeper_id.x + 12*spr_dir, dspec_sleeper_id.y, fx_kragg_small);
+        	spawn_hit_fx(grabbed_sleeper_id.x + 12*spr_dir, grabbed_sleeper_id.y, fx_kragg_small);
         }
         break;
+        
     case AT_USPECIAL:
         if (window == 1 || window >= 10) can_move = false;
         if (window < 5 || window == 9) can_wall_jump = true;
         
         if ((window == 3 || window == 4) && (special_pressed || is_special_pressed(DIR_ANY))) {
-        	var dir_held = (right_down - left_down);
-        	if (dir_held != 0) spr_dir = dir_held;
+        	set_attack_value(attack, AG_NUM_WINDOWS, 9);
         	window = 7;
         	window_timer = 0;
-        	set_attack_value(attack, AG_NUM_WINDOWS, 9);
-			hsp = (spr_dir == -1) ? clamp(hsp, -3, -1) : clamp(hsp, 1, 3) 
+        	hsp = (spr_dir == -1) ? clamp(hsp, -3, -1) : clamp(hsp, 1, 3) 
         	vsp = -2;
+        	var dir_held = (right_down - left_down);
+        	if (dir_held != 0) spr_dir = dir_held;
+        	grabbed_sleeper_id = noone;
         }
         
         if (window == 5 && window_timer == 1 && !has_hit_player) {
@@ -233,7 +239,7 @@ switch(attack) {
         
         // Hunger: adjust grab counts
         if (window == 11 && window_timer == 1) {
-        	if (stance == 1 || stance == 4) {
+        	if (stance == 1 || stance == 4 || grabbed_player_obj == noone) {
         		set_window_value(attack, window, AG_WINDOW_GOTO, 14);
         		set_window_value(attack, window, AG_WINDOW_GRAB_POS_X, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_X));
         		set_window_value(attack, window, AG_WINDOW_GRAB_POS_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_Y));
