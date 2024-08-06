@@ -9,10 +9,7 @@ draw_sprite_ext(sprite_get("hud_stomach"), st, temp_x-10, temp_y-32, 2, 2, 0, c_
 
 var pips = ceil(hunger_meter/10)-1;
 var has_pips = (pips > 0);
-if (!has_pips) {
-    pips = 9;
-    st = 0; // force empty graphic if no pips
-}
+if (!has_pips && st == 0) pips = 9;
 else if (st == 0) st++; // do not use empty graphic for visible pips
 
 var _x = temp_x + 30;

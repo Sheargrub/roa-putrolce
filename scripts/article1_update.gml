@@ -22,6 +22,10 @@
 #macro SLP_DESPAWN_DIE_HOMING 33
 #macro SLP_DESPAWN_SILENT 39
 
+// State category 4x: Staggered
+#macro SLP_STAGGERED 45
+#macro SLP_STAGGERED_HOMING 46
+
 
 state_timer += 1;
 transition_timer++;
@@ -132,40 +136,53 @@ if (venus_reflected && !venus_late_reflect_frame) {
 //#endregion
 
 
-//#region DSpecial checks
-if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_putrolce" in player_id) {
-	if (place_meeting(x, y, other)) {
+//#region Grab checks
+if (!ignore_grabs) with pHitBox {
+	
+	if ("is_putrolce_grab" not in self) {
+		if ("is_putrolce" in player_id) {
+			is_putrolce_grab = (type == 1 && (attack == AT_DSPECIAL || attack == AT_USPECIAL));
+			with (player_id) other.putrolce_sleeper_tag = get_hitbox_value(other.attack, other.hbox_num, HG_SLEEPER_TAG);
+		}
+		else {
+			is_putrolce_grab = false;
+			putrolce_sleeper_tag = 0;
+		}
+	}
+	
+	if (is_putrolce_grab && place_meeting(x, y, other)) {
 		
-		// Skewer hit
-		if (!other.dspec_skewered && hbox_num <= 2) {
+		// Grabs
+		if (!other.is_grabbed && putrolce_sleeper_tag == 1) {
 			
-			other.spr_dir = player_id.spr_dir * -1;
-			
+			// Ensure that only one sleeper is caught in the grab
 			var player_claimed = true;
-			if (player_id.dspec_sleeper_id == noone) player_id.dspec_sleeper_id = other;
-			else if (player_id.dspec_sleeper_id.player != player && other.player == player) {
-				with (player_id.dspec_sleeper_id) {
-					var is_homing = (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH);
-					set_state(is_homing ? SLP_DESPAWN_DIE_HOMING : SLP_DESPAWN_DIE);
-	    			sprite_index = sprite_get(is_homing ? "slp_homing_death" : "slp_destroyed")
-	    			image_index = 0;
-	    			dspec_ignore = true;
-	    			dspec_skewered = false;
+			if (!instance_exists(player_id.grabbed_sleeper_id)) player_id.grabbed_sleeper_id = other;
+			else if (player_id.grabbed_sleeper_id.player != player && other.player == player) { // give precedence to putrolce's own sleepers
+				with (player_id.grabbed_sleeper_id) {
+	    			ignore_grabs = true;
+	    			is_grabbed = false;
 	    			hitstop = 0;
 				}
-				player_id.dspec_sleeper_id = other;
+				player_id.grabbed_sleeper_id = other;
 			}
 			else with other {
-				var is_homing = (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH);
-				set_state(is_homing ? SLP_DESPAWN_DIE_HOMING : SLP_DESPAWN_DIE);
-	    		dspec_ignore = true;
+	    		ignore_grabs = true;
 	    		player_claimed = false;
 			}
 			
-			other.dspec_skewered = player_claimed;
-			other.dspec_player_id = player_id;
-			other.relative_x = floor(other.x - player_id.x);
-			other.relative_y = floor(other.y - player_id.y);
+			// Set state and grab properties
+			with other {
+				var is_homing = (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH || state == SLP_STAGGERED_HOMING);
+				set_state(is_homing ? SLP_STAGGERED_HOMING : SLP_STAGGERED);
+				spr_dir = other.player_id.spr_dir * -1;
+				
+				is_grabbed = player_claimed;
+				grab_petrified = (other.attack == AT_DSPECIAL);
+				grabbed_player_id = other.player_id;
+				relative_x = floor(other.x - grabbed_player_id.x);
+				relative_y = floor(other.y - grabbed_player_id.y);
+			}
 			
 			// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
@@ -196,18 +213,20 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 					}
 				}
 			}
+			
 			// Apply hitpause to article
 			if (player_claimed) other.hitstop = floor(player_id.hitstop);
 			
 		}
 		
-		else if (hbox_num == 3) {
+		// Chomps
+		else if (putrolce_sleeper_tag == 2) {
 			
 			other.spr_dir = player_id.spr_dir * -1;
 			
 			// Queue death
 			with other {
-				if (dspec_skewered || state <= 09) {
+				if (is_grabbed || state <= 09) {
 					set_state(SLP_DESPAWN_SILENT);
 					spawn_hit_fx(x, y, player_id.fx_kragg_small);
 				}
@@ -215,19 +234,23 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 	    		else set_state(SLP_DESPAWN_DIE);
 			}
 			
-			other.dspec_skewered = false;
-			other.dspec_ignore = true;
-			other.dspec_player_id = player_id;
-    		player_id.hunger_meter = clamp(player_id.hunger_meter + other.dspec_hunger_value, 0, 100);
-    		with (player_id) user_event(0);
+			other.is_grabbed = false;
+			other.ignore_grabs = true;
+			other.grabbed_player_id = player_id;
+			var hunger_value = (attack == AT_DSPECIAL) ? other.dspec_hunger_value : other.uspec_hunger_value;
+			with player_id {
+				hunger_change = hunger_value;
+				user_event(0);
+			}
     		
+    		// Emulate hit_player stuff
     		// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
-			if (!player_id.has_hit) sound_play(sound_effect);
+			if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
 			
-			// Emulate hit_player stuff
+			// Hitstop
 			with player_id {
-				// Hitstop
+				
 				has_hit = true;
 				hitpause = true;
 				if (hitstop < other.hitpause) {
@@ -235,43 +258,78 @@ if (!dspec_ignore) with pHitBox if (attack == AT_DSPECIAL && type == 1 && "is_pu
 					hitstop_full = other.hitpause;
 				}
 			}
-			// Apply hitpause to article
-			other.hitstop = floor(player_id.hitstop);
+			other.hitstop = floor(player_id.hitstop); // Apply hitpause to article
+			
+		}
+		
+		// No grab behavior
+		else {
+			
+			is_putrolce_grab = (putrolce_sleeper_tag == 1); // tag 1 will end up down here if there's a conflicting grab active
+			
+			// Emulate hit_player stuff
+			if (putrolce_sleeper_tag == 3) {
+				
+				// SFX/VFX
+				spawn_hit_fx(other.x, other.y, hit_effect);
+				if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
+				
+				// Hitstop
+				with player_id {
+					
+					has_hit = true;
+					hitpause = true;
+					if (hitstop < other.hitpause) {
+						hitstop = other.hitpause;
+						hitstop_full = other.hitpause;
+					}
+				}
+				other.hitstop = floor(player_id.hitstop); // Apply hitpause to article
+				
+			}
 			
 		}
 		
 	}
+	
 }
 
-if (hitstop > 0 || dspec_skewered) {
+if (hitstop > 0 || is_grabbed) {
 	hsp = 0;
 	vsp = 0;
-	if (dspec_skewered) {
-		sprite_index = sprite_get("slp_rock");
-    	image_index = 0;
-	}
     
-    if (dspec_player_id.state != PS_ATTACK_GROUND && dspec_player_id.state != PS_ATTACK_AIR) {
-    	dspec_skewered = false;
+    if (grabbed_player_id.state != PS_ATTACK_GROUND && grabbed_player_id.state != PS_ATTACK_AIR) {
+    	is_grabbed = false;
     }
     
-    else if (dspec_skewered) {
-    	spr_dir = dspec_player_id.spr_dir * -1;
+    else if (is_grabbed) {
+    	spr_dir = grabbed_player_id.spr_dir * -1;
     	// template grab code from attack_update
-    	with (dspec_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
+    	with (grabbed_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
     	if (is_grabbing) {
-			with (dspec_player_id) {
-				var pull_to_x = get_window_value(attack, window, AG_WINDOW_GRAB_POS_X) * spr_dir;
-				var pull_to_y = get_window_value(attack, window, AG_WINDOW_GRAB_POS_Y) - 30; // sleeper offset differs from player offsets
-				var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
+			with (grabbed_player_id) {
 				
-				if (window_timer == 1 && !hitpause) {
+				var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
+				var hitpause_pull = get_window_value(attack, window, AG_WINDOW_GRAB_HITPAUSE_PULL);
+				
+				var arc_y = get_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y);
+				if (arc_y != 0) {
+					var t = (hitpause_pull) ? (hitstop_full-hitstop) / hitstop : window_timer / window_length;
+					var t2 = power(t, 2);
+					arc_y *= 6.75 * ((t-2)*t2 + t);
+					// https://www.desmos.com/calculator/gbp6wit76h
+				}
+				
+				var pull_to_x = get_window_value(attack, window, AG_WINDOW_GRAB_POS_X) * spr_dir;
+				var pull_to_y = get_window_value(attack, window, AG_WINDOW_GRAB_POS_Y) + round(arc_y) - 30; // sleeper offset differs from player offsets
+				
+				if (window_timer == 0 && !hitpause) { // script timing differs from attack_update
 					other.relative_x = floor(other.x - x);
 					other.relative_y = floor(other.y - y);
 				}
 				
-				if (get_window_value(attack, window, AG_WINDOW_GRAB_HITPAUSE_PULL)) {
-					if (hitpause) {
+				if (hitpause_pull) {
+					if (hitpause > 0) {
 						var current = floor(hitstop_full - hitstop);
 						var duration = floor(hitstop_full)
 						other.x = x + ease_circOut(other.relative_x, pull_to_x, current, duration);
@@ -283,7 +341,7 @@ if (hitstop > 0 || dspec_skewered) {
 					}
 				}
 				
-				else { // using an easing function, smoothly pull the opponent into the grab over the duration of this window.
+				else if (!hitpause) { // using an easing function, smoothly pull the opponent into the grab over the duration of this window.
 					other.x = x + ease_circOut( other.relative_x, pull_to_x, window_timer, window_length);
 					other.y = y + ease_circOut( other.relative_y, pull_to_y, window_timer, window_length);
 				}
@@ -291,9 +349,6 @@ if (hitstop > 0 || dspec_skewered) {
 			}
     	}
     }
-    
-	if (dspec_skewered || hitstop > 0) exit;
-	else set_state(SLP_DESPAWN_PETRIFIED);
 	
 }
 
@@ -579,6 +634,22 @@ switch (state) {
         // These despawn states should normally only reached through external interference, so set_state() needs to be re-run.
         set_state(state);
         break;
+        
+    // ------------------
+    
+    case SLP_STAGGERED:
+    	if (!is_grabbed && hitstop <= 0) {
+    		if (grab_petrified) set_state(SLP_DESPAWN_PETRIFIED)
+    		else set_state(SLP_DESPAWN_DIE);
+    	}
+    	break;
+    
+    case SLP_STAGGERED_HOMING:
+    	if (!is_grabbed && hitstop <= 0) {
+    		if (grab_petrified) set_state(SLP_DESPAWN_PETRIFIED)
+    		else set_state(SLP_DESPAWN_DIE_HOMING);
+    	}
+    	break;
     
     // ------------------
     
@@ -669,6 +740,16 @@ switch(state) {
         sprite_index = sprite_get("slp_idle_passive");
         image_index = (state_timer / 12);
         break;
+    
+    case SLP_STAGGERED:
+    	sprite_index = grab_petrified ? sprite_get("slp_rock") : sprite_get("slp_destroyed");
+    	image_index = 0;
+    	break;
+    
+    case SLP_STAGGERED_HOMING:
+    	sprite_index = grab_petrified ? sprite_get("slp_rock") : sprite_get("slp_homing_death");
+    	image_index = 0;
+    	break;
         
     case 30: // Despawning
     case 31: 
@@ -677,7 +758,6 @@ switch(state) {
         break;
 }
 //#endregion
-
 
 //#region Despawn handling
 if (should_die) {

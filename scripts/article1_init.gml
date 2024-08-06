@@ -54,9 +54,12 @@ venus_rune_ID = noone;
 venus_rune_angle = 0;
 venus_sine_offset = 0; // used for reflections of ST_ACTIVE_DEFAULT
 
-dspec_skewered = false;
-dspec_ignore = false;
-dspec_player_id = noone;
+grabbed_player_id = noone;
+is_grabbed = false;
+ignore_grabs = false;
+grab_petrified = false; // displayed petrified visual in stagger states
+
+uspec_hunger_value = 25;
 dspec_hunger_value = 25;
 
 // state machine variables

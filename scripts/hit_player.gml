@@ -149,7 +149,7 @@ switch(my_hitboxID.attack) {
     	else if (my_hitboxID.hbox_num == 2 && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
         break;
     case AT_BAIR:
-        //a
+        if (my_hitboxID.hbox_num == 2) sound_play(asset_get("sfx_bird_screech"), 0, noone, 1, 1)
         break;
     case AT_DAIR:
         if (my_hitboxID.hbox_num == 7 && is_melee) sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)

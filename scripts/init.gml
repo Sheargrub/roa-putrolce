@@ -45,6 +45,7 @@ AG_WINDOW_GRAB_POS_Y            = 76;   // y position to hold grabbed opponent
 AG_WINDOW_GRAB_HITPAUSE_PULL    = 77;   // If true, the opponent will be pulled
                                         // over the duration of hitpause instead
                                         // of during the attack window.
+AG_WINDOW_GRAB_ARC_Y            = 78;   // Adds arc-ish variance to the y-target.
 
 AG_WINDOW_CAN_WALLJUMP          = 79;   // if the player can walljump out of the
                                         // window
@@ -90,6 +91,10 @@ HG_PROJECTILE_MAX_HITS          = 72;   // max number of times the projectile
 HG_HUNGER_GAIN                  = 80;
 HG_STANCE                       = 81;   // If uninitialized/set to 0, will appear in all stances
                                         // NOTE: If using HG_STANCE, the hitbox must be included in set_num_hitboxes()
+HG_SLEEPER_TAG                  = 82;   // Behavioral tag, currently only checked during USpec and DSpec.
+                                        // 1: Grab that interacts with sleepers
+                                        // 2: Hitbox that eats sleepers
+                                        // 3: Hitbox that harmlessly collides with sleepers
 
 // if you're making custom indexes for your character, I recommend starting at
 // 80 or 90, as slots up to 79 may be filled in future updates
@@ -124,7 +129,7 @@ nspec_sleepers_active = 0;
 fspec_hit_sleeper = false;
 fspec_armor_hits = 0;
 
-dspec_sleeper_id = noone;
+grabbed_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
 
@@ -279,7 +284,7 @@ air_friction                    = 0.04;
 max_djumps                      = 1;
 double_jump_time                = 32;
 
-walljump_hsp                    = 7;
+walljump_hsp                    = 5.5;
 walljump_vsp                    = 7;
 walljump_time                   = 32;
 
@@ -299,7 +304,7 @@ knockback_adj                   = 0.95;
 
 //                           --landing stats--                                //
 land_time                       = 4; 
-prat_land_time                  = 10;
+prat_land_time                  = 18;
 wave_land_time                  = 8;
 wave_land_adj                   = 1.28;
 wave_friction                   = 0.33;

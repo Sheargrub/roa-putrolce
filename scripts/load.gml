@@ -36,22 +36,23 @@ sprite_change_offset("airdodge"             , 48, 63);
 sprite_change_offset("waveland"             , 48, 63);
 sprite_change_offset("tech"                 , 48, 63);
 
-sprite_change_offset("jab"                  , 32, 47, true);
+sprite_change_offset("jab"                  , 62, 81, true);
 sprite_change_offset("dattack"              , 64, 79, true);
 sprite_change_offset("ftilt"                , 64, 79, true);
 sprite_change_offset("dtilt"                , 64, 79, true);
 sprite_change_offset("utilt"                , 48, 63, true);
 sprite_change_offset("nair"                 , 48, 63, true);
 sprite_change_offset("fair"                 , 48, 63, true);
-sprite_change_offset("bair"                 , 32, 47, true);
+sprite_change_offset("bair"                 , 64, 79, true);
 sprite_change_offset("uair"                 , 64, 79, true);
 sprite_change_offset("dair"                 , 48, 63, true);
-sprite_change_offset("fstrong"              , 32, 47, true);
+sprite_change_offset("fstrong"              , 61, 82, true);
 sprite_change_offset("ustrong"              , 64, 79, true);
 sprite_change_offset("dstrong"              , 64, 79, true);
 sprite_change_offset("nspecial"             , 64, 79, true);
 sprite_change_offset("fspecial"             , 64, 81, true);
 sprite_change_offset("uspecial"             , 48, 63, true);
+sprite_change_offset("uspecial_grab"        , 48, 63, true);
 sprite_change_offset("dspecial"             , 64, 79, true);
 sprite_change_offset("taunt"                , 16, 31, true);
 

@@ -1,5 +1,6 @@
 // Stance update checks
-// Should be called whenever hunger_meter is altered.
+// Should be called whenever hunger_meter needs to be altered.
+// hunger_change should be set before calling this.
 
 if (hunger_locked || hunger_change == 0) exit;
 
