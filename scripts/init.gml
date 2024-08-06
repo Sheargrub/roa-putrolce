@@ -45,6 +45,7 @@ AG_WINDOW_GRAB_POS_Y            = 76;   // y position to hold grabbed opponent
 AG_WINDOW_GRAB_HITPAUSE_PULL    = 77;   // If true, the opponent will be pulled
                                         // over the duration of hitpause instead
                                         // of during the attack window.
+AG_WINDOW_GRAB_ARC_Y            = 78;   // Adds arc-ish variance to the y-target.
 
 AG_WINDOW_CAN_WALLJUMP          = 79;   // if the player can walljump out of the
                                         // window
@@ -299,7 +300,7 @@ knockback_adj                   = 0.95;
 
 //                           --landing stats--                                //
 land_time                       = 4; 
-prat_land_time                  = 10;
+prat_land_time                  = 18;
 wave_land_time                  = 8;
 wave_land_adj                   = 1.28;
 wave_friction                   = 0.33;

@@ -135,8 +135,9 @@ switch(state) {
         if (window == get_attack_value(attack,AG_STRONG_CHARGE_WINDOW) && get_window_value(attack,window,AG_WINDOW_HAS_CHARGE_LOOP) && strong_charge > 0) {
             image_index = get_window_value(attack,window,AG_WINDOW_CHARGE_FRAME_START) + (round(strong_charge * get_window_value(attack,window,AG_WINDOW_CHARGE_LOOP_SPEED)) mod get_window_value(attack,window,AG_WINDOW_CHARGE_FRAMES));
         }
-        if (attack == AT_USPECIAL && 7 <= window && window <= 9) {
-            sprite_index = sprite_get("nair");
+        if (attack == AT_USPECIAL && 7 <= window) {
+            sprite_index = sprite_get("uspecial_grab");
+            hurtboxID.sprite_index = sprite_get("uspecial_grab_hurt");
         }
         break;
 }
