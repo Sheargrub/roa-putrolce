@@ -16,14 +16,14 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_kragg_roll_end"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 5); // todo: need to add stance handling
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -3);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -34,7 +34,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 //set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true); // handled manually
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_frog_dspecial_swallow"));
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, 13);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, 20);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 16);
 window_num++;
 

@@ -59,8 +59,8 @@ is_grabbed = false;
 ignore_grabs = false;
 grab_petrified = false; // displayed petrified visual in stagger states
 
-uspec_hunger_value = 25;
-dspec_hunger_value = 25;
+uspec_hunger_value = 20;
+dspec_hunger_value = 20;
 
 // state machine variables
 state = 0;

@@ -21,6 +21,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, tru
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy1"));
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [13, 8, 10, 10]);
 //set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 9);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 8); // todo: need to add stance handling
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
