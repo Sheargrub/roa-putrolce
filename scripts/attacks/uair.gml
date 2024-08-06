@@ -18,6 +18,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_travel_start"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, window_length-1);
 window_num++;
 
 // Multihit
@@ -26,7 +28,6 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 2);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -4);
 window_num++;
 
 // Multihit
@@ -125,7 +126,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -18);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_poison_hit_med"));
-set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 15);
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
@@ -149,4 +150,4 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -18);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_poison_hit_strong"));
-set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 15);
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);

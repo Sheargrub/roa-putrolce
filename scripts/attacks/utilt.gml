@@ -18,6 +18,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, tru
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium2"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [8, 3, 5, 7]);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 4); // todo: stance variance
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -25,7 +27,6 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -6);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
