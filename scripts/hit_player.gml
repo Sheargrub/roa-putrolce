@@ -145,8 +145,8 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_FAIR:
-        if (my_hitboxID.hbox_num == 1 && is_melee) sound_play(asset_get("sfx_kragg_rock_pull"), 0, noone, 0.3, 1)
-    	else if (my_hitboxID.hbox_num == 2 && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
+        if ((my_hitboxID.hbox_num == 1 || my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6) && is_melee) sound_play(asset_get("sfx_kragg_rock_pull"), 0, noone, 0.3, 1)
+        else if ((my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 5 || my_hitboxID.hbox_num == 7) && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
         break;
     case AT_BAIR:
         if (my_hitboxID.hbox_num == 2) sound_play(asset_get("sfx_bird_screech"), 0, noone, 1, 1)
@@ -180,7 +180,10 @@ switch(my_hitboxID.attack) {
         if (hbox_num == 3 && grabbed_player_obj != noone && !has_rune("A")) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
         break;
     case AT_USPECIAL:
-        //a
+        if (my_hitboxID.hbox_num == 5) sound_play(asset_get("sfx_orca_crunch"), false, noone, 1, 1);
+        if (my_hitboxID.hbox_num == 3 || my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6) sound_play(sound_get("ftilt"), false, noone, 1, 1);
+        if (my_hitboxID.hbox_num == 7) sound_play(asset_get("sfx_bigplant_eat"), false, noone, 1, 1);
+        if (my_hitboxID.hbox_num == 8) sound_play(sound_get("ultimate_chomp"), false, noone, 1, 1);
         break;
     
 
