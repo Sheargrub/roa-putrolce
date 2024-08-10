@@ -20,7 +20,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_SFX, sound_g
 //set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [9, 5, 8, 11]);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 5); // todo: need to add stance handling
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1); // todo: need to add stance handling
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);

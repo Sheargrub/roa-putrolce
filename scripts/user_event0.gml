@@ -5,7 +5,7 @@
 if (hunger_locked || hunger_change == 0) exit;
 
 hunger_meter += hunger_change;
-hunger_meter = clamp(hunger_meter, 0, 100);
+hunger_meter = clamp(hunger_meter, 10, 100);
 
 if (hunger_change > 0) vis_meter_rises[0] = vis_meter_bump_duration;
 else vis_meter_falls[clamp(ceil(hunger_meter/10)-1, 0, 8)] = vis_meter_bump_duration;

@@ -19,7 +19,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_g
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [8, 3, 5, 7]);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 4); // todo: stance variance
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
