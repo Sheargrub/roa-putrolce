@@ -20,6 +20,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, tru
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_may_arc_cointoss"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 7);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [12, 8, 8, 8]);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
 // Bash active 1
@@ -31,7 +33,6 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_S
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_CAN_WALLJUMP, true);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_CUSTOM_FRICTION, true);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
 window_num++;
 
 // Bash active 2 (dissipation)

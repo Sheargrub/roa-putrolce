@@ -19,7 +19,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, tru
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_travel_start"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, window_length-1);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
 // Multihit

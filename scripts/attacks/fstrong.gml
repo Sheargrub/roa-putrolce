@@ -16,7 +16,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_travel_start"));
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 7); // todo: need to add stance handling
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);

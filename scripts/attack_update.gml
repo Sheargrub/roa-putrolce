@@ -274,7 +274,10 @@ switch(attack) {
 
 // Hunger gains
 var whiff_lag_mult = (!has_hit && get_window_value(attack, window, AG_WINDOW_HAS_WHIFFLAG)) ? 1.5 : 1;
-if (!hitpause && window_timer-1 == floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult)) {
+var raw_hgf = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME);
+if (raw_hgf >= 0) var hunger_gain_frame = floor(raw_hgf*whiff_lag_mult) + 1;
+else var hunger_gain_frame = floor((get_window_value(attack, window, AG_WINDOW_LENGTH)+raw_hgf)*whiff_lag_mult);
+if (!hitpause && window_timer == hunger_gain_frame) {
 	hunger_change = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
 	user_event(0);
 }
