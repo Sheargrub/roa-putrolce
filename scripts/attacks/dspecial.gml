@@ -17,7 +17,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, sound_get("bair"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
+set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, 4);
 window_num++;
 
@@ -169,7 +169,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_orca_crunch"));
-set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 30);
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 35);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
 hbox_num++;
 
