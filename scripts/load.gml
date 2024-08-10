@@ -56,7 +56,7 @@ sprite_change_offset("uspecial_grab"        , 48, 63, true);
 sprite_change_offset("dspecial"             , 64, 79, true);
 sprite_change_offset("taunt"                , 16, 31, true);
 
-sprite_change_offset("plat"                 , 32, 47);
+sprite_change_offset("plat"                 , 64, 83);
 
 
 
