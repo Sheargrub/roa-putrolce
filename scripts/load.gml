@@ -43,7 +43,7 @@ sprite_change_offset("dtilt"                , 64, 79, true);
 sprite_change_offset("utilt"                , 48, 63, true);
 sprite_change_offset("nair"                 , 48, 63, true);
 sprite_change_offset("fair"                 , 48, 63, true);
-sprite_change_offset("bair"                 , 64, 79, true);
+sprite_change_offset("bair"                 , 67, 79, true);
 sprite_change_offset("uair"                 , 64, 79, true);
 sprite_change_offset("dair"                 , 48, 63, true);
 sprite_change_offset("fstrong"              , 61, 82, true);
