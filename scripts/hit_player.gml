@@ -173,7 +173,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_FSPECIAL:
-        //a
+        if (my_hitboxID.hbox_num == 1 || my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 3 || my_hitboxID.hbox_num == 4) sound_play(sound_get("fspec_impact"), false, noone, 1, 1);
         break;
     case AT_DSPECIAL:
         if (hbox_num <= 2 && is_melee) sound_play(sound_get("cut2"));
