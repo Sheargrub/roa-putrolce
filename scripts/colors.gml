@@ -116,6 +116,15 @@ set_color_profile_slot( 8, 5, 217, 232, 255 ); //Mask
 set_color_profile_slot( 8, 6, 217, 232, 255 ); //Mask Teeth Tips
 set_color_profile_slot( 8, 7, 224, 78, 217 ); //Sweater Ribbed
 
+// Avant
+set_color_profile_slot( 2, 0, 36, 30, 30 ); //Sweater
+set_color_profile_slot( 2, 1, 32, 21, 25 ); //Hair
+set_color_profile_slot( 2, 2, 247, 185, 57 ); //Sweater Ribbed
+set_color_profile_slot( 2, 3, 156, 119, 119 ); //Skin
+set_color_profile_slot( 2, 4, 56, 45, 49 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 2, 5, 173, 19, 95 ); //Rock/Finger Tips
+set_color_profile_slot( 2, 6, 67, 26, 128 ); //Mask
+set_color_profile_slot( 2, 7, 158, 17, 86 ); //Mask Teeth Tips
 
 /* This is a comment used by that one RoA colors.gml generator tool to store palette data. You can safely keep it in your colors.gml if you plan to re-use the tool later, or safely remove it if you don't.
 === BEGIN JSON PALETTE ===
