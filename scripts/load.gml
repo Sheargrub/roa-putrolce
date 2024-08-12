@@ -84,3 +84,5 @@ sprite_change_offset("slp_homing_death", 76, 54);
 sprite_change_offset("slp_sleepingvfx_temp", 12, 14);
 
 sprite_change_offset("petrify_rocks", 11, 10);
+
+sprite_change_offset("fx_ashe_trail", 9, 9);

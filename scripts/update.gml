@@ -106,6 +106,17 @@ if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state !
 }
 do_sfx_cancel = false;
 
+// ASHe alt vfx
+if (get_player_color(player) == 11 && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
+{
+    var fx = spawn_hit_fx(
+        x + draw_x + (random_func(0, 8, false) - 4)*8,
+        y + draw_y - random_func(1, 8, false)*8,
+        fx_ashe_trail
+    );
+    fx.hsp = (random_func(2, 8, false) - 4)/4;
+    fx.vsp = (random_func(3, 8, false) - 4)/2 - 1;
+}
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)
 var dlen; //dust_length value
@@ -114,7 +125,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

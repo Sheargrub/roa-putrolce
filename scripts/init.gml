@@ -353,6 +353,10 @@ jump_sound                      = asset_get("sfx_jumpground");
 djump_sound                     = asset_get("sfx_jumpair");
 air_dodge_sound                 = asset_get("sfx_quick_dodge");
 
+//                            --victory theme plus misc--                     //
+set_victory_theme = sound_get ("putrolce_victory")
+fx_ashe_trail = hit_fx_create(sprite_get("fx_ashe_trail"), 20);
+
 //                       --ranno bubble visual offset--                       //
 bubble_x                        = 0;
 bubble_y                        = 8;
