@@ -115,6 +115,14 @@ hunger_change                   = 0; // how much user_event0 will change hunger 
 stance                          = 3; // 1-4, see below
 stance_names                    = ["Famished", "Voracious", "Normal", "Overstuffed"] // For debug and training mode elements
 stance_suffixes                 = ["_famished", "_voracious", "", "_overstuffed"] // for movement anim handling
+stance_colors = [   // Mostly for fspecial afterimages
+    make_color_rgb( 49,  19, 120),
+    make_color_rgb(255,  50,  38),
+    make_color_rgb(255, 218,  60),
+    make_color_rgb( 62, 190, 219),
+    ]
+
+afterimage_list = ds_list_create();
 
 ST_FAMISHED                     = 1; // remember, these are incompatible with switch statements
 ST_VORACIOUS                    = 2;
