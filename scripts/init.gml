@@ -1,6 +1,6 @@
 
 // Debug flag: enables some log messages and utilities for testing purposes.
-should_debug = true; // change to false before release
+should_debug = false;
 is_practice = get_match_setting(SET_PRACTICE);
 if (is_practice) {
     var tag = get_player_name(player);
