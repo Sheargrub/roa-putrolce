@@ -79,15 +79,6 @@ HG_LERP_PERCENT                 = 65;   // how much pull the lerp has
 HG_LERP_POS_X                   = 66;   // x position that the lerp pulls to
 HG_LERP_POS_Y                   = 67;   // y position that the lerp pulls to
 
-HG_PROJECTILE_MULTIHIT          = 70;   // if a projectile multihits
-HG_PROJECTILE_MULTIHIT_RATE     = 71;   // rate at which a projectile multihits
-                                        // ex.: if 10, hits every 10 frames
-                                        // (individual per opponent)
-HG_PROJECTILE_MAX_HITS          = 72;   // max number of times the projectile
-                                        // can hit before being destroyed
-                                        // (individual per opponent)
-                                        // put -1 for no limit
-
 HG_HUNGER_GAIN                  = 80;
 HG_STANCE                       = 81;   // If uninitialized/set to 0, will appear in all stances
                                         // NOTE: If using HG_STANCE, the hitbox must be included in set_num_hitboxes()
