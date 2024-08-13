@@ -72,7 +72,7 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	altsel = 0; // change the alt select sound here. if you don't want to change the sound, put 0 here.
 	color_desc_activate = true; // optional "alt color description button". set to "true" to turn it on.
 	
-	col_max = 19; // number of alternate color palettes. 0 is the default color, count it accordingly.
+	col_max = 22; // number of alternate color palettes. 0 is the default color, count it accordingly.
 	
 	//first array index is for alternate color. second array index is for distinguishing the information in it.
 	ce[0,0] = make_color_rgb(236, 0, 79) // "color preview square" color. can be any color!
@@ -81,23 +81,23 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	
 	ce[1,0] = make_color_rgb(110, 24, 53)
 	ce[1,1] = "Fiery Feast"
-	ce[1,2] = "Pumped up for some pipin' hot food [ROAACO]"
+	ce[1,2] = "Pumped up for some pipin' hot food. [ROAACO]"
 	
 	ce[2,0] = make_color_rgb(52, 156, 236)
 	ce[2,1] = "Marine Munchies"
-	ce[2,2] = "Go blue from hunger [ROAACO]"
+	ce[2,2] = "Go blue from hunger. [ROAACO]"
 	
 	ce[3,0] = make_color_rgb(91, 173, 95)
 	ce[3,1] = "Greenish Gourmand"
-	ce[3,2] = "Like rotten mint chip [ROAACO]"
+	ce[3,2] = "Like rotten mint chip. [ROAACO]"
 	
 	ce[4,0] = make_color_rgb(255, 0, 234)
 	ce[4,1] = "Pinky"
-	ce[4,2] = "Pinky Pink [ROAACO]"
+	ce[4,2] = "Pinky Pink. [ROAACO]"
 	
 	ce[5,0] = make_color_rgb(93, 83, 125)
 	ce[5,1] = "Obsidian Omnivore"
-	ce[5,2] = "When you`re feeling grey [ROAACO]"
+	ce[5,2] = "When you`re feeling grey. [ROAACO]"
 	
     ce[6,0] = make_color_rgb(162, 99, 44)
 	ce[6,1] = "Unpleasant Gradient"
@@ -105,7 +105,7 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 
 	ce[7,0] = make_color_rgb(204, 65, 105)
 	ce[7,1] = "CMYK Savant"
-	ce[7,2] = "Based on TehEnd's reaper Avant."
+	ce[7,2] = "Based on TehEnd's reaper, Avant."
 	
     ce[8,0] = make_color_rgb(193, 44, 45)
 	ce[8,1] = "Page of Excalibur"
@@ -113,48 +113,68 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	
     ce[9,0] = make_color_rgb(40, 46, 93)
 	ce[9,1] = "Bloody Revival"
-	ce[9,2] = "Based on scaurai's reaper Saelune"
+	ce[9,2] = "Based on scaurai's reaper, Saelune."
 	
     ce[10,0] = make_color_rgb(148, 168, 146)
 	ce[10,1] = "Masked Nuzzle"
-	ce[10,2] = "Based on Nuzl's character Lunzg."
+	ce[10,2] = "Based on Nuzl's character, Lunzg."
 	
 	ce[11,0] = make_color_rgb(224, 78, 217)
 	ce[11,1] = "Arisen Anew"
 	ce[11,2] = "this purple mfer with the smoke always keeps popping back up"
 	
-    ce[12,0] = make_color_rgb(132, 182, 205)
-	ce[12,1] = "Crude Spoonful"
-	ce[12,2] = "Based on Yuuma Toutetsu from Touhou Project"
+	ce[12,0] = make_color_rgb(27, 227, 100)
+	ce[12,1] = "Radiant Devourer"
+	ce[12,2] = "Based on Spider Boi's character, Chimera."
 	
-    ce[13,0] = make_color_rgb(99, 42, 142)
-	ce[13,1] = "Mirror Magic"
-	ce[13,2] = "Based on Badeline/Part of You from Celeste."
+	ce[13,0] = make_color_rgb(117, 64, 128)
+	ce[13,1] = "Cold Cuts"
+	ce[13,2] = "Based on Kokacup's character, Sarolyn."
 	
-    ce[14,0] = make_color_rgb(222, 38, 167)
-	ce[14,1] = "Hopping Stalker"
-	ce[14,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
+    ce[14,0] = make_color_rgb(132, 182, 205)
+	ce[14,1] = "Crude Spoonful"
+	ce[14,2] = "Based on Yuuma Toutetsu from Touhou Project."
 	
-    ce[15,0] = make_color_rgb(98, 66, 214)
-	ce[15,1] = "All-Starve"
-	ce[15,2] = "Based on the color scheme for the All-Star Heroines pack."
+    ce[15,0] = make_color_rgb(99, 42, 142)
+	ce[15,1] = "Mirror Magic"
+	ce[15,2] = "Based on Badeline/Part of You from Celeste."
 	
-    ce[16,0] = make_color_rgb(240, 194, 46)
-	ce[16,1] = "Feasting & Winning"
-	ce[16,2] = "Based on the color scheme for the Black Lives Winning group."
+    ce[16,0] = make_color_rgb(222, 38, 167)
+	ce[16,1] = "Hopping Stalker"
+	ce[16,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
 	
-	ce[17,0] = make_color_rgb(48, 236, 0)
-	ce[17,1] = "Gutrolce"
-	ce[17,2] = "Putrolce's evil twin from lore who is kind of green."
+    ce[17,0] = make_color_rgb(98, 66, 214)
+	ce[17,1] = "All-Starve"
+	ce[17,2] = "Based on the color scheme for the All-Star Heroines pack."
 	
-    ce[18,0] = make_color_rgb(152, 168, 181)
-	ce[18,1] = "Colorful Stances"
-	ce[18,2] = "Changes colors based on your current stance."
+    ce[18,0] = make_color_rgb(240, 194, 46)
+	ce[18,1] = "Feasting & Winning"
+	ce[18,2] = "Based on the color scheme for the Black Lives Winning group."
 	
-	ce[19,0] = make_color_rgb(206, 17, 38)
-	ce[19,1] = "Mexico"
-	ce[19,2] = "
+	ce[19,0] = make_color_rgb(48, 236, 0)
+	ce[19,1] = "Gutrolce"
+	ce[19,2] = "Putrolce's evil twin from lore who is kind of green."
+	
+    ce[20,0] = make_color_rgb(152, 168, 181)
+	ce[20,1] = "Colorful Stances"
+	ce[20,2] = "Changes colors based on your current stance."
+	
+	ce[21,0] = make_color_rgb(206, 17, 38)
+	ce[21,1] = "Mexico"
+	ce[21,2] = "
 	hell yes."
+	
+	ce[22,0] = make_color_rgb(206, 17, 38)
+	ce[22,1] = "Undefined"
+	ce[22,2] = ""
+	
+	ce[23,0] = make_color_rgb(206, 17, 38)
+	ce[23,1] = "Undefined"
+	ce[23,2] = ""
+	
+	ce[23,0] = make_color_rgb(206, 17, 38)
+	ce[23,1] = "Undefined"
+	ce[23,2] = ""
 	
 
 	// you can add more, by copypasting and changing the first index of the array accordingly.
