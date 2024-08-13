@@ -72,10 +72,21 @@ switch(attack) {
         //a
         break;
     case AT_DAIR:
-        //a
+        if(window == 1 && window_timer == 1){
+        	if(stance == 4) sound_play(asset_get("sfx_shovel_swing_heavy1"), 0, noone, 1, 1);
+        	else if(stance != 1) sound_play(asset_get("sfx_shovel_swing_med2"), 0, noone, 1, 1);
+        }
         break;
     case AT_UAIR:
+    	if (window == 1 && window_timer == window_length){
+        	sound_play(asset_get("sfx_abyss_seed_fall"), false, noone, 1, 0.9)
+    	}
         break;
+    case AT_DSTRONG:
+    	if (window == 2 && window_timer == 1){
+        	sound_play(sound_get("nair_yell"), false, noone, 0.75, 0.95)
+    	}
+    	break;
     
     case AT_NSPECIAL:
     	move_cooldown[AT_NSPECIAL] = 20;
@@ -100,6 +111,9 @@ switch(attack) {
 	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
 	        		fspec_hit_sleeper = false;
 	        		fspec_aftim_length = (stance == 1 || stance == 3) ? 10 : 20;
+	        	}else if (window_timer == window_length){
+	        		sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
+	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        	}
 	        	else if (vsp > 0) vsp = 0;
 	        	hsp = clamp(hsp, -2, 2);
@@ -220,6 +234,16 @@ switch(attack) {
         if (window == 1 || window >= 10) can_move = false;
         if (window < 5 || window == 9) can_wall_jump = true;
         
+        //land
+        if(window == 4 && !free){
+        	window = 5;
+        	window_timer = 0;
+        	
+        	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
+        	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
+        }
+        
+        //grab
         if ((window == 3 || window == 4) && (special_pressed || is_special_pressed(DIR_ANY))) {
         	set_attack_value(attack, AG_NUM_WINDOWS, 9);
         	window = 7;
@@ -373,11 +397,12 @@ ds_list_add(afterimage_list, afterimage);
 //	- Putrolce is in a different attack or state.
 // SFX instances created by this will be stored at attack_sfx_instance, so only one at a time is supported.
 #define sound_play_cancellable 
+/// sound_play_cancellable(_sound, _looping = false, _panning = noone, _volume = 1, _pitch = 1)
 var _sound = argument[0];
-var _looping = argument_count > 1 ? argument[1] : false;
-var _panning = argument_count > 2 ? argument[2] : noone;
-var _volume = argument_count > 3 ? argument[3] : 1;
-var _pitch = argument_count > 4 ? argument[4] : 1;
+var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
+var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
+var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
+var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -390,7 +415,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

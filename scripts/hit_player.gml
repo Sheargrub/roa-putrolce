@@ -126,19 +126,21 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_PROJECTILE_MUL
 
 switch(my_hitboxID.attack) {
     case AT_JAB:
-        //a
+        sound_play(asset_get("sfx_kragg_roll_land"), 0, noone, 1, 1)
         break;
     case AT_FTILT:
         //a
         break;
     case AT_DTILT:
         sound_play(sound_get("slash3"), false, noone, 0.8, 0.8);
+        sound_play(asset_get("sfx_kragg_roll_land"), 0, noone, 1, 1);
         break;
     case AT_UTILT:
-        //a
+        sound_play(asset_get("sfx_icehit_medium1"), false, noone, 0.9, 0.95);
         break;
     case AT_DATTACK:
-        //a
+        if (my_hitboxID.hbox_num >= 3 && is_melee) sound_play(asset_get("sfx_blow_heavy1"), 0, noone, 1, 1);
+        else if (my_hitboxID.hbox_num == 2 && is_melee)sound_play(asset_get("sfx_blow_medium2"), 0, noone, 1, 1);
         break;
         
     case AT_NAIR:
@@ -149,20 +151,25 @@ switch(my_hitboxID.attack) {
         else if ((my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 5 || my_hitboxID.hbox_num == 7) && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
         break;
     case AT_BAIR:
-        if (my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6 || my_hitboxID.hbox_num == 8) sound_play(asset_get("sfx_bird_screech"), 0, noone, 1, 1)
+        if (my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6 || my_hitboxID.hbox_num == 8) sound_play(asset_get("sfx_bird_screech"), 0, noone, 0.9, 1)
         break;
     case AT_DAIR:
-        if (my_hitboxID.hbox_num == 7 && is_melee) sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
+        if (my_hitboxID.hbox_num == 7 && is_melee) sound_play(asset_get("sfx_kragg_rock_shatter"), 0, noone, 1, 1)
+        else if (my_hitboxID.hbox_num >= 5 && is_melee) sound_play(asset_get("sfx_kragg_roll_land"), 0, noone, 1, 1)
         break;
     case AT_UAIR:
         //a
         break;
         
     case AT_FSTRONG:
-    	//a
+    	if (my_hitboxID.hbox_num == 4 && is_melee) sound_play(asset_get("sfx_blow_heavy1"), 0, noone, 1, 1)
+    	if (my_hitboxID.hbox_num == 5 && is_melee) sound_play(asset_get("sfx_blow_heavy2"), 0, noone, 1, 1)
     	break;
     case AT_USTRONG:
-    	if (my_hitboxID.hbox_num == 3 && is_melee) sound_play(sound_get("fire2"), 0, noone, 1, 0.7)
+    	if (my_hitboxID.hbox_num == 3 && is_melee){
+    		sound_play(sound_get("fire2"), 0, noone, 1, 0.7)
+    		sound_play(asset_get("sfx_blow_heavy1"), 0, noone, 1, 1)
+    	}
     	break;
     case AT_DSTRONG:
     	//a
@@ -173,10 +180,14 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_FSPECIAL:
-        if (my_hitboxID.hbox_num == 1 || my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 3 || my_hitboxID.hbox_num == 4) sound_play(sound_get("fspec_impact"), false, noone, 1, 1);
+    	sound_play(asset_get("sfx_kragg_roll_land"), false, noone, 1, 1);
+        if (my_hitboxID.hbox_num == 4) sound_play(sound_get("scarab_hit"), false, noone, 1, 1);
         break;
     case AT_DSPECIAL:
-        if (hbox_num <= 2 && is_melee) sound_play(sound_get("cut2"));
+        if (hbox_num <= 2 && is_melee){
+        	sound_play(sound_get("cut2"));
+        	sound_play(asset_get("sfx_kragg_rock_shatter"), 0, noone, 0.9, 1.0)
+        }
         if (hbox_num == 3 && grabbed_player_obj != noone && !has_rune("A")) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
         break;
     case AT_USPECIAL:

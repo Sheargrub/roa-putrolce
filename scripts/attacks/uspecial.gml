@@ -44,7 +44,7 @@ set_window_value(atk, window_num, AG_WINDOW_SFX, asset_get("sfx_ori_stomp_spin")
 window_num++;
 
 // Drop
-set_window_value(atk, window_num, AG_WINDOW_TYPE, 8);
+set_window_value(atk, window_num, AG_WINDOW_TYPE, 9);
 set_window_value(atk, window_num, AG_WINDOW_LENGTH, 999);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 10);
@@ -59,8 +59,6 @@ set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
 set_window_value(atk, window_num, AG_WINDOW_LENGTH, 24);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 4);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 11);
-set_window_value(atk, window_num, AG_WINDOW_HAS_SFX, 1);
-set_window_value(atk, window_num, AG_WINDOW_SFX, asset_get("sfx_kragg_rock_pillar"));
 window_num++;
 
 // Getup

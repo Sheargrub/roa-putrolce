@@ -17,7 +17,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGT
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_may_arc_cointoss"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy1"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 7);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [12, 7, 8, 11]);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
@@ -105,7 +105,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.6);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 20);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium1"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
 set_hitbox_value(atk, hbox_num, HG_IGNORES_PROJECTILES      , 1);
 hbox_num++;
 
@@ -129,7 +129,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.6);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 20);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium1"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
 set_hitbox_value(atk, hbox_num, HG_IGNORES_PROJECTILES      , 1);
 hbox_num++;
 
@@ -153,6 +153,6 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.7);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 20);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , sound_get("scarab_hit"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
 set_hitbox_value(atk, hbox_num, HG_IGNORES_PROJECTILES      , 1);
 hbox_num++;

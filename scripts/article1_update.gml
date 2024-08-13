@@ -363,6 +363,7 @@ switch (state) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
+            sound_play(asset_get("sfx_absa_jump"), false, noone, 0.75, 0.9)
             set_state(SLP_ACTIVE_DEFAULT);
             auto_gen_hitbox();
         }
@@ -378,6 +379,7 @@ switch (state) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
+            sound_play(asset_get("sfx_absa_jump"), false, noone, 0.9, 1.1)
             targetted_player_id = player_id;
             set_state(SLP_ACTIVE_HOMING);
             break;
@@ -387,6 +389,7 @@ switch (state) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
+            sound_play(asset_get("sfx_absa_jump"), false, noone, 0.9, 1.1)
             targetted_player_id = hit_player_id;
             set_state(SLP_ACTIVE_HOMING);
         }
@@ -396,6 +399,7 @@ switch (state) {
             var break_fx = spawn_hit_fx(x, y, player_id.fx_kragg_small);
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
+            sound_play(asset_get("sfx_absa_jump"), false, noone, 0.75, 0.9)
             set_state(SLP_ACTIVE_DEFAULT);
             auto_gen_hitbox();
         }
