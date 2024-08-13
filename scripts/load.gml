@@ -69,6 +69,7 @@ sprite_change_offset("plat"                 , 64, 83);
 
 sprite_change_offset("hfx_rock_small_bg", 64, 64);
 sprite_change_offset("hfx_rock_large", 128, 128);
+sprite_change_offset("hfx_bite", 128, 128);
 
 sprite_change_offset("slp_rock", 76, 54); // main sprites
 sprite_change_offset("slp_rock_to_wave", 76, 54);

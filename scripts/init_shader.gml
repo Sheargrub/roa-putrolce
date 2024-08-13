@@ -13,4 +13,43 @@ if (alt_cur == 0) {
     set_article_color_slot(7, 139, 114, 154);
 }
 
+if (alt_cur == 18) {
+    switch (stance){
+        case 1:
+            set_character_color_slot(0, 49, 19, 120);
+            set_character_color_slot(4, 49, 19, 120);
+            set_character_color_slot(6, 49, 19, 120);
+            set_article_color_slot(0, 49, 19, 120);
+            set_article_color_slot(4, 49, 19, 120);
+            set_article_color_slot(6, 49, 19, 120);
+        break;
+        case 2:
+            set_character_color_slot(0, 255, 50, 38);
+            set_character_color_slot(4, 255, 50, 38);
+            set_character_color_slot(6, 255, 50, 38);
+            set_article_color_slot(0, 255, 50, 38);
+            set_article_color_slot(4, 255, 50, 38);
+            set_article_color_slot(6, 255, 50, 38);
+        break;
+        case 3:
+            set_character_color_slot(0, 255, 218, 60);
+            set_character_color_slot(4, 255, 218, 60);
+            set_character_color_slot(6, 255, 218, 60);
+            set_article_color_slot(0, 255, 218, 60);
+            set_article_color_slot(4, 255, 218, 60);
+            set_article_color_slot(6, 255, 218, 60);
+        break;
+        default:
+        case 4:
+            set_character_color_slot(0, 62, 190, 219);
+            set_character_color_slot(4, 62, 190, 219);
+            set_character_color_slot(6, 62, 190, 219);
+            set_article_color_slot(0, 62, 190, 219);
+            set_article_color_slot(4, 62, 190, 219);
+            set_article_color_slot(6, 62, 190, 219);
+        break;
+        
+    }
+}
+
 if (object_index == oPlayer || object_index == oTestPlayer) outline_color = stance_outlines[stance-1];

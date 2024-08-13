@@ -371,7 +371,9 @@ bubble_y                        = 8;
 
 // hfx
 fx_kragg_small = hit_fx_create(sprite_get("hfx_rock_small_bg"),20);
-fx_kragg_big = hit_fx_create(sprite_get("hfx_rock_large"),20);
+fx_kragg_big = hit_fx_create(sprite_get("hfx_rock_large"),32);
+
+fx_bite = hit_fx_create(sprite_get("hfx_bite"),16);
 
 fx_slp_phase = hit_fx_create(sprite_get("slp_phase"), 24);
 fx_slp_destroyed = hit_fx_create(sprite_get("slp_destroyed"), 32);
