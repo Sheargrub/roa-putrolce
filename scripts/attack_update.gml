@@ -96,6 +96,10 @@ switch(attack) {
         	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
     	}
     	break;
+    	
+    case AT_TAUNT:
+    	move_cooldown[AT_TAUNT] = 60;
+    	break;
     
     case AT_NSPECIAL:
     	move_cooldown[AT_NSPECIAL] = 20;

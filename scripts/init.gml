@@ -159,7 +159,7 @@ buffer_stance_update = false; // set to true when a change in hunger level is de
 buffer_pratfall = false; // applied as soon as a state change occurs.
 buffer_pratfall_paused = false; // causes the next application of buffer_pratfall to be delayed by one state change.
 
-
+skull_idle_timer = 30;
 
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {
