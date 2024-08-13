@@ -152,6 +152,16 @@ buffer_pratfall_paused = false; // causes the next application of buffer_pratfal
 
 skull_idle_timer = 30;
 
+//Compatibility
+arena_title = "The Never-Ending Hunger";
+knight_compat_dream = 
+    [
+        "I hope this Figment tastes real good!",
+        "Running low... gotta be careful",
+        "A figment? Looks like a light snack."
+    ]
+mamizou_transform_spr = sprite_get("mami_transformation"); //Replace "X" with your sprite.
+
 // Runes
 has_rune_petrifystatus = has_rune("A");
 has_rune_sleeperchase = has_rune("B");
