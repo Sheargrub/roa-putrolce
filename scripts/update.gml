@@ -128,7 +128,11 @@ for (var i = 0; i < ds_list_size(afterimage_list); i++) {
     }
 }
 
-
+// HUD update
+if (stance == 1) set_ui_element(UI_HUD_ICON, sprite_get("hud_famished"));
+else if (stance == 2) set_ui_element(UI_HUD_ICON, sprite_get("hud_voracious"));
+else if (stance == 4) set_ui_element(UI_HUD_ICON, sprite_get("hud_overstuffed"));
+else set_ui_element(UI_HUD_ICON, sprite_get("hud_default"));
 
 
 

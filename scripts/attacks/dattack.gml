@@ -76,6 +76,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.3);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_kragg_small);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 
 var hbox_num = 2;
 
@@ -98,6 +99,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_kragg_small);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 
 var hbox_num = 3;
 
@@ -120,6 +122,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 7);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_kragg_small);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , sound_get("scarab_hit"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 
 var hbox_num = 4;
 
@@ -142,3 +145,4 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 8);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_kragg_big);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , sound_get("sword1"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);

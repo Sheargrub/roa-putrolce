@@ -13,7 +13,7 @@ if (alt_cur == 0) {
     set_article_color_slot(7, 139, 114, 154);
 }
 
-if (alt_cur == 18) {
+if (alt_cur == 20) {
     switch (stance){
         case 1:
             set_character_color_slot(0, 49, 19, 120);

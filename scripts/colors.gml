@@ -34,7 +34,7 @@ set_color_profile_slot_range( 7, 1, 20, 30 );
 
 
 // ALTERNATE COLORS
-set_num_palettes( 20 );
+set_num_palettes( 22 );
 
 // Red
 set_color_profile_slot( 1, 0, 110, 24, 53 ); //Sweater
@@ -107,14 +107,14 @@ set_color_profile_slot( 7, 6, 255, 205, 113 ); //Mask Teeth Tips
 set_color_profile_slot( 7, 7, 53, 44, 153 ); //Sweater Ribbed
 
 // Julee
-set_color_profile_slot( 8, 0, 60, 65, 69 ); //Sweater
-set_color_profile_slot( 8, 1, 193, 44, 45 ); //Hair
+set_color_profile_slot( 8, 0, 79, 74, 62 ); //Sweater
+set_color_profile_slot( 8, 1, 196, 57, 61 ); //Hair
 set_color_profile_slot( 8, 2, 196, 195, 193 ); //Skin
-set_color_profile_slot( 8, 3, 60, 65, 69 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 8, 4, 196, 195, 193 ); //Rock/Finger Tips
-set_color_profile_slot( 8, 5, 201, 160, 96 ); //Mask
-set_color_profile_slot( 8, 6, 196, 195, 230 ); //Mask Teeth Tips
-set_color_profile_slot( 8, 7, 193, 45, 45 ); //Sweater Ribbed
+set_color_profile_slot( 8, 3, 79, 74, 62 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 8, 4, 154, 167, 189 ); //Rock/Finger Tips
+set_color_profile_slot( 8, 5, 79, 74, 62 ); //Mask
+set_color_profile_slot( 8, 6, 222, 42, 48 ); //Mask Teeth Tips
+set_color_profile_slot( 8, 7, 246, 221, 188 ); //Sweater Ribbed
 
 // Saelukune
 set_color_profile_slot( 9, 0, 40, 46, 93 ); //Sweater
@@ -146,85 +146,105 @@ set_color_profile_slot( 11, 5, 217, 232, 255 ); //Mask
 set_color_profile_slot( 11, 6, 217, 232, 255 ); //Mask Teeth Tips
 set_color_profile_slot( 11, 7, 224, 78, 217 ); //Sweater Ribbed
 
+// Chimera
+set_color_profile_slot( 12, 0, 79, 130, 125 ); //Sweater
+set_color_profile_slot( 12, 1, 47, 83, 94 ); //Hair
+set_color_profile_slot( 12, 2, 186, 206, 195 ); //Skin
+set_color_profile_slot( 12, 3, 29, 55, 63 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 12, 4, 27, 227, 100 ); //Rock/Finger Tips
+set_color_profile_slot( 12, 5, 29, 55, 63 ); //Mask
+set_color_profile_slot( 12, 6, 27, 227, 100 ); //Mask Teeth Tips
+set_color_profile_slot( 12, 7, 133, 171, 148 ); //Sweater Ribbed
+
+// Sarolyn
+set_color_profile_slot( 13, 0, 117, 64, 128 ); //Sweater
+set_color_profile_slot( 13, 1, 64, 52, 102 ); //Hair
+set_color_profile_slot( 13, 2, 165, 190, 240 ); //Skin
+set_color_profile_slot( 13, 3, 78, 82, 119 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 13, 4, 91, 230, 236 ); //Rock/Finger Tips
+set_color_profile_slot( 13, 5, 54, 53, 63 ); //Mask
+set_color_profile_slot( 13, 6, 91, 230, 236 ); //Mask Teeth Tips
+set_color_profile_slot( 13, 7, 70, 68, 82 ); //Sweater Ribbed
+
 // Yuuma
-set_color_profile_slot( 12, 0, 132, 182, 205 ); //Sweater
-set_color_profile_slot( 12, 1, 240, 231, 229 ); //Hair
-set_color_profile_slot( 12, 2, 254, 253, 239 ); //Skin
-set_color_profile_slot( 12, 3, 94, 101, 145 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 12, 4, 138, 92, 92 ); //Rock/Finger Tips
-set_color_profile_slot( 12, 5, 135, 169, 254 ); //Mask
-set_color_profile_slot( 12, 6, 236, 92, 97 ); //Mask Teeth Tips
-set_color_profile_slot( 12, 7, 231, 104, 113 ); //Sweater Ribbed
+set_color_profile_slot( 14, 0, 132, 182, 205 ); //Sweater
+set_color_profile_slot( 14, 1, 240, 231, 229 ); //Hair
+set_color_profile_slot( 14, 2, 254, 253, 239 ); //Skin
+set_color_profile_slot( 14, 3, 94, 101, 145 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 14, 4, 138, 92, 92 ); //Rock/Finger Tips
+set_color_profile_slot( 14, 5, 135, 169, 254 ); //Mask
+set_color_profile_slot( 14, 6, 236, 92, 97 ); //Mask Teeth Tips
+set_color_profile_slot( 14, 7, 231, 104, 113 ); //Sweater Ribbed
 
 // Badeline
-set_color_profile_slot( 13, 0, 99, 42, 142 ); //Sweater
-set_color_profile_slot( 13, 1, 195, 73, 178 ); //Hair
-set_color_profile_slot( 13, 2, 232, 169, 211 ); //Skin
-set_color_profile_slot( 13, 3, 96, 37, 82 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 13, 4, 245, 20, 102 ); //Rock/Finger Tips
-set_color_profile_slot( 13, 5, 96, 37, 82 ); //Mask
-set_color_profile_slot( 13, 6, 245, 20, 102 ); //Mask Teeth Tips
-set_color_profile_slot( 13, 7, 99, 42, 142 ); //Sweater Ribbed
+set_color_profile_slot( 15, 0, 99, 42, 142 ); //Sweater
+set_color_profile_slot( 15, 1, 195, 73, 178 ); //Hair
+set_color_profile_slot( 15, 2, 232, 169, 211 ); //Skin
+set_color_profile_slot( 15, 3, 96, 37, 82 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 15, 4, 245, 20, 102 ); //Rock/Finger Tips
+set_color_profile_slot( 15, 5, 96, 37, 82 ); //Mask
+set_color_profile_slot( 15, 6, 245, 20, 102 ); //Mask Teeth Tips
+set_color_profile_slot( 15, 7, 99, 42, 142 ); //Sweater Ribbed
 
 // Hsien-Ko
-set_color_profile_slot( 14, 0, 222, 38, 167 ); //Sweater
-set_color_profile_slot( 14, 1, 52, 36, 125 ); //Hair
-set_color_profile_slot( 14, 2, 222, 248, 255 ); //Skin
-set_color_profile_slot( 14, 3, 102, 95, 158 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 14, 4, 144, 240, 240 ); //Rock/Finger Tips
-set_color_profile_slot( 14, 5, 222, 38, 167 ); //Mask
-set_color_profile_slot( 14, 6, 255, 220, 105 ); //Mask Teeth Tips
-set_color_profile_slot( 14, 7, 255, 220, 105 ); //Sweater Ribbed
+set_color_profile_slot( 16, 0, 222, 38, 167 ); //Sweater
+set_color_profile_slot( 16, 1, 52, 36, 125 ); //Hair
+set_color_profile_slot( 16, 2, 222, 248, 255 ); //Skin
+set_color_profile_slot( 16, 3, 102, 95, 158 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 16, 4, 144, 240, 240 ); //Rock/Finger Tips
+set_color_profile_slot( 16, 5, 222, 38, 167 ); //Mask
+set_color_profile_slot( 16, 6, 255, 220, 105 ); //Mask Teeth Tips
+set_color_profile_slot( 16, 7, 255, 220, 105 ); //Sweater Ribbed
 
 // All-Star Heroines
-set_color_profile_slot( 15, 0, 98, 66, 214 ); //Sweater
-set_color_profile_slot( 15, 1, 35, 48, 120 ); //Hair
-set_color_profile_slot( 15, 2, 115, 100, 181 ); //Skin
-set_color_profile_slot( 15, 3, 153, 71, 204 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 15, 4, 255, 233, 33 ); //Rock/Finger Tips
-set_color_profile_slot( 15, 5, 153, 71, 204 ); //Mask
-set_color_profile_slot( 15, 6, 255, 233, 33 ); //Mask Teeth Tips
-set_color_profile_slot( 15, 7, 179, 158, 255 ); //Sweater Ribbed
+set_color_profile_slot( 17, 0, 98, 66, 214 ); //Sweater
+set_color_profile_slot( 17, 1, 35, 48, 120 ); //Hair
+set_color_profile_slot( 17, 2, 115, 100, 181 ); //Skin
+set_color_profile_slot( 17, 3, 153, 71, 204 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 17, 4, 255, 233, 33 ); //Rock/Finger Tips
+set_color_profile_slot( 17, 5, 153, 71, 204 ); //Mask
+set_color_profile_slot( 17, 6, 255, 233, 33 ); //Mask Teeth Tips
+set_color_profile_slot( 17, 7, 179, 158, 255 ); //Sweater Ribbed
 
 // BLW
-set_color_profile_slot( 16, 0, 240, 194, 46 ); //Sweater
-set_color_profile_slot( 16, 1, 43, 41, 41 ); //Hair
-set_color_profile_slot( 16, 2, 112, 72, 46 ); //Skin
-set_color_profile_slot( 16, 3, 77, 75, 73 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 16, 4, 240, 194, 46 ); //Rock/Finger Tips
-set_color_profile_slot( 16, 5, 77, 75, 73 ); //Mask
-set_color_profile_slot( 16, 6, 240, 194, 46 ); //Mask Teeth Tips
-set_color_profile_slot( 16, 7, 245, 244, 242 ); //Sweater Ribbed
+set_color_profile_slot( 18, 0, 240, 194, 46 ); //Sweater
+set_color_profile_slot( 18, 1, 43, 41, 41 ); //Hair
+set_color_profile_slot( 18, 2, 112, 72, 46 ); //Skin
+set_color_profile_slot( 18, 3, 77, 75, 73 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 18, 4, 240, 194, 46 ); //Rock/Finger Tips
+set_color_profile_slot( 18, 5, 77, 75, 73 ); //Mask
+set_color_profile_slot( 18, 6, 240, 194, 46 ); //Mask Teeth Tips
+set_color_profile_slot( 18, 7, 245, 244, 242 ); //Sweater Ribbed
 
 // Gutrolce
-set_color_profile_slot( 17, 0, 85, 24, 110 ); //Sweater
-set_color_profile_slot( 17, 1, 166, 126, 176 ); //Hair
-set_color_profile_slot( 17, 2, 194, 186, 206 ); //Skin
-set_color_profile_slot( 17, 3, 44, 57, 33 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 17, 4, 48, 236, 0 ); //Rock/Finger Tips
-set_color_profile_slot( 17, 5, 44, 57, 33 ); //Mask
-set_color_profile_slot( 17, 6, 48, 236, 0 ); //Mask Teeth Tips
-set_color_profile_slot( 17, 7, 139, 114, 154 ); //Sweater Ribbed
+set_color_profile_slot( 19, 0, 85, 24, 110 ); //Sweater
+set_color_profile_slot( 19, 1, 166, 126, 176 ); //Hair
+set_color_profile_slot( 19, 2, 194, 186, 206 ); //Skin
+set_color_profile_slot( 19, 3, 44, 57, 33 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 19, 4, 48, 236, 0 ); //Rock/Finger Tips
+set_color_profile_slot( 19, 5, 44, 57, 33 ); //Mask
+set_color_profile_slot( 19, 6, 48, 236, 0 ); //Mask Teeth Tips
+set_color_profile_slot( 19, 7, 139, 114, 154 ); //Sweater Ribbed
 
 // Colorful Stances
-set_color_profile_slot( 18, 0, 255, 218, 60 ); //Sweater
-set_color_profile_slot( 18, 1, 65, 67, 87 ); //Hair
-set_color_profile_slot( 18, 2, 152, 168, 181 ); //Skin
-set_color_profile_slot( 18, 3, 65, 67, 87 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 18, 4, 255, 218, 60 ); //Rock/Finger Tips
-set_color_profile_slot( 18, 5, 65, 67, 87 ); //Mask
-set_color_profile_slot( 18, 6, 255, 218, 60 ); //Mask Teeth Tips
-set_color_profile_slot( 18, 7, 228, 235, 240 ); //Sweater Ribbed
+set_color_profile_slot( 20, 0, 255, 218, 60 ); //Sweater
+set_color_profile_slot( 20, 1, 65, 67, 87 ); //Hair
+set_color_profile_slot( 20, 2, 152, 168, 181 ); //Skin
+set_color_profile_slot( 20, 3, 65, 67, 87 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 20, 4, 255, 218, 60 ); //Rock/Finger Tips
+set_color_profile_slot( 20, 5, 65, 67, 87 ); //Mask
+set_color_profile_slot( 20, 6, 255, 218, 60 ); //Mask Teeth Tips
+set_color_profile_slot( 20, 7, 228, 235, 240 ); //Sweater Ribbed
 
 // Mexico
-set_color_profile_slot( 19, 0, 255, 255, 255 ); //Sweater
-set_color_profile_slot( 19, 1, 89, 48, 62 ); //Hair
-set_color_profile_slot( 19, 2, 223, 158, 118 ); //Skin
-set_color_profile_slot( 19, 3, 0, 125, 85 ); //Legs / Gloves / Rocks
-set_color_profile_slot( 19, 4, 206, 17, 38 ); //Rock/Finger Tips
-set_color_profile_slot( 19, 5, 0, 125, 85 ); //Mask
-set_color_profile_slot( 19, 6, 206, 17, 38 ); //Mask Teeth Tips
-set_color_profile_slot( 19, 7, 156, 161, 104 ); //Sweater Ribbed
+set_color_profile_slot( 21, 0, 255, 255, 255 ); //Sweater
+set_color_profile_slot( 21, 1, 89, 48, 62 ); //Hair
+set_color_profile_slot( 21, 2, 223, 158, 118 ); //Skin
+set_color_profile_slot( 21, 3, 0, 125, 85 ); //Legs / Gloves / Rocks
+set_color_profile_slot( 21, 4, 206, 17, 38 ); //Rock/Finger Tips
+set_color_profile_slot( 21, 5, 0, 125, 85 ); //Mask
+set_color_profile_slot( 21, 6, 206, 17, 38 ); //Mask Teeth Tips
+set_color_profile_slot( 21, 7, 156, 161, 104 ); //Sweater Ribbed
 
 
 /* This is a comment used by that one RoA colors.gml generator tool to store palette data. You can safely keep it in your colors.gml if you plan to re-use the tool later, or safely remove it if you don't.
