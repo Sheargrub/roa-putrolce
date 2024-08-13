@@ -143,38 +143,42 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	ce[16,1] = "Hopping Stalker"
 	ce[16,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
 	
-    ce[17,0] = make_color_rgb(98, 66, 214)
-	ce[17,1] = "All-Starve"
-	ce[17,2] = "Based on the color scheme for the All-Star Heroines pack."
+	ce[17,0] = make_color_rgb(222, 38, 167)
+	ce[17,1] = "Hopping Stalker"
+	ce[17,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
 	
-    ce[18,0] = make_color_rgb(240, 194, 46)
-	ce[18,1] = "Feasting & Winning"
-	ce[18,2] = "Based on the color scheme for the Black Lives Winning group."
+    ce[18,0] = make_color_rgb(98, 66, 214)
+	ce[18,1] = "All-Starve"
+	ce[18,2] = "Based on the color scheme for the All-Star Heroines pack."
 	
-	ce[19,0] = make_color_rgb(48, 236, 0)
-	ce[19,1] = "Gutrolce"
-	ce[19,2] = "Putrolce's evil twin from lore who is kind of green."
+    ce[19,0] = make_color_rgb(240, 194, 46)
+	ce[19,1] = "Feasting & Winning"
+	ce[19,2] = "Based on the color scheme for the Black Lives Winning group."
 	
-    ce[20,0] = make_color_rgb(152, 168, 181)
-	ce[20,1] = "Colorful Stances"
-	ce[20,2] = "Changes colors based on your current stance."
+	ce[20,0] = make_color_rgb(48, 236, 0)
+	ce[20,1] = "Gutrolce"
+	ce[20,2] = "Putrolce's evil twin from lore who is kind of green."
 	
-	ce[21,0] = make_color_rgb(206, 17, 38)
-	ce[21,1] = "Mexico"
-	ce[21,2] = "
-	hell yes."
+    ce[21,0] = make_color_rgb(152, 168, 181)
+	ce[21,1] = "Colorful Stances"
+	ce[21,2] = "Changes colors based on your current stance."
 	
 	ce[22,0] = make_color_rgb(206, 17, 38)
-	ce[22,1] = "Undefined"
-	ce[22,2] = ""
+	ce[22,1] = "Mexico"
+	ce[22,2] = "
+	hell yes."
 	
 	ce[23,0] = make_color_rgb(206, 17, 38)
 	ce[23,1] = "Undefined"
 	ce[23,2] = ""
 	
-	ce[23,0] = make_color_rgb(206, 17, 38)
-	ce[23,1] = "Undefined"
-	ce[23,2] = ""
+	ce[24,0] = make_color_rgb(206, 17, 38)
+	ce[24,1] = "Undefined"
+	ce[24,2] = ""
+	
+	ce[25,0] = make_color_rgb(206, 17, 38)
+	ce[25,1] = "Undefined"
+	ce[25,2] = ""
 	
 
 	// you can add more, by copypasting and changing the first index of the array accordingly.

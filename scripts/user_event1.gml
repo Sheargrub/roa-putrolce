@@ -1,3 +1,4 @@
+
 // Stance stat refresh
 
 if (hunger_meter <= 10) stance = 1;
@@ -29,6 +30,5 @@ sound_stop(stance_sfx_instance);
 stance_sfx_instance = sound_play(sfx_stances[i]);
 
 set_ui_element(UI_HUD_ICON, sprite_get("hud_icon"+stance_suffixes[stance-1]));
-print_debug("hud_icon"+stance_suffixes[stance-1]);
 
 buffer_stance_update = false;

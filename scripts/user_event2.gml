@@ -1,5 +1,6 @@
 
 // Move data update
+
 if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
     
     set_attack_value(attack, AG_LAST_STANCE, stance);
