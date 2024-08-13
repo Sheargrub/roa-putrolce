@@ -152,6 +152,13 @@ buffer_pratfall_paused = false; // causes the next application of buffer_pratfal
 
 skull_idle_timer = 30;
 
+// Runes
+has_rune_petrifystatus = has_rune("A");
+has_rune_sleeperchase = has_rune("B");
+sleeperchase_used = false;
+
+
+
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {
     

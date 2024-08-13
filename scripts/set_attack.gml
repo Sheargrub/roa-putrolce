@@ -25,3 +25,5 @@ buffer_pratfall_paused = false;
 
 // If the attack is going through, call a move data update
 if (state != PS_PRATFALL && move_cooldown[attack] <= 0) user_event(2);
+
+sleeperchase_used = false;

@@ -394,6 +394,42 @@ if (get_window_value(attack,window,AG_WINDOW_CAN_WALLJUMP)) {
 }
 
 
+// Runes
+if (has_rune_sleeperchase) {
+	if (has_hit && !sleeperchase_used && (special_pressed || is_special_pressed(DIR_ANY)) && move_cooldown[AT_NSPECIAL] <= 0) {
+		
+		var has_target = instance_exists(hit_player_obj)
+		var launch_dir = spr_dir;
+		if (has_target) launch_dir = (hit_player_obj.x < x) ? -1 : 1;
+		
+		var chaser = instance_create(x, y-30, "obj_article1");
+		chaser.state = 14;
+		chaser.targetted_player_id = has_target ? hit_player_obj : noone;
+        chaser.move_speed = -15;
+        chaser.move_angle = 270 + (60*launch_dir);
+        chaser.hsp = lengthdir_x(chaser.move_speed, chaser.move_angle);
+        chaser.vsp = lengthdir_y(chaser.move_speed, chaser.move_angle);
+        chaser.block_hitbox_checks = true;
+        chaser.hit_player_id = noone;
+        chaser.venus_article_reflect = 1;
+        chaser.petrified_hitbox.destroyed = true;
+        //chaser.block_idle_state = true;
+        
+        sleeperchase_used = true;
+        clear_button_buffer(PC_SPECIAL_PRESSED);
+        hunger_change = -10;
+        user_event(1);
+        
+        spawn_hit_fx(x, y-30, fx_kragg_small);
+        sound_play(asset_get('sfx_kragg_rock_shatter'));
+        
+	}
+}
+
+
+
+
+
 // Defines
 
 
@@ -417,10 +453,10 @@ ds_list_add(afterimage_list, afterimage);
 #define sound_play_cancellable 
 /// sound_play_cancellable(_sound, _looping = false, _panning = noone, _volume = 1, _pitch = 1)
 var _sound = argument[0];
-var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
-var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
-var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
-var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
+var _looping = argument_count > 1 ? argument[1] : false;
+var _panning = argument_count > 2 ? argument[2] : noone;
+var _volume = argument_count > 3 ? argument[3] : 1;
+var _pitch = argument_count > 4 ? argument[4] : 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -433,7 +469,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 

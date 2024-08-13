@@ -38,7 +38,7 @@ switch(attack) {
 		if (hbox_num <= 2 && is_melee) {
 			hit_player_obj.should_make_shockwave = false;
 		}
-		else if (hbox_num == 3 && has_rune("A") && is_melee) {
+		else if (hbox_num == 3 && has_rune_petrifystatus && is_melee) {
 		    hit_player_obj.putrolce_status_owner = player;
 		    hit_player_obj.putrolce_status_timer = 0;
 		}
@@ -183,7 +183,7 @@ switch(my_hitboxID.attack) {
         	sound_play(sound_get("cut2"));
         	sound_play(asset_get("sfx_kragg_rock_shatter"), 0, noone, 0.9, 1.0)
         }
-        if (hbox_num == 3 && grabbed_player_obj != noone && !has_rune("A")) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
+        if (hbox_num == 3 && grabbed_player_obj != noone && !has_rune_petrifystatus) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
         break;
     case AT_USPECIAL:
         if (my_hitboxID.hbox_num == 5) sound_play(asset_get("sfx_orca_crunch"), false, noone, 1, 1);
