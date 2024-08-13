@@ -234,6 +234,8 @@ switch(attack) {
         if (window == 1 || window >= 10) can_move = false;
         if (window < 5 || window == 9) can_wall_jump = true;
         
+		if (window == 1 && vsp > 0) vsp = 0;
+		
         //land
         if(window == 4 && !free){
         	window = 5;
