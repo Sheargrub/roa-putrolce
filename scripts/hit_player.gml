@@ -127,6 +127,7 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_PROJECTILE_MUL
 switch(my_hitboxID.attack) {
     case AT_JAB:
         sound_play(asset_get("sfx_kragg_roll_land"), 0, noone, 1, 1)
+        if (my_hitboxID.hbox_num >= 2 && is_melee) sound_play(asset_get("sfx_kragg_rock_shatter"));
         break;
     case AT_FTILT:
         //a
@@ -175,6 +176,7 @@ switch(my_hitboxID.attack) {
     	if (my_hitboxID.hbox_num == 4 && is_melee) {
     		sound_play(sound_get("fire2"), 0, noone, 1, 0.7)
     		sound_play(asset_get("sfx_blow_heavy1"), 0, noone, 1, 1)
+    		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big)
     	}
     	break;
     case AT_DSTRONG:
@@ -216,7 +218,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

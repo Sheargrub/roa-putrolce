@@ -78,6 +78,7 @@ switch(attack) {
         }
         break;
     case AT_UAIR:
+    	hud_offset = 24;
     	if (window == 1 && window_timer == window_length){
         	sound_play(asset_get("sfx_abyss_seed_fall"), false, noone, 1, 0.9)
     	}
@@ -85,6 +86,14 @@ switch(attack) {
     case AT_DSTRONG:
     	if (window == 2 && window_timer == 1){
         	sound_play(sound_get("nair_yell"), false, noone, 0.75, 0.95)
+    	}
+    	break;
+    case AT_USTRONG:
+    	if (window < 3 && window > 5) hud_offset = -24;
+    	else hud_offset = 72;
+    	if (window == 2 && window_timer == 1){
+        	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
+        	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
     	}
     	break;
     
@@ -100,6 +109,7 @@ switch(attack) {
         break;
         
     case AT_FSPECIAL:
+    	move_cooldown[AT_FSPECIAL] = 999;
     	switch window {
     		
     		case 1:
@@ -111,8 +121,10 @@ switch(attack) {
 	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
 	        		fspec_hit_sleeper = false;
 	        		fspec_aftim_length = (stance == 1 || stance == 3) ? 10 : 20;
-	        	}else if (window_timer == window_length){
+	        	}else if (window_timer == window_length) && (stance > 1){
 	        		sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
+	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
+	        	} else if (window_timer == window_length) && (stance == 1) {
 	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        	}
 	        	else if (vsp > 0) vsp = 0;
