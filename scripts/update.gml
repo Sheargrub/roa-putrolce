@@ -107,7 +107,7 @@ if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state !
 do_sfx_cancel = false;
 
 // ASHe alt vfx
-if (get_player_color(player) == 11 && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
+if (get_player_color(player) == 15 && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
 {
     var fx = spawn_hit_fx(
         x + draw_x + (random_func(0, 8, false) - 4)*8,
@@ -140,7 +140,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

@@ -4,7 +4,7 @@ var window_length   = 0;
 
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("jab"));
-set_attack_value(atk, AG_HURTBOX_SPRITE                 , hurtbox_spr); //sprite_get("jab_hurt")
+set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("jab_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 6);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 
@@ -112,11 +112,11 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 5);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 38);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -39);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 35);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 72);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 32);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -40);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 45);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 73);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 60);
