@@ -58,7 +58,7 @@ sprite_change_offset("fspecial_fx_overstuffed", 64, 81, true);
 sprite_change_offset("uspecial"             , 48, 63, true);
 sprite_change_offset("uspecial_grab"        , 48, 63, true);
 sprite_change_offset("dspecial"             , 64, 79, true);
-sprite_change_offset("taunt"                , 16, 31, true);
+sprite_change_offset("taunt"                , 48, 63, true);
 
 sprite_change_offset("plat"                 , 64, 83);
 
@@ -89,5 +89,7 @@ sprite_change_offset("slp_homing_death", 76, 54);
 sprite_change_offset("slp_sleepingvfx_temp", 12, 14);
 
 sprite_change_offset("petrify_rocks", 11, 10);
+
+sprite_change_offset("taunt_skull", 32, 32);
 
 sprite_change_offset("fx_ashe_trail", 9, 9);

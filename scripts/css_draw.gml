@@ -143,9 +143,9 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	ce[16,1] = "Hopping Stalker"
 	ce[16,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
 	
-	ce[17,0] = make_color_rgb(222, 38, 167)
-	ce[17,1] = "Hopping Stalker"
-	ce[17,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
+	ce[17,0] = make_color_rgb(250, 200, 228)
+	ce[17,1] = "Pastel Clouds"
+	ce[17,2] = "Eat the sky."
 	
     ce[18,0] = make_color_rgb(98, 66, 214)
 	ce[18,1] = "All-Starve"
