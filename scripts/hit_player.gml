@@ -108,19 +108,6 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_BREAKS_GRAB) =
 	grabbed_player_obj = noone;
 }
 
-// multihit projectile code
-if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_PROJECTILE_MULTIHIT) == true) {
-	if (!my_hitboxID.proj_hitpause) {
-		my_hitboxID.proj_old_hsp = my_hitboxID.hsp;
-		my_hitboxID.proj_old_vsp = my_hitboxID.vsp;
-		my_hitboxID.proj_old_img_spd = my_hitboxID.img_spd;
-		my_hitboxID.proj_hitpause = true;
-	}
-	my_hitboxID.proj_hitstop = my_hitboxID.hitpause;
-	my_hitboxID.hitbox_hit_player_count[hit_player_obj.player] += 1;
-	my_hitboxID.hitbox_hit_player_timers[hit_player_obj.player] = 0;
-}
-
 
 //                          --hit gamefeel--                                  //
 
@@ -218,7 +205,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 

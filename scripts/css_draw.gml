@@ -54,6 +54,9 @@ if (variable_instance_exists(id,"qe")){
 }
 
 if (!variable_instance_exists(id,"ae") || ye == true){
+	stance = 3;
+	char_flash_alpha = 0
+	
 	qe = qe_b
 	ae = "ae"
 	oe = 0;
@@ -294,6 +297,26 @@ if (get_player_color( player ) == 24) { //THE RAINBOW FOR THE LGBTQ?
     set_color_profile_slot( 24, 7, color_get_red(color_hsv),color_get_green(color_hsv),color_get_blue(color_hsv)); //uses that variable to set the slot's new colours
     init_shader();
 }
+
+
+if (get_player_color( player ) == 21) { // Stance colors
+    if (get_gameplay_time() % 180 == 179) {
+    	stance++;
+    	if (stance == 5) stance = 1;
+    	init_shader();
+    	char_flash_alpha = 0.6;
+    }
+    char_flash_alpha -= 0.06;
+}
+else char_flash_alpha = 0;
+
+if (char_flash_alpha > 0) {
+	shader_end();
+	gpu_set_fog(true, c_white, 0, 0);
+	draw_sprite_ext(get_char_info(player, INFO_CHARSELECT), 0, x+8, y+8, 2, 2, 0, c_white, char_flash_alpha);
+	gpu_set_fog(false, c_white, 0, 0);
+}
+
 //
 
 //--- ---
