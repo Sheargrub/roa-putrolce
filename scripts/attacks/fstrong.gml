@@ -4,13 +4,15 @@ var window_length   = 0;
 
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("fstrong"));
-set_attack_value(atk, AG_HURTBOX_SPRITE                 , hurtbox_spr); //sprite_get("fstrong_hurt")
+set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fstrong_hurt"));
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 1);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
-    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+//set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
+//    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_LENGTHS, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGTHS, [16, 12, 14, 17]);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);

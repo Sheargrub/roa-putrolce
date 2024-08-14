@@ -363,7 +363,7 @@ set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 8);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 9);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 1.0);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.85);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1.2);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 304);
