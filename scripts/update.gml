@@ -107,7 +107,7 @@ if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state !
 do_sfx_cancel = false;
 
 // ASHe alt vfx
-if (get_player_color(player) == 18 && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
+if (get_player_color(player) == 20 && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
 {
     var fx = spawn_hit_fx(
         x + draw_x + (random_func(0, 8, false) - 4)*8,

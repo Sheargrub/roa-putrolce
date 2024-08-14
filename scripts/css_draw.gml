@@ -19,7 +19,7 @@ init_shader();
 //
 // now, please change this string to your character's name. used for resetting the values after other characters.
 //--- --
-var qe_b = "Putoce"
+var qe_b = "Putrolce"
 
 // ! you can now scroll down until you reach "the primary part you should change."
 
@@ -75,7 +75,7 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	altsel = 0; // change the alt select sound here. if you don't want to change the sound, put 0 here.
 	color_desc_activate = true; // optional "alt color description button". set to "true" to turn it on.
 	
-	col_max = 22; // number of alternate color palettes. 0 is the default color, count it accordingly.
+	col_max = 24; // number of alternate color palettes. 0 is the default color, count it accordingly.
 	
 	//first array index is for alternate color. second array index is for distinguishing the information in it.
 	ce[0,0] = make_color_rgb(236, 0, 79) // "color preview square" color. can be any color!
@@ -146,42 +146,50 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	ce[16,1] = "Hopping Stalker"
 	ce[16,2] = "Based on Hsien-ko/Lei-Lei from Darkstalkers."
 	
-	ce[17,0] = make_color_rgb(250, 200, 228)
-	ce[17,1] = "Pastel Clouds"
-	ce[17,2] = "Eat the sky."
+	ce[17,0] = make_color_rgb(165, 174, 82)
+	ce[17,1] = "Welcome to Chaos"
+	ce[17,2] = "Based on Kaiman from Dorohedoro."
 	
-    ce[18,0] = make_color_rgb(98, 66, 214)
-	ce[18,1] = "All-Starve"
-	ce[18,2] = "Based on the color scheme for the All-Star Heroines pack."
+	ce[18,0] = make_color_rgb(250, 200, 228)
+	ce[18,1] = "Pastel Clouds"
+	ce[18,2] = "Eat the sky."
 	
-    ce[19,0] = make_color_rgb(240, 194, 46)
-	ce[19,1] = "Feasting & Winning"
-	ce[19,2] = "Based on the color scheme for the Black Lives Winning group."
+	ce[19,0] = make_color_rgb(144, 83, 194)
+	ce[19,1] = "Generous Envy"
+	ce[19,2] = "Eat your heart out."
 	
-	ce[20,0] = make_color_rgb(48, 236, 0)
-	ce[20,1] = "Gutrolce"
-	ce[20,2] = "Putrolce's evil twin from lore who is kind of green."
+    ce[20,0] = make_color_rgb(98, 66, 214)
+	ce[20,1] = "All-Starve"
+	ce[20,2] = "Based on the color scheme for the All-Star Heroines pack."
 	
-    ce[21,0] = make_color_rgb(152, 168, 181)
-	ce[21,1] = "Colorful Stances"
-	ce[21,2] = "Changes colors based on your current stance."
+    ce[21,0] = make_color_rgb(240, 194, 46)
+	ce[21,1] = "Feasting & Winning"
+	ce[21,2] = "Based on the color scheme for the Black Lives Winning group."
 	
-	ce[22,0] = make_color_rgb(206, 17, 38)
-	ce[22,1] = "Mexico"
-	ce[22,2] = "
-	hell yes."
+	ce[22,0] = make_color_rgb(48, 236, 0)
+	ce[22,1] = "Gutrolce"
+	ce[22,2] = "Putrolce's evil twin from lore who is kind of green."
 	
-	ce[23,0] = make_color_rgb(206, 17, 38)
-	ce[23,1] = "Undefined"
-	ce[23,2] = ""
+    ce[23,0] = make_color_rgb(152, 168, 181)
+	ce[23,1] = "Colorful Stances"
+	ce[23,2] = "Changes colors based on your current stance."
 	
 	ce[24,0] = make_color_rgb(206, 17, 38)
-	ce[24,1] = "Undefined"
-	ce[24,2] = ""
+	ce[24,1] = "Mexico"
+	ce[24,2] = "
+	hell yes."
 	
 	ce[25,0] = make_color_rgb(206, 17, 38)
 	ce[25,1] = "Undefined"
 	ce[25,2] = ""
+	
+	ce[26,0] = make_color_rgb(206, 17, 38)
+	ce[26,1] = "Undefined"
+	ce[26,2] = ""
+	
+	ce[27,0] = make_color_rgb(206, 17, 38)
+	ce[27,1] = "Undefined"
+	ce[27,2] = ""
 	
 
 	// you can add more, by copypasting and changing the first index of the array accordingly.
@@ -299,8 +307,8 @@ if (get_player_color( player ) == 24) { //THE RAINBOW FOR THE LGBTQ?
 }
 
 
-if (get_player_color( player ) == 21) { // Stance colors
-    if (get_gameplay_time() % 180 == 179) {
+if (get_player_color( player ) == 23) { // Stance colors
+    if (get_gameplay_time() % 90 == 89) {
     	stance++;
     	if (stance == 5) stance = 1;
     	init_shader();
