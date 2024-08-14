@@ -62,7 +62,8 @@ sprite_change_offset("taunt"                , 48, 63, true);
 
 sprite_change_offset("plat"                 , 64, 83);
 
-
+set_victory_theme( sound_get ("putrolce_victory"));
+set_victory_bg( sprite_get( "victory_putrolce" ));
 
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles

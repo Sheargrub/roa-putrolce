@@ -369,9 +369,11 @@ jump_sound                      = asset_get("sfx_jumpground");
 djump_sound                     = asset_get("sfx_jumpair");
 air_dodge_sound                 = asset_get("sfx_quick_dodge");
 
-//                            --victory theme plus misc--                     //
-set_victory_theme = sound_get ("putrolce_victory")
+//                            --misc--                     //
 fx_ashe_trail = hit_fx_create(sprite_get("fx_ashe_trail"), 20);
+putrolce_victory_quote = "That was... me-! Not an illusion that was- What?! What's happening?!";
+putrolce_handled_victory_quote = false;
+putrolce_victory_icon = 4;
 
 //                       --ranno bubble visual offset--                       //
 bubble_x                        = 0;
