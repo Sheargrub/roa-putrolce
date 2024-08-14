@@ -95,7 +95,7 @@ if (!putrolce_handled_victory_quote)
             quote = "You could've saved yourself an ass-whooping if you'd just left me alone."
             break; 
         case "3307368173": //Sarolyn
-            quote = "You could've saved yourself an ass-whooping if you'd just left me alone."
+            quote = "Never thought I'd see another girl with purple skin. I liked her style, though!"
             break; 
         case "3307937190": //Pastelle
             quote = "Hey, mind lending me that pen? Because I could really use a drink right now!"
@@ -118,7 +118,7 @@ if (!putrolce_handled_victory_quote)
         //    quote = ""
         //    break; 
         //case "": //Venus
-        //    quote = ""
+        //    quote = "Such graceful movements… Say, you wouldn't mind joining me for a dance, right?"
         //    break; 
            
         //reapers
@@ -145,7 +145,18 @@ if (!putrolce_handled_victory_quote)
         case "2778789055": // Po Gumbo 
             quote = "What's a Louisiana? Is that a type of Figment? Yum!"
             break;
-
+        case "2802914735": // Ayaka
+            quote = "Have I seen your face before? Oh! You're one of those “Two-whos”, right?"; 
+            break;
+        case "2885762133": // Brook
+            quote = "I don't remember ordering a pizza- But I'm definitely not saying no to free food!";
+            break;
+        case "1917856427": // Liz
+        case "1917856427": // Liz
+        case "2108895293": //Lumina
+        case "2064167290": //Hana
+            quote = "What's a kid like you getting into fights with weirdos? You should be back home, eating candy and watching cartoons!"
+            break;
         default: break;
     }
 
@@ -164,8 +175,9 @@ return quote
         case "3308351120": //Saelune
         case "3115049167": //Saelukune (legacy)
         case "2871608790": //Azi
-        case "2965700442": // Humanthem
         case "3079776883": //Kumaki
+        case "3307368173": //Sarolyn
+        case "2885762133": // Brook
             icon = 0;
             break;
             
@@ -175,7 +187,6 @@ return quote
             break;
         
         //angry
-        case "3307368173": //Sarolyn
         case "3306584099": //Tomoko
         case "2605377553": //Mal
         case "3136330641": //Vakna
@@ -192,6 +203,16 @@ return quote
         case "3302238950": //Alexis
         case "2778789055": // Po Gumbo 
         case "2977835488": //Qoedil
+        case "2802914735": // Ayaka
+            icon = 4;
+            break;
+            
+        //normal
+        case "2965700442": // Humanthem
+        case "1917856427": // Liz
+        case "1917856427": // Liz
+        case "2108895293": //Lumina
+        case "2064167290": //Hana
             icon = 4;
             break;
         
