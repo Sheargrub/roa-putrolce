@@ -1,8 +1,8 @@
 // DEBUG: Lock hunger
-if (taunt_pressed && shield_pressed) {
-	clear_button_buffer(PC_SHIELD_PRESSED);
-	hunger_locked = !hunger_locked;
-}
+//if (taunt_pressed && shield_pressed) {
+//	clear_button_buffer(PC_SHIELD_PRESSED);
+//	hunger_locked = !hunger_locked;
+//}
 
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
