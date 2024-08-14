@@ -287,25 +287,6 @@ if (color_desc_activate){
 
 
 //aesthetics
-if (!variable_instance_exists(id, "hue_offset")){
-
-hue_offset=0; }
-
-hue_speed=1; //change this to change the speed of the hueshift
-
-hue_offset+=hue_speed;
-hue_offset=hue_offset mod 255; //keeps hue_offset within the 0-255 range
-
-if (get_player_color( player ) == 24) { //THE RAINBOW FOR THE LGBTQ?
-    color_rgb=make_color_rgb( 249, 74, 255 ); //input rgb values here, uses rgb to create a gamemaker colour variable
-    hue=(color_get_hue(color_rgb)+hue_offset) mod 255; //finds the hue and shifts it
-    color_hsv=make_color_hsv(hue,color_get_saturation(color_rgb),color_get_value(color_rgb)); //creates a new gamemaker colour variable using the shifted hue
-    set_color_profile_slot( 24, 1, color_get_red(color_hsv),color_get_green(color_hsv),color_get_blue(color_hsv)); //uses that variable to set the slot's new colours
-    set_color_profile_slot( 24, 6, color_get_red(color_hsv),color_get_green(color_hsv),color_get_blue(color_hsv)); //uses that variable to set the slot's new colours
-    set_color_profile_slot( 24, 7, color_get_red(color_hsv),color_get_green(color_hsv),color_get_blue(color_hsv)); //uses that variable to set the slot's new colours
-    init_shader();
-}
-
 
 if (get_player_color( player ) == 23) { // Stance colors
     if (get_gameplay_time() % 90 == 89) {

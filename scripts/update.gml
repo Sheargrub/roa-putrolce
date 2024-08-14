@@ -1,5 +1,3 @@
-end_match(player)
-
 // DEBUG: Lock hunger
 if (taunt_pressed && shield_pressed) {
 	clear_button_buffer(PC_SHIELD_PRESSED);
