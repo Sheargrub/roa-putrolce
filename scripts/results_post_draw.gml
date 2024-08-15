@@ -37,8 +37,6 @@ if (winner == player /* && uhc_batteries */)
     {
         draw_sprite(sprite_get("victory_quote_bg"), 0, 
                     putrolce_quote_current_pos_x, quote_pos_y);
-        draw_sprite_ext(sprite_get("victory_quote_playerflourish"),0,
-                    putrolce_quote_current_pos_x, quote_pos_y, 1, 1, 0, get_player_hud_color( winner ), 1);
         draw_sprite_ext(sprite_get("stockicon"), putrolce_victory_icon, 
                     putrolce_quote_current_pos_x + 46, quote_pos_y + 10, 1.5, 1.5, 0, c_white, 1);
         draw_win_quote(putrolce_quote_current_pos_x+135, quote_pos_y+8, 
@@ -91,9 +89,10 @@ if (winner == player /* && uhc_batteries */)
 {
     var quotes = [];
     var i = 0;
-    quotes[i++] = "Th-Thank you, thank you! You've been a great audience!";
-    quotes[i++] = "Phew... I was starting to get a little scared there...";
-    quotes[i++] = "Alright, somehow made it out of that unscathed!";
+    quotes[i++] = "Another fight won! I should treat myself to something delicious tonight.";
+    quotes[i++] = "What do you mean you're not a figment? So all that fighting was for nothing!?";
+    quotes[i++] = "Hey, I know we just beat each other up, but do you have any food by chance? I'm still REALLY hungry.";
+    quotes[i++] = "I actually hate fighting- so why don't we forget about this and raid the nearest endless buffet?";
     return quotes[(current_time) % array_length(quotes)];
 }
 
@@ -160,7 +159,7 @@ if (winner == player /* && uhc_batteries */)
         putrolce_victory_icon = data_array[best_player].icon;
         if (string_length(putrolce_victory_quote) < 1)
         { putrolce_victory_quote = get_random_quote(); 
-          putrolce_victory_icon = 0;    
+          putrolce_victory_icon = 5;    
         }
     }
     

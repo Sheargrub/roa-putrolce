@@ -137,7 +137,10 @@ if (!putrolce_handled_victory_quote)
         
         //misc
         case "2605377553": //Mal
-            quote = "Oi! Stop trying to steal my flow! Go get your own fashion sense!"
+            var starbucks_event_chance = random_func_2(7, 9, true)
+            if (starbucks_event_chance != 0) quote = "Oi! Stop trying to steal my flow! Go get your own fashion sense!"
+            else quote = "And this is why you're banned from Starbucks."
+            print_debug(starbucks_event_chance)
             break;
         case "3136330641": //Vakna
             quote = "No, I’m -not- giving you a slice of this pizza!!!"
@@ -155,7 +158,10 @@ if (!putrolce_handled_victory_quote)
         case "1917856427": // Liz
         case "2108895293": //Lumina
         case "2064167290": //Hana
-            quote = "What's a kid like you getting into fights with weirdos? You should be back home, eating candy and watching cartoons!"
+            quote = "What's a kid like you doing here? You should be back home, eating candy and watching cartoons!"
+            break;
+        case "2917082599": //Madeline
+            quote = "'Part of you'?! I don't even know who you are!!"
             break;
         default: break;
     }
@@ -190,6 +196,7 @@ return quote
         case "3306584099": //Tomoko
         case "2605377553": //Mal
         case "3136330641": //Vakna
+        case "2917082599": //Madeline
             icon = 2;
             break;
         
@@ -213,7 +220,7 @@ return quote
         case "1917856427": // Liz
         case "2108895293": //Lumina
         case "2064167290": //Hana
-            icon = 4;
+            icon = 5;
             break;
         
         default: break;
