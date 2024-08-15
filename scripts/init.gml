@@ -152,6 +152,10 @@ buffer_pratfall_paused = false; // causes the next application of buffer_pratfal
 
 skull_idle_timer = 30;
 
+//Special alt indices
+alt_ashe = 20;
+alt_stanced = 23;
+
 //Compatibility
 arena_title = "The Never-Ending Hunger";
 knight_compat_dream = 

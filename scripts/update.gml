@@ -1,8 +1,8 @@
 // DEBUG: Lock hunger
-//if (taunt_pressed && shield_pressed) {
-//	clear_button_buffer(PC_SHIELD_PRESSED);
-//	hunger_locked = !hunger_locked;
-//}
+if (should_debug && taunt_pressed && shield_pressed) {
+	clear_button_buffer(PC_SHIELD_PRESSED);
+	hunger_locked = !hunger_locked;
+}
 
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
@@ -106,7 +106,7 @@ if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state !
 do_sfx_cancel = false;
 
 // ASHe alt vfx
-if (get_player_color(player) == 20 && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
+if (get_player_color(player) == alt_ashe && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
 {
     var fx = spawn_hit_fx(
         x + draw_x + (random_func(0, 8, false) - 4)*8,

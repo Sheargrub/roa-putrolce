@@ -14,7 +14,7 @@ if (alt_cur == 0) {
 }
 
 // Colorful stances
-if (alt_cur == 23) {
+if (alt_cur == alt_stanced) {
     switch (stance){
         case 1:
             set_character_color_slot(0, 49, 19, 120);
