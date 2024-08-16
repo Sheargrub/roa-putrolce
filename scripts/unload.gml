@@ -1,4 +1,5 @@
 
+set_ui_element(UI_HUD_ICON, sprite_get("hud_icon")); // the game doesn't reset this automatically
 ds_list_destroy(afterimage_list);
 
 //Sending win quotes to result screen <3 code by Frtoud

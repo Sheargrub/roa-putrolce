@@ -54,8 +54,15 @@ if (variable_instance_exists(id,"qe")){
 }
 
 if (!variable_instance_exists(id,"ae") || ye == true){
+	
+	//Special alt indices
+	alt_ashe = 20;
+	alt_stanced = 23;
+	
+	// Special alt: colored stances
 	stance = 3;
-	char_flash_alpha = 0
+	char_flash_alpha = 0;
+	swap_timer = 0;
 	
 	qe = qe_b
 	ae = "ae"
@@ -288,16 +295,21 @@ if (color_desc_activate){
 
 //aesthetics
 
-if (get_player_color( player ) == 23) { // Stance colors
-    if (get_gameplay_time() % 90 == 89) {
+if (get_player_color( player ) == alt_stanced) { // Stance colors
+    if (swap_timer == 150) {
     	stance++;
     	if (stance == 5) stance = 1;
     	init_shader();
     	char_flash_alpha = 0.6;
+    	swap_timer = 0;
     }
     char_flash_alpha -= 0.06;
+    swap_timer++;
 }
-else char_flash_alpha = 0;
+else {
+	char_flash_alpha = 0;
+	swap_timer = 0;
+}
 
 if (char_flash_alpha > 0) {
 	shader_end();
