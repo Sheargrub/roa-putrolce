@@ -71,6 +71,7 @@ set_victory_bg( sprite_get( "victory_putrolce" ));
 sprite_change_offset("hfx_rock_small_bg", 64, 64);
 sprite_change_offset("hfx_rock_large", 128, 128);
 sprite_change_offset("hfx_bite", 128, 128);
+sprite_change_offset("fx_ashe_trail", 9, 9);
 
 sprite_change_offset("slp_rock", 76, 54); // main sprites
 sprite_change_offset("slp_rock_to_wave", 76, 54);
@@ -79,8 +80,7 @@ sprite_change_offset("slp_wave_to_homing", 76, 54);
 sprite_change_offset("slp_homing", 76, 54);
 sprite_change_offset("slp_idle_passive", 76, 54);
 
-sprite_change_offset("slp_passive_sleepcloud_temprange", 76, 54); // auxillary sprites
-sprite_change_offset("slp_mask", 20, 20);
+sprite_change_offset("slp_mask", 20, 20); // sleeper collision
 sprite_change_offset("slp_tracker_mask_1", 0, 60);
 sprite_change_offset("slp_tracker_mask_-1", 240, 60);
 
@@ -93,4 +93,4 @@ sprite_change_offset("petrify_rocks", 11, 10);
 
 sprite_change_offset("taunt_skull", 32, 32);
 
-sprite_change_offset("fx_ashe_trail", 9, 9);
+sprite_change_offset("mami_transformation", 32, 48); // compat
