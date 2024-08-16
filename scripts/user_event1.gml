@@ -1,9 +1,9 @@
 
 // Stance stat refresh
 
-if (hunger_meter <= 10) stance = 1;
-else if (hunger_meter <= 30) stance = 2;
-else if (hunger_meter <= 80) stance = 3;
+if (hunger_meter <= 0) stance = 1;
+else if (hunger_meter <= 20) stance = 2;
+else if (hunger_meter <= 70) stance = 3;
 else stance = 4;
 
 var i = stance-1;

@@ -7,7 +7,7 @@ draw_sprite_ext(sprite_get("hud"), 0, temp_x-8, temp_y-38, 2, 2, 0, c_white, 1);
 draw_sprite_ext(sprite_get("hud_playerarrows"), 0, temp_x-8, temp_y-38, 2, 2, 0, get_player_hud_color(player), 1);
 draw_sprite_ext(sprite_get("hud_stomach"), st, temp_x-10, temp_y-32, 2, 2, 0, c_white, 1);
 
-var pips = ceil(hunger_meter/10)-1;
+var pips = ceil(hunger_meter/10);
 var has_pips = (pips > 0);
 if (!has_pips && st == 0) pips = 9;
 else if (st == 0) st++; // do not use empty graphic for visible pips
