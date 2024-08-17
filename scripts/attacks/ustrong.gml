@@ -8,6 +8,7 @@ set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("ustrong_hu
 set_attack_value(atk, AG_NUM_WINDOWS                    , 6);
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 1);
 set_attack_value(atk, AG_CATEGORY                       , 0);
+set_attack_value(atk, AG_GRABS_SLEEPERS                 , 1);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 //set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 10);
@@ -29,6 +30,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, tru
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_travel_start"));
 window_num++;
 
+// First active
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
@@ -37,8 +39,12 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_bigplant_eat"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_OPPONENT, 1); // mostly just to support sleepers
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_Y, -80);
 window_num++;
 
+// Second active
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 2);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
@@ -116,8 +122,9 @@ set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
-hbox_num++;
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 4);
 
+hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
@@ -136,6 +143,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
 set_hitbox_value(atk, hbox_num, HG_FORCE_FLINCH             , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 4);
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -162,6 +170,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -12);
 set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 7);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 9);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 1);
@@ -185,6 +194,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
@@ -208,6 +218,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
@@ -231,6 +242,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
@@ -254,3 +266,4 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);

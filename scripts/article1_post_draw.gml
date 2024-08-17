@@ -10,7 +10,7 @@ if (state == SLP_ACTIVE_RUSH || state == SLP_ACTIVE_HOMING) {
 if (state == SLP_INACTIVE_DEFAULT && inactive_flash_alpha > 0) {
     shader_end();
     gpu_set_fog(true, c_white, depth, depth);
-    draw_sprite_ext(sprite_index, image_index, x, y, 1, spr_dir, 0, c_white, inactive_flash_alpha);
+    draw_sprite_ext(sprite_index, image_index, x, y, spr_dir, 1, 0, c_white, inactive_flash_alpha);
     gpu_set_fog(false, c_white, 0, 0);
 }
 

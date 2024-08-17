@@ -25,7 +25,8 @@ AG_HAS_STANCE_SPRITES = 32;
 AG_STANCE_SPRITES = 33;
 AG_HAS_STANCE_HURT_SPRITES = 34;
 AG_STANCE_HURT_SPRITES = 35;
-AG_NUM_STANCE_WINDOWS = 36; // may or may not be necessary?
+AG_GRABS_SLEEPERS = 36; // determines whether sleeper grab checks should be applied
+
 
 /*
 - free window data indexes technically start at 61 up to 99, went with 70 to
@@ -86,6 +87,7 @@ HG_SLEEPER_TAG                  = 82;   // Behavioral tag, currently only checke
                                         // 1: Grab that interacts with sleepers
                                         // 2: Hitbox that eats sleepers
                                         // 3: Hitbox that harmlessly collides with sleepers
+                                        // 4: Hitbox that should grab sleepers, but won't grab players (used for linkers)
 
 // if you're making custom indexes for your character, I recommend starting at
 // 80 or 90, as slots up to 79 may be filled in future updates
@@ -129,6 +131,7 @@ ftilt_x_search_offset = 20; // offset of tested position relative to center of r
 ftilt_x_draw_offset = 0;    // non-constant, used by post_draw.gml
 
 nspec_sleepers_active = 0;
+is_sleeper_grab = 0;
 
 fspec_hit_sleeper = false;
 fspec_armor_hits = 0;

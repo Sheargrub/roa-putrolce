@@ -9,6 +9,8 @@ reset_attack_value(attack, AG_NUM_WINDOWS);
 grabbed_player_obj = noone; 
 grabbed_player_relative_x = 0;
 grabbed_player_relative_y = 0;
+if (attack != AT_DSPECIAL_2) grabbed_sleeper_id = noone;
+is_sleeper_grab = get_attack_value(attack, AG_GRABS_SLEEPERS);
 
 // Mirror set_state checks
 if (buffer_stance_update) {

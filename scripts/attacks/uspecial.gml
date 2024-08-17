@@ -8,6 +8,7 @@ set_attack_value(atk, AG_NUM_WINDOWS, 6);
 set_attack_value(atk, AG_AIR_SPRITE, sprite_get("uspecial"));
 set_attack_value(atk, AG_HURTBOX_SPRITE, sprite_get("uspecial_hurt"));
 set_attack_value(atk, AG_USES_CUSTOM_GRAVITY, 1);
+set_attack_value(atk, AG_GRABS_SLEEPERS, 1);
 
 //thank you for your hard work and ingenuity, sir kibble
 

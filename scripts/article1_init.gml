@@ -58,11 +58,11 @@ venus_sine_offset = 0; // used for reflections of ST_ACTIVE_DEFAULT
 
 grabbed_player_id = noone;
 is_grabbed = false;
+is_linked = false; // similar to is_grabbed, but used specifically for sleeper tag 4
 ignore_grabs = false;
 grab_petrified = false; // displayed petrified visual in stagger states
 
-uspec_hunger_value = 20;
-dspec_hunger_value = 20;
+hunger_value = 20;
 
 // state machine variables
 state = 0;

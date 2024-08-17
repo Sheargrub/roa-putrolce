@@ -243,7 +243,6 @@ switch(attack) {
     	
     case AT_DSPECIAL:
     	if (window == 1) {
-    		grabbed_sleeper_id = noone;
     		dspec_sfx_instance = noone;
     		dspec_rethrow = false;
     	}

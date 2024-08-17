@@ -141,7 +141,7 @@ if (!ignore_grabs) with pHitBox {
 	
 	if ("is_putrolce_grab" not in self) {
 		if ("is_putrolce" in player_id) {
-			is_putrolce_grab = (type == 1 && (attack == AT_DSPECIAL || attack == AT_USPECIAL));
+			is_putrolce_grab = (type == 1 && player_id.is_sleeper_grab);
 			with (player_id) other.putrolce_sleeper_tag = get_hitbox_value(other.attack, other.hbox_num, HG_SLEEPER_TAG);
 		}
 		else {
@@ -152,16 +152,18 @@ if (!ignore_grabs) with pHitBox {
 	
 	if (is_putrolce_grab && place_meeting(x, y, other)) {
 		
-		// Grabs
-		if (!other.is_grabbed && putrolce_sleeper_tag == 1) {
+		// Grabs and links
+		if ((!other.is_grabbed && putrolce_sleeper_tag == 1) || (!other.is_linked && putrolce_sleeper_tag == 4)) {
 			
 			// Ensure that only one sleeper is caught in the grab
 			var player_claimed = true;
 			if (!instance_exists(player_id.grabbed_sleeper_id)) player_id.grabbed_sleeper_id = other;
+			else if (player_id.grabbed_sleeper_id == other) player_claimed = true;
 			else if (player_id.grabbed_sleeper_id.player != player && other.player == player) { // give precedence to putrolce's own sleepers
 				with (player_id.grabbed_sleeper_id) {
 	    			ignore_grabs = true;
 	    			is_grabbed = false;
+	    			is_linked = false;
 	    			hitstop = 0;
 				}
 				player_id.grabbed_sleeper_id = other;
@@ -177,7 +179,8 @@ if (!ignore_grabs) with pHitBox {
 				set_state(is_homing ? SLP_STAGGERED_HOMING : SLP_STAGGERED);
 				spr_dir = other.player_id.spr_dir * -1;
 				
-				is_grabbed = player_claimed;
+				is_grabbed = player_claimed && (other.putrolce_sleeper_tag == 1);
+				is_linked = player_claimed;
 				grab_petrified = (other.attack == AT_DSPECIAL);
 				grabbed_player_id = other.player_id;
 				relative_x = floor(other.x - grabbed_player_id.x);
@@ -200,7 +203,7 @@ if (!ignore_grabs) with pHitBox {
 				}
 				
 				// Grab windows
-				if (get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOW_GOTO) != -1) {
+				if (other.putrolce_sleeper_tag != 4 && get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOW_GOTO) != -1) {
 					destroy_hitboxes();
 					attack_end();
 					window = get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOW_GOTO);
@@ -234,10 +237,11 @@ if (!ignore_grabs) with pHitBox {
 	    		else set_state(SLP_DESPAWN_DIE);
 			}
 			
+			other.is_linked = false;
 			other.is_grabbed = false;
 			other.ignore_grabs = true;
 			other.grabbed_player_id = player_id;
-			var hunger_value = (attack == AT_DSPECIAL) ? other.dspec_hunger_value : other.uspec_hunger_value;
+			var hunger_value = other.hunger_value;
 			with player_id {
 				hunger_change = hunger_value;
 				user_event(0);
@@ -294,15 +298,16 @@ if (!ignore_grabs) with pHitBox {
 	
 }
 
-if (hitstop > 0 || is_grabbed) {
+if (hitstop > 0 || is_grabbed || is_linked) {
 	hsp = 0;
 	vsp = 0;
     
     if (grabbed_player_id.state != PS_ATTACK_GROUND && grabbed_player_id.state != PS_ATTACK_AIR) {
     	is_grabbed = false;
+    	is_linked = false;
     }
     
-    else if (is_grabbed) {
+    else if (is_grabbed || is_linked) {
     	spr_dir = grabbed_player_id.spr_dir * -1;
     	// template grab code from attack_update
     	with (grabbed_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
@@ -646,14 +651,14 @@ switch (state) {
     // ------------------
     
     case SLP_STAGGERED:
-    	if (!is_grabbed && hitstop <= 0) {
+    	if (!is_grabbed && !is_linked && hitstop <= 0) {
     		if (grab_petrified) set_state(SLP_DESPAWN_PETRIFIED)
     		else set_state(SLP_DESPAWN_DIE);
     	}
     	break;
     
     case SLP_STAGGERED_HOMING:
-    	if (!is_grabbed && hitstop <= 0) {
+    	if (!is_grabbed && !is_linked && hitstop <= 0) {
     		if (grab_petrified) set_state(SLP_DESPAWN_PETRIFIED)
     		else set_state(SLP_DESPAWN_DIE_HOMING);
     	}

@@ -7,6 +7,7 @@ set_attack_value(atk, AG_SPRITE                         , sprite_get("dspecial")
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("dspecial_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 2);
+set_attack_value(atk, AG_GRABS_SLEEPERS                 , 1);
 
 // Main attack
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -69,6 +70,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_Y, 
 set_window_value(atk, window_num                        , AG_WINDOW_VSPEED_TYPE, 1);
 //set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_VSPEED, 0);
+set_hitbox_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, 10);
+set_hitbox_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);

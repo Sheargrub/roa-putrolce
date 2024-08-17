@@ -152,7 +152,7 @@ switch(my_hitboxID.attack) {
         break;
         
     case AT_FSTRONG:
-    	if (my_hitboxID.hbox_num > 1 && is_melee) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_bite)
+    	if (my_hitboxID.hbox_num > 1 && is_melee) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), 304);
     	if (my_hitboxID.hbox_num == 4 && is_melee) sound_play(asset_get("sfx_blow_heavy1"), 0, noone, 1, 1)
     	if (my_hitboxID.hbox_num == 5 && is_melee) sound_play(asset_get("sfx_blow_heavy2"), 0, noone, 1, 1)
     	break;
@@ -205,7 +205,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 
