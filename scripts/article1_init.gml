@@ -33,6 +33,7 @@ attempting_tracking = false; // used to communicate with post_draw
 move_angle = (spr_dir == 1) ? 0 : 180;
 move_speed = 0;
 refresh_hitboxes = false;
+target_galaxied = false;
 
 petrified_hitbox = noone;
 active_hitbox = noone;

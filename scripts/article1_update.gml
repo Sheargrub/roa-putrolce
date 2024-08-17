@@ -541,8 +541,9 @@ switch (state) {
     
     case SLP_ACTIVE_HOMING:
         block_ground_checks = true;
-    
-        if (targetted_player_id != noone) {
+    	var has_target = instance_exists(targetted_player_id);
+    	
+        if (has_target) {
             var target_move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
             var diff = angle_difference(move_angle, target_move_angle);
             if (abs(diff) < 10) move_angle = target_move_angle;
@@ -554,6 +555,14 @@ switch (state) {
         vsp = lengthdir_y(move_speed, move_angle);
         spr_dir = (90 < move_angle && move_angle <= 270) ? -1 : 1;
         
+        if (has_target && targetted_player_id.activated_kill_effect) {
+        	target_galaxied = true;
+        	if (instance_exists(active_hitbox)) {
+        		active_hitbox.destroyed = true;
+        		active_hitbox = noone;
+        	}
+        }
+        
         if (was_parried) {
             was_parried = false;
             targetted_player_id = player_id;
@@ -563,20 +572,22 @@ switch (state) {
         else if (move_speed <= 0.9) {
             if (place_meeting(x, y, asset_get("plasma_field_obj"))) { // since there's no hitbox to do the detection
                 sound_play(asset_get("sfx_clairen_hit_weak"));
-                set_state(SLP_DESPAWN_DIE);
+                set_state(SLP_DESPAWN_DIE_HOMING);
             }
-            else if (move_speed >= 0 && active_hitbox == noone) auto_gen_hitbox();
+            else if (move_speed >= 0 && active_hitbox == noone && !target_galaxied) auto_gen_hitbox();
             else block_hitbox_checks = true;
         }
         
-        else if ( (!instance_exists(targetted_player_id) && state_timer >= 60)
-          || (instance_exists(targetted_player_id) && move_speed > 0 && point_distance(x, y, targetted_player_id.x, get_center_y(targetted_player_id)) < move_speed)
+        else if ( (!has_target && state_timer >= 60)
+          || (has_target && move_speed > 0 && point_distance(x, y, targetted_player_id.x, get_center_y(targetted_player_id)) < 1.5*move_speed)
           || (state_timer >= 200)
         ) {
             set_state(SLP_INACTIVE_DEFAULT);
             hit_player_id = noone;
             reflected_player_id = noone;
         }
+        
+        if (target_galaxied) block_hitbox_checks = true;
         
         break;
         
@@ -870,6 +881,7 @@ venus_late_reflect_frame = venus_reflected;
             block_hitbox_checks = true;
             hit_player_id = noone;
             venus_article_reflect = 1;
+            target_galaxied = false;
             break;
         
         case SLP_INACTIVE_DEFAULT:
