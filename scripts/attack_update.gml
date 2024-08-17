@@ -43,17 +43,17 @@ switch(attack) {
         break;
     case AT_FTILT:
         if (window ==  1 && window_timer == 3) {
-        	var x_default = ftilt_x_default;
+        	var x_default = ftilt_x_default + ftilt_x_search_offset;
         	var x_maximum = x_default;
-        	var x_minimum = ftilt_x_minimum;
+        	var x_minimum = ftilt_x_minimum + ftilt_x_search_offset;
         	var x_offset = 0;
         	
         	// First, check if the farthest position is valid
-        	if ( place_meeting(x+(x_default*spr_dir), y+1, asset_get("par_block"))
-        	  || place_meeting(x+(x_default*spr_dir), y+1, asset_get("par_jumpthrough"))
+        	if ( place_meeting(x+(x_maximum*spr_dir), y+1, asset_get("par_block"))
+        	  || place_meeting(x+(x_maximum*spr_dir), y+1, asset_get("par_jumpthrough"))
         	) {
         		print_debug("near");
-        		x_offset = x_default;
+        		x_offset = x_maximum;
         	}
         	
         	// Then, check of the closest position needs to be used
@@ -77,9 +77,9 @@ switch(attack) {
         		x_offset = round(x_offset);
         	}
         	
+        	x_offset -= ftilt_x_search_offset;
         	set_hitbox_value(AT_FTILT, 1, HG_HITBOX_X, x_offset);
-        	ftilt_x_offset = (x_offset-x_default) * spr_dir;
-        	
+        	ftilt_x_draw_offset = x_offset * spr_dir;
         }
         break;
     case AT_DTILT:

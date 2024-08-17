@@ -123,9 +123,10 @@ ST_OVERSTUFFED                  = 4;
 putrolce_status_owner = 0;  // reflected in other_init.gml
 putrolce_status_timer = 0;
 
-ftilt_x_default = 60;
-ftilt_x_minimum = -12;
-ftilt_x_offset = 0;
+ftilt_x_default = 60;       // furthest position for ftilt rock, relative to player x-coord
+ftilt_x_minimum = -12;      // nearest position for ftilt rock, relative to player x-coord
+ftilt_x_search_offset = 20; // offset of tested position relative to center of rock (higher values will force the rock to be more grounded)
+ftilt_x_draw_offset = 0;    // non-constant, used by post_draw.gml
 
 nspec_sleepers_active = 0;
 
