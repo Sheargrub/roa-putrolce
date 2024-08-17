@@ -123,6 +123,10 @@ ST_OVERSTUFFED                  = 4;
 putrolce_status_owner = 0;  // reflected in other_init.gml
 putrolce_status_timer = 0;
 
+ftilt_x_default = 60;
+ftilt_x_minimum = -12;
+ftilt_x_offset = 0;
+
 nspec_sleepers_active = 0;
 
 fspec_hit_sleeper = false;
@@ -207,23 +211,6 @@ comp_vfx_array                  = [[{cur_timer: 1, max_timer: 0}]];
 vfx_created                     = false;// checks if the effect was successfully
                                         // created in the array
 
-/* // WIP 
-// alt color shade slots
-num_base_colors                 = 1;    // how many colors the character has
-
-col_shade_list                  = [
-                                [1],
-                                [0],
-                                [0],
-                                [0],
-                                [1],
-                                [1]
-                                ];      // array holding shade values in each
-                                        // alt for each color
-                                        // as sandbert only has 1 color and 6
-                                        // alts, there's 6 arrays with 1 element
-
-*/
 /*
 - remember that css needs it's own version of these variables, so if you change
 it here, change it there too!
@@ -374,7 +361,7 @@ djump_sound                     = asset_get("sfx_jumpair");
 air_dodge_sound                 = asset_get("sfx_quick_dodge");
 
 //                            --misc--                     //
-fx_ashe_trail = hit_fx_create(sprite_get("fx_ashe_trail"), 20);
+
 putrolce_victory_quote = "That was... me-! Not an illusion that was- What?! What's happening?!";
 putrolce_handled_victory_quote = false;
 putrolce_victory_icon = 4;
@@ -382,6 +369,10 @@ putrolce_victory_icon = 4;
 //                       --ranno bubble visual offset--                       //
 bubble_x                        = 0;
 bubble_y                        = 8;
+
+// effects/particles
+fx_ftilt_rock = hit_fx_create(sprite_get("ftilt_rock"), 24);
+fx_ashe_trail = hit_fx_create(sprite_get("fx_ashe_trail"), 20);
 
 // hfx
 fx_kragg_small = hit_fx_create(sprite_get("hfx_rock_small_bg"),20);

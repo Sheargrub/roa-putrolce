@@ -42,7 +42,45 @@ switch(attack) {
     	}
         break;
     case AT_FTILT:
-        //a
+        if (window ==  1 && window_timer == 3) {
+        	var x_default = ftilt_x_default;
+        	var x_maximum = x_default;
+        	var x_minimum = ftilt_x_minimum;
+        	var x_offset = 0;
+        	
+        	// First, check if the farthest position is valid
+        	if ( place_meeting(x+(x_default*spr_dir), y+1, asset_get("par_block"))
+        	  || place_meeting(x+(x_default*spr_dir), y+1, asset_get("par_jumpthrough"))
+        	) {
+        		print_debug("near");
+        		x_offset = x_default;
+        	}
+        	
+        	// Then, check of the closest position needs to be used
+        	else if ( !line_meeting(x+(x_default*spr_dir), y+1, x+(x_minimum*spr_dir), y+1, asset_get("par_block"))
+        	  && !line_meeting(x+(x_default*spr_dir), y+1, x+(x_minimum*spr_dir), y+1, asset_get("par_jumpthrough"))
+        	) {
+        		print_debug("far");
+        		x_offset = x_minimum;
+        	}
+        	
+        	// If not, binary search for valid position
+        	else {
+        		x_offset = (x_minimum + x_maximum) / 2;
+        		for (var i = 0; i < 8; i++) {
+        			var solid_collide = line_meeting(x+(x_default*spr_dir), y+1, x+(x_offset*spr_dir), y+1, asset_get("par_block"));
+        			var plat_collide = line_meeting(x+(x_default*spr_dir), y+1, x+(x_offset*spr_dir), y+1, asset_get("par_jumpthrough"));
+        			if (solid_collide || plat_collide) x_minimum = x_offset;
+        			else x_maximum = x_offset;
+        			x_offset = (x_minimum + x_maximum) / 2;
+        		}
+        		x_offset = round(x_offset);
+        	}
+        	
+        	set_hitbox_value(AT_FTILT, 1, HG_HITBOX_X, x_offset);
+        	ftilt_x_offset = (x_offset-x_default) * spr_dir;
+        	
+        }
         break;
     case AT_DTILT:
     	if (window == 3) && !was_parried {
@@ -450,6 +488,9 @@ var afterimage = {
     aftim_color : in_color,
 };
 ds_list_add(afterimage_list, afterimage);
+
+#define line_meeting(x1, y1, x2, y2, obj)
+return (noone != collision_line(x1, y1, x2, y2, obj, false, true));
 
 // Plays a sound that will be cancelled given the following conditions:
 //	- do_sfx_cancel is set to true.

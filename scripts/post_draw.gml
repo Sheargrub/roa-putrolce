@@ -12,6 +12,9 @@ if (attack == AT_FSPECIAL && (window == 2 || window == 3) && (state == PS_ATTACK
     draw_sprite_ext(sprite_get("fspecial_fx"+stance_suffixes[stance-1]), window-2, x, y, 2*spr_dir, 2, 0, c_white, 1);
 }
 
+if (attack == AT_FTILT && (image_index > 0) && (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)) {
+    draw_sprite_ext(sprite_get("ftilt_rock"), image_index-1, x+ftilt_x_offset, y, 2*spr_dir, 2, 0, c_white, 1);
+}
 
 
 // Overhead HUD
