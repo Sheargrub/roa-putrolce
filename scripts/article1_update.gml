@@ -593,6 +593,10 @@ switch (state) {
             set_state(SLP_DESPAWN_FADE);
         }
         
+        else if (state_timer >= 200) {
+        	inactive_flash_alpha = 0.15 * (1-cos(state_timer*pi/25)) / 2;
+        }
+        
         else if (state_timer % 50 == 0) {
             var vfx = spawn_hit_fx(x+20, y-20, player_id.fx_slp_sleeping);
             vfx.depth = depth-1;
@@ -870,6 +874,7 @@ venus_late_reflect_frame = venus_reflected;
                 hit_player_id = noone;
                 reflected_player_id = noone;
                 venus_article_reflect = 1;
+                inactive_flash_alpha = 0;
             }
             break;
         

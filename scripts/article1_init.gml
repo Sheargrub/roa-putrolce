@@ -44,6 +44,8 @@ active_move_polarity = 1; // used to smooth the transition into the active state
 active_move_coefficient = 2*pi / 40; // denominator should be the period of the motion in frames
 active_move_offset = 0; // used by reflects to maintain continuity
 
+inactive_flash_alpha = 0;
+
 unbashable = false;
 orig_player = player; // because ori is a thief >:(
 venus_article_reflect = 1;
