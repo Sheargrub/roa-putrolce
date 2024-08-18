@@ -177,6 +177,7 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 break;
             case AT_NSPECIAL:
                 data[di].ending_lag = string(win_totals[2]-win_totals[0]);
+                misc_str = misc_str + " | Sleepers grant +2 hunger pips when eaten"; // TODO: make this not hard-coded
                 data[di].hitboxes[0].active = string(win_totals[0]+1) + "-";
                 break;
             case AT_USPECIAL:
