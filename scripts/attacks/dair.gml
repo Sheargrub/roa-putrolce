@@ -19,7 +19,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGT
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [11, 9, 11, 17]);
+set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [10, 6, 8, 14]);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy1"));
 //set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
