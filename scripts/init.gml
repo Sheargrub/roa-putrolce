@@ -212,18 +212,6 @@ grabbed_player_relative_x       = 0;    // x position in relation to the player,
 grabbed_player_relative_y       = 0;    // y position in relation to the player, 
                                         // for the grabbed player to be moved to
 
-// composite vfx array
-comp_vfx_array                  = [[{cur_timer: 1, max_timer: 0}]];
-                                        // array containing the composite
-                                        // vfx
-vfx_created                     = false;// checks if the effect was successfully
-                                        // created in the array
-
-/*
-- remember that css needs it's own version of these variables, so if you change
-it here, change it there too!
-*/
-
 // animation stuff
 idle_air_loops                  = false;// whether idle air has a looping 
                                         // animation or not
