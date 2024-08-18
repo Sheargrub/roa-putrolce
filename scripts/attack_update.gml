@@ -144,7 +144,7 @@ switch(attack) {
     
     case AT_NSPECIAL:
     	move_cooldown[AT_NSPECIAL] = 20;
-        if (window == 2 && window_timer == 1) {
+        if (window == 1 && window_timer == window_length) {
         	instance_create(x+(30*spr_dir), y-30, "obj_article1");
         }
         
@@ -166,7 +166,7 @@ switch(attack) {
 	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
 	        		fspec_hit_sleeper = false;
 	        		fspec_aftim_length = (stance == 1 || stance == 3) ? 10 : 20;
-	        	}else if (window_timer == window_length) && (stance > 1){
+	        	} else if (window_timer == window_length) && (stance > 1){
 	        		sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
 	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        	} else if (window_timer == window_length) && (stance == 1) {

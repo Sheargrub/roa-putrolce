@@ -122,6 +122,7 @@ set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 4);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 7);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab");
 hbox_num++;
 
 // Initial hit (tip)
@@ -149,6 +150,7 @@ set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 4);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 7);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab");
 hbox_num++;
 
 // Bite
@@ -174,6 +176,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_orca_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 30);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 hbox_num++;
 
 // Status followup
@@ -201,5 +204,6 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_UNBASHABLE    , 1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , 1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(atk, hbox_num, HG_IGNORES_PROJECTILES      , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Status break");
 hbox_num++;
 

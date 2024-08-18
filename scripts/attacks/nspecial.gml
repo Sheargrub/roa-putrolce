@@ -34,12 +34,12 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 0);
+set_num_hitboxes(atk, 3);
 var hbox_num = 1;
 
 // Petrified (with followup)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 1);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 99);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
@@ -70,11 +70,12 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , false);
 set_hitbox_value(atk, hbox_num, HG_FORCE_FLINCH             , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Petrified (combo)");
 hbox_num++;
 
 // Petrified (no followup)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 1);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 99);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
@@ -105,11 +106,13 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , false);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Petrified
+(no followup)");
 hbox_num++;
 
 // Active
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 1);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 99);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
@@ -140,6 +143,7 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , false);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 hbox_num++;
 
 

@@ -63,26 +63,28 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
         var win_len;
         var win_whiff;
         var win_totals = []; // used to avoid having to recalculate lengths for hitboxes
+        var atk_len = 0;
         var atk_whiff_len = 0;
-        data[di].length = 0;
         for (var i = 0; i < num_windows; i++) {
             with other {
                 win_len = get_window_value(attack_index, i+1, AG_WINDOW_LENGTH);
                 win_whiff = get_window_value(attack_index, i+1, AG_WINDOW_HAS_WHIFFLAG);
             }
-            data[di].length += win_len;
-            array_push(win_totals, data[di].length);
+            atk_len += win_len;
+            array_push(win_totals, atk_len);
             if (win_whiff) atk_whiff_len += floor(1.5*win_len);
             else atk_whiff_len += win_len;
         }
-        if (data[di].length != atk_whiff_len) {
-            data[di].length = string(data[di].length) + " (" + string(atk_whiff_len) + ")";
-        }
+        if (atk_len != atk_whiff_len) data[di].length = string(atk_len) + " (" + string(atk_whiff_len) + ")";
+        else data[di].length = string(atk_len);
         
         // Update hitboxes
         var new_index = 0;
+        var last_active_frame = 0; // used for endlag calculation later
         if ("hitboxes_orig" not in data[di]) data[di].hitboxes_orig = data[di].hitboxes;
         data[di].hitboxes = [];
+        
+        if (attack_index == AT_DSPECIAL && other.has_rune_petrifystatus) num_hitboxes++;
         
         for (var i = 0; i < num_hitboxes; i++) {
             
@@ -103,9 +105,11 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                     }
                     var hbox_start = hbox_frame+1;
                     if (hbox_window > 1) hbox_start += win_totals[hbox_window-2];
-                    var active_str = string(hbox_start)+"-"+string(hbox_start+hbox_length-1);
+                    var hbox_end = hbox_start+hbox_length-1;
+                    var active_str = string(hbox_start)+"-"+string(hbox_end);
                     if (hbox_length == 1) active_str = string(hbox_start);
                     data[di].hitboxes[new_index].active = active_str;
+                    if (hbox_end > last_active_frame) last_active_frame = hbox_end;
                 }
                 
                 // Hunger gain info
@@ -122,6 +126,16 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 new_index++;
             }
             
+        }
+        
+        // Update endlag
+        // note: breaks if whiff lag begins prior to a hitbox's spawn (a correctly formed attack should never do this anyway)
+        if (last_active_frame != 0) {
+            var endlag = atk_len - last_active_frame;
+            var whifflag = atk_whiff_len - last_active_frame;
+            if (endlag == whifflag) data[di].ending_lag = string(endlag);
+            else data[di].ending_lag = string(endlag) + " (" + string(whifflag) + ")";
+            print_debug(data[di].ending_lag);
         }
         
         // Capture hunger changes
@@ -151,11 +165,20 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 with other var hunger_change_frame = get_window_value(attack_index, 3, AG_WINDOW_HUNGER_GAIN_FRAME);
                 var hunger_whiff_frame = floor(1.5*hunger_change_frame) + win_totals[1];
                 hunger_change_frame += win_totals[1];
+                
+                var iasa_frame = 10 + win_totals[1] + 1; // TODO: make this not hard-coded
+                var iasa_whiff_frame = 15 + win_totals[1] + 1;
+                
                 misc_str = misc_str + " on frame " + string(hunger_change_frame) + " (" + string(hunger_whiff_frame) + ")";
-                misc_str = misc_str + " | IASA cancellable on frame # (#)";
+                misc_str = misc_str + " | IASA cancellable on frame ";
+                misc_str = misc_str + string(iasa_frame) + " (" + string(iasa_whiff_frame) + ")";
                 break;
             case AT_FTILT:
                 data[di].hitboxes[0].misc = "Hitbox conforms to ledges"
+                break;
+            case AT_NSPECIAL:
+                data[di].hitboxes[0].active = string(win_totals[0]+1) + "-";
+                data[di].hitboxes[0].ending_lag = string(win_totals[2]+win_totals[1]);
                 break;
             case AT_USPECIAL:
                 data[di].length = "Variable";
@@ -164,7 +187,7 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 data[di].hitboxes[0].active = string(hbox_length) + "f";
                 break;
             case AT_DSPECIAL:
-                misc_str = misc_str + " | +1 hunger pip upon landing the command grab"
+                misc_str = misc_str + " | +1 hunger pip upon landing the command grab" // TODO: make this not hard-coded
                 break;
         }
         

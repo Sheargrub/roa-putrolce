@@ -5,8 +5,10 @@ var window_length   = 0;
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("fstrong"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fstrong_hurt"));
+set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 1);
 set_attack_value(atk, AG_CATEGORY                       , 0);
+set_attack_value(atk, AG_GRABS_SLEEPERS                 , 1);
 set_attack_value(atk, AG_GRABS_SLEEPERS                 , 1);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -40,7 +42,6 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_L
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGTHS, [32, 24, 32, 38]); //always whiffs
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(atk, window_num                        , AG_WINDOW_GOTO, 31);
 window_num++;
 
 //grab success
@@ -70,8 +71,6 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 16);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 11);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 6);
 window_num++;
-
-set_attack_value(atk, AG_NUM_WINDOWS                    , window_num-1);
 
 
 //                        --attack hitboxes--                                 //
