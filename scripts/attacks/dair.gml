@@ -8,7 +8,7 @@ set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("dair_hurt"
 set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 1);
 set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
-set_attack_value(atk, AG_LANDING_LAG                    , 13);
+set_attack_value(atk, AG_LANDING_LAG                    , 8);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 //set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
@@ -33,8 +33,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 16);
-    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+//set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 16);
+//    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_LENGTHS, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGTHS, [13, 10, 13, 15]);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
