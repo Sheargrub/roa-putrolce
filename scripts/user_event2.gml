@@ -135,7 +135,6 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
             var whifflag = atk_whiff_len - last_active_frame;
             if (endlag == whifflag) data[di].ending_lag = string(endlag);
             else data[di].ending_lag = string(endlag) + " (" + string(whifflag) + ")";
-            print_debug(data[di].ending_lag);
         }
         
         // Capture hunger changes
@@ -177,8 +176,8 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 data[di].hitboxes[0].misc = "Hitbox conforms to ledges"
                 break;
             case AT_NSPECIAL:
+                data[di].ending_lag = string(win_totals[2]-win_totals[0]);
                 data[di].hitboxes[0].active = string(win_totals[0]+1) + "-";
-                data[di].hitboxes[0].ending_lag = string(win_totals[2]+win_totals[1]);
                 break;
             case AT_USPECIAL:
                 data[di].length = "Variable";
@@ -188,6 +187,10 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 break;
             case AT_DSPECIAL:
                 misc_str = misc_str + " | +1 hunger pip upon landing the command grab" // TODO: make this not hard-coded
+                break;
+            case AT_DSPECIAL_2:
+                data[di].ending_lag = string(win_totals[2]-win_totals[0]);
+                misc_str = "Rethrows Sleeper on frame " + string(win_totals[0]+1);
                 break;
         }
         

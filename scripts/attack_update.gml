@@ -257,6 +257,7 @@ switch(attack) {
 	        if (dspec_rethrow && !hitpause) {
 	        	attack_end();
     			set_attack(AT_DSPECIAL_2);
+    			user_event(2); // load new attack data, if appropriate
     			hurtboxID.sprite_index = get_attack_value(attack, AG_HURTBOX_SPRITE);
     			do_sfx_cancel = true;
 	        }
@@ -267,12 +268,13 @@ switch(attack) {
     	}
         break;
     case AT_DSPECIAL_2:
-    	if (window == 2 && window_timer == 1 && instance_exists(grabbed_sleeper_id)) {
+    	if (window == 1 && window_timer == window_length && instance_exists(grabbed_sleeper_id)) {
         	grabbed_sleeper_id.state = 1; // petrified, no lifetime checks
         	grabbed_sleeper_id.state_timer = 0;
         	grabbed_sleeper_id.reflected_player_id = (player == grabbed_sleeper_id.player) ? noone : self;
         	grabbed_sleeper_id.refresh_hitboxes = true;
         	grabbed_sleeper_id.is_grabbed = false;
+        	grabbed_sleeper_id.is_linked = false;
         	grabbed_sleeper_id.block_idle_state = false;
 			grabbed_sleeper_id.block_active_state = false;
         	grabbed_sleeper_id.venus_article_reflect = 1;
@@ -280,6 +282,11 @@ switch(attack) {
         	grabbed_sleeper_id.hsp = 7*spr_dir;
         	grabbed_sleeper_id.vsp = -5;
         	grabbed_sleeper_id.spr_dir = spr_dir;
+        	
+        	var rethrow_hbox = create_hitbox(AT_NSPECIAL, 1, floor(grabbed_sleeper_id.x), floor(grabbed_sleeper_id.y));
+        	grabbed_sleeper_id.active_hitbox = rethrow_hbox;
+        	rethrow_hbox.hsp = grabbed_sleeper_id.hsp;
+        	rethrow_hbox.vsp = grabbed_sleeper_id.vsp;
         	
         	grabbed_player_obj = noone;
         	
