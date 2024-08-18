@@ -152,12 +152,19 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
                 var hunger_whiff_frame = floor(1.5*hunger_change_frame) + win_totals[1];
                 hunger_change_frame += win_totals[1];
                 misc_str = misc_str + " on frame " + string(hunger_change_frame) + " (" + string(hunger_whiff_frame) + ")";
-                misc_str = misc_str + " | IASA cancellable on frame 10 (15)";
+                misc_str = misc_str + " | IASA cancellable on frame # (#)";
+                break;
             case AT_FTILT:
                 data[di].hitboxes[0].misc = "Hitbox conforms to ledges"
                 break;
+            case AT_USPECIAL:
+                data[di].length = "Variable";
+                misc_str = "-1 hunger pip upon using the command grab"
+                with other var hbox_length = get_hitbox_value(AT_USPECIAL, 1, HG_LIFETIME)
+                data[di].hitboxes[0].active = string(hbox_length) + "f";
+                break;
             case AT_DSPECIAL:
-                misc_str = misc_str + " | " + "+1 hunger pip upon landing the command grab"
+                misc_str = misc_str + " | +1 hunger pip upon landing the command grab"
                 break;
         }
         

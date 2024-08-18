@@ -123,6 +123,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 4);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Linker (High)");
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -144,6 +145,7 @@ set_hitbox_value(atk, hbox_num, HG_FORCE_FLINCH             , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 4);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Linker (Low)");
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -171,6 +173,7 @@ set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 7);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 9);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab");
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 1);
@@ -195,6 +198,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
@@ -219,6 +223,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
@@ -243,6 +248,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
@@ -267,3 +273,4 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");

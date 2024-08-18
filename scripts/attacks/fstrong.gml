@@ -103,6 +103,7 @@ set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , true);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 4);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 6);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab");
 hbox_num++;
 
 var hbox_num = 2;
@@ -130,6 +131,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -5);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_bite"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 var hbox_num = 3;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
@@ -156,6 +158,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -5);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_bite"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 var hbox_num = 4;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
@@ -182,6 +185,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -5);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_bite"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 var hbox_num = 5;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
@@ -208,3 +212,4 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -5);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_bite"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");

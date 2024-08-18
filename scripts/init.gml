@@ -91,6 +91,8 @@ HG_SLEEPER_TAG                  = 82;   // Behavioral tag, currently only checke
                                         // 3: Hitbox that harmlessly collides with sleepers
                                         // 4: Hitbox that should grab sleepers, but won't grab players (used for linkers)
 
+HG_MUNO_HITBOX_NAME             = 99;   // Frame Data Woodcock compatability
+
 // if you're making custom indexes for your character, I recommend starting at
 // 80 or 90, as slots up to 79 may be filled in future updates
 

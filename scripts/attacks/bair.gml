@@ -95,6 +95,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 305);
 //set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Tipper");
 hbox_num ++;
 
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
@@ -146,6 +147,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 305);
 //set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy2"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Tipper");
 hbox_num ++;
 
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
@@ -197,6 +199,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 305);
 //set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy2"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Tipper");
 hbox_num ++;
 
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
@@ -248,3 +251,4 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 305);
 //set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy2"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Tipper");
