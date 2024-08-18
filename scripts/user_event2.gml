@@ -55,8 +55,30 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
             }
         }
         
+        // Update name
         if ("name_orig" not in data[di]) data[di].name_orig = data[di].name;
         data[di].name = data[di].name_orig + " (" + other.stance_names[st] + ")";
+        
+        // Update duration info
+        var win_len;
+        data[di].length = 0;
+        for (var i = 1; i <= num_windows; i++) {
+            with other win_len = get_window_value(attack_index, i, AG_WINDOW_LENGTH);
+            data[di].length += win_len;
+        }
+        
+        // Update hitboxes
+        var hbox_stance;
+        var new_num = 1;
+        if ("hitboxes_orig" not in data[di]) data[di].hitboxes_orig = data[di].hitboxes;
+        print_debug(string(num_hitboxes) + " / " + string(array_length(data[di].hitboxes_orig)));
+        data[di].hitboxes = [];
+        for (var i = 0; i < num_hitboxes; i++) {
+            with other hbox_stance = get_hitbox_value(attack_index, i+1, HG_STANCE);
+            if (hbox_stance == 0 || hbox_stance == other.stance) {
+                array_push(data[di].hitboxes, data[di].hitboxes_orig[i]);
+            }
+        }
         
     }
 
