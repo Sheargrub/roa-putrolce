@@ -26,7 +26,6 @@
 #macro SLP_STAGGERED 45
 #macro SLP_STAGGERED_HOMING 46
 
-
 state_timer += 1;
 transition_timer++;
 attempting_tracking = false;
@@ -134,7 +133,6 @@ if (venus_reflected && !venus_late_reflect_frame) {
     
 }
 //#endregion
-
 
 //#region Grab checks
 if (!ignore_grabs) with pHitBox {
@@ -375,7 +373,7 @@ switch (state) {
         // no break - most logic is shared with petrified-permanent
     
     case SLP_PETRIFIED_PERMANENT:
-        
+    
         hsp = clamp(hsp, -6, 6);
         vsp = clamp(vsp+0.3, -6, 6);
         
