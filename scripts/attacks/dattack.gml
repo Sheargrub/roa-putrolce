@@ -96,7 +96,7 @@ set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 6);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.9);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.9);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_kragg_small);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);

@@ -323,9 +323,15 @@ switch(attack) {
         	hsp = clamp(hsp, -3, 3);
         }
         
-        if (!free && (window == 9 || window == 15)) {
-        	set_state(PS_PRATLAND);
-        	landing_lag = prat_land_time;
+        if (!free) {
+        	if (window == 9) {
+	        	set_state(PS_PRATLAND);
+	        	landing_lag = prat_land_time;
+        	}
+        	if (window == 15) {
+        		set_state(PS_LANDING_LAG);
+        		landing_lag = get_attack_value(attack, AG_LANDING_LAG);
+        	}
         }
         
         // Hunger: adjust grab counts
