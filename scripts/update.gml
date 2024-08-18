@@ -4,6 +4,17 @@ if (should_debug && taunt_pressed && shield_pressed) {
 	hunger_locked = !hunger_locked;
 }
 
+// Initialize woodcock hook
+if (get_gameplay_time() == post_init_time && get_match_setting(SET_PRACTICE)) {
+	with asset_get("pet_obj") {
+		if ("frame_data_loaded" in self && player == other.player) {
+			other.woodcock_active = true;
+			other.woodcock_obj = self;
+			print_debug("Woodcock hook initialized.");
+		}
+	}
+}
+
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_looping = false;

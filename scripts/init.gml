@@ -8,7 +8,9 @@ if (is_practice) {
 }
 hunger_locked = false;
 
-
+// Woodcock hook: overrides woodcock data if appropriate
+woodcock_active = false;
+post_init_time = get_gameplay_time()+1;
 
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
 

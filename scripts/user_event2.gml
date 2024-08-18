@@ -40,4 +40,24 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
     
     if (should_debug) print_debug("Attack data updated! (" + string(get_gameplay_time()) + ")");
 
+    // Woodcock data hook
+    if (woodcock_active) with (woodcock_obj) {
+        
+        var st = other.stance-1;
+        var attack_index = other.attack;
+        var data_len = array_length(data);
+        var di = noone;
+        
+        for (var i = 0; i < data_len; i++) {
+            if (data[i].type == 2 && data[i].index == attack_index) {
+                di = i;
+                i = data_len;
+            }
+        }
+        
+        if ("name_orig" not in data[di]) data[di].name_orig = data[di].name;
+        data[di].name = data[di].name_orig + " (" + other.stance_names[st] + ")";
+        
+    }
+
 }
