@@ -136,8 +136,8 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_FAIR:
-        if ((my_hitboxID.hbox_num == 1 || my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6) && is_melee) sound_play(asset_get("sfx_kragg_rock_pull"), 0, noone, 0.3, 1)
-        else if ((my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 5 || my_hitboxID.hbox_num == 7) && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
+        if ((my_hitboxID.hbox_num == 2 || my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6) && is_melee) sound_play(asset_get("sfx_kragg_rock_pull"), 0, noone, 0.3, 1)
+        else if ((my_hitboxID.hbox_num == 3 || my_hitboxID.hbox_num == 5 || my_hitboxID.hbox_num == 7) && is_melee) sound_play(sound_get("sharp"), 0, noone, 0.3, 1)
         break;
     case AT_BAIR:
     	spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_bite)
@@ -205,7 +205,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 
