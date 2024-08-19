@@ -64,6 +64,9 @@ ignore_grabs = false;
 grab_petrified = false; // displayed petrified visual in stagger states
 
 hunger_value = 20;
+block_despawn_cooldown = false;
+despawn_cooldown = 45;
+
 
 // state machine variables
 state = 0;

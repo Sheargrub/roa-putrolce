@@ -275,7 +275,7 @@ switch(attack) {
         	grabbed_sleeper_id.refresh_hitboxes = true;
         	grabbed_sleeper_id.is_grabbed = false;
         	grabbed_sleeper_id.is_linked = false;
-        	grabbed_sleeper_id.block_idle_state = false;
+        	grabbed_sleeper_id.block_idle_state = true;
 			grabbed_sleeper_id.block_active_state = false;
         	grabbed_sleeper_id.venus_article_reflect = 1;
             grabbed_sleeper_id.hit_player_id = noone;

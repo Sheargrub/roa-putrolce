@@ -106,7 +106,7 @@ if (get_gameplay_time() % 177 == 174) {
 	}
 }
 // NSpec cooldown management
-if (nspec_sleepers_active >= 2 && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
+if (nspec_sleepers_active >= nspec_max_sleepers_active && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
 
 // SFX management
 if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state != PS_ATTACK_GROUND))) {

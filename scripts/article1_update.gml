@@ -233,6 +233,7 @@ if (!ignore_grabs) with pHitBox {
 				}
 				else if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
 	    		else set_state(SLP_DESPAWN_DIE);
+	    		block_despawn_cooldown = true;
 			}
 			
 			other.is_linked = false;
@@ -403,8 +404,11 @@ switch (state) {
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             sound_play(asset_get("sfx_absa_jump"), false, noone, 0.75, 0.9)
-            set_state(SLP_ACTIVE_DEFAULT);
-            auto_gen_hitbox();
+            if (state == SLP_PETRIFIED_DEFAULT) {
+	            set_state(SLP_ACTIVE_DEFAULT);
+	            auto_gen_hitbox();
+            }
+            else set_state(SLP_INACTIVE_DEFAULT);
         }
         
         // PETRIFIED_PERMANENT needs to be able to hit plats.
@@ -603,11 +607,11 @@ switch (state) {
             set_state(SLP_DESPAWN_DIE);
         }
         
-        else if (state_timer >= 300) {
+        else if (state_timer >= 420) {
             set_state(SLP_DESPAWN_FADE);
         }
         
-        else if (state_timer >= 200) {
+        else if (state_timer >= 320) {
         	inactive_flash_alpha = 0.15 * (1-cos(state_timer*pi/25)) / 2;
         }
         
@@ -788,6 +792,9 @@ if (should_die) {
 	    despawn_fx.depth = depth;
 	    despawn_fx.spr_dir = spr_dir;
 	    sound_play(despawn_sfx);
+	}
+	if (!block_despawn_cooldown && player_id.nspec_max_sleepers_active == player_id.nspec_sleepers_active) {
+		player_id.move_cooldown[AT_NSPECIAL] = despawn_cooldown;
 	}
 	player_id.nspec_sleepers_active--;
     instance_destroy();

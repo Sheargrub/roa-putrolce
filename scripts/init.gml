@@ -134,6 +134,7 @@ ftilt_x_minimum = -12;      // nearest position for ftilt rock, relative to play
 ftilt_x_search_offset = 20; // offset of tested position relative to center of rock (higher values will force the rock to be more grounded)
 ftilt_x_draw_offset = 0;    // non-constant, used by post_draw.gml
 
+nspec_max_sleepers_active = 1;
 nspec_sleepers_active = 0;
 is_sleeper_grab = 0;
 
