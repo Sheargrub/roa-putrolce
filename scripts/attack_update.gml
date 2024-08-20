@@ -186,7 +186,7 @@ switch(attack) {
 	        	else if (window_timer == window_length) {
 	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        		if (stance > 1) sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
-	        		if (has_rune_fspecbuffs && stance == 2) hunger_meter += 5;
+	        		if (has_rune_fspecbuffs && stance == 2) hunger_meter += 5; // Decrease hunger cost
 	        	}
 	        	
 	        	if (vsp > 0) vsp = 0;
@@ -409,7 +409,7 @@ if (!hitpause && !smash_charging) {
 	var whiff_lag_mult = (!has_hit && get_window_value(attack, window, AG_WINDOW_HAS_WHIFFLAG)) ? 1.5 : 1;
 	var raw_hgf = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME);
 	if (raw_hgf >= 0) var hunger_gain_frame = floor(raw_hgf*whiff_lag_mult) + 1;
-	else var hunger_gain_frame = floor((get_window_value(attack, window, AG_WINDOW_LENGTH)+raw_hgf)*whiff_lag_mult);
+	else var hunger_gain_frame = floor((get_window_value(attack, window, AG_WINDOW_LENGTH)+raw_hgf+1)*whiff_lag_mult);
 	if (window_timer == hunger_gain_frame) {
 		hunger_change = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
 		user_event(0);
