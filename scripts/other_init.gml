@@ -1,13 +1,14 @@
 
+// Status effect info (used for dspec abyss rune)
 putrolce_status_owner = 0;
 putrolce_status_timer = 0;
 
-// If compat is in effect, stop here - nothing below will ever be called on.
+// If compat is in effect, or if rock positions were already initialized, exit.
 if "putrolce_petrify_spr" in self exit;
+if "putrolce_rocks_x" in self exit;
 
 // Initialize rock positions for petrified state.
-// If needed, these can be custom-set, and this script will be overridden.
-if "putrolce_rocks_x" in self exit;
+// Note that these can be custom-set as an alternate compat approach.
 putrolce_seed = (url == "" ? 0 : real(url)) % 200; // other_init is weirdly unsafe, so this may throw a harmless error
 
 var spr = hitstun_hurtbox_spr; // good proxy for char size in hitstun
