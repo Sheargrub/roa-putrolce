@@ -21,12 +21,11 @@ post_init_time = get_gameplay_time()+1;
 make it look cleaner
 */
 
-// AG_HUNGER_COST = 30;
 AG_LAST_STANCE = 31; // used on-the-fly, should not be set in attack scripts
 AG_HAS_STANCE_SPRITES = 32;
-AG_STANCE_SPRITES = 33;
+AG_STANCE_SPRITES = 33; // array of four sprites, all with matching frame timings. currently unused
 AG_HAS_STANCE_HURT_SPRITES = 34;
-AG_STANCE_HURT_SPRITES = 35;
+AG_STANCE_HURT_SPRITES = 35; // array of four sprites, all with matching frame timings. currently unused
 AG_GRABS_SLEEPERS = 36; // determines whether sleeper grab checks should be applied
 
 
@@ -54,11 +53,13 @@ AG_WINDOW_CAN_WALLJUMP          = 79;   // if the player can walljump out of the
                                         // window
 
 AG_WINDOW_HAS_STANCE_LENGTHS    = 80;
-AG_WINDOW_STANCE_LENGTHS        = 81;
-AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS
+AG_WINDOW_STANCE_LENGTHS        = 81;   // Array of 4 window durations, in frames
+AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS. Works same as above.
 
-AG_WINDOW_HUNGER_GAIN           = 83;
-AG_WINDOW_HUNGER_GAIN_FRAME     = 84;
+AG_WINDOW_HUNGER_GAIN           = 83;   // Amount of hunger to grant during window. Usually negative.
+AG_WINDOW_HUNGER_GAIN_FRAME     = 84;   // Frame to apply above hunger gain. Negative values apply
+                                        // relative to the end of the window, and are recommended if
+                                        // variable stance lengths are in effect.
 
 
 
@@ -82,7 +83,7 @@ HG_LERP_PERCENT                 = 65;   // how much pull the lerp has
 HG_LERP_POS_X                   = 66;   // x position that the lerp pulls to
 HG_LERP_POS_Y                   = 67;   // y position that the lerp pulls to
 
-HG_HUNGER_GAIN                  = 80;
+HG_HUNGER_GAIN                  = 80;   // Amount of hunger to grant on hit. Can be negative.
 HG_STANCE                       = 81;   // If uninitialized/set to 0, will appear in all stances
                                         // NOTE: If using HG_STANCE, the hitbox must be included in set_num_hitboxes()
 HG_SLEEPER_TAG                  = 82;   // Behavioral tag, gets checked if is_sleeper_grab is true (i.e. AG_GRABS_SLEEPERS == 1).
@@ -181,14 +182,15 @@ mamizou_transform_spr = sprite_get("mami_transformation");
 // Runes
 has_rune_extrasleeper = has_rune("A");
 has_rune_ustrongpull = has_rune("B");
-has_rune_uspecaimable = has_rune("C");
-has_rune_fspecbuffs = has_rune("D");
+has_rune_fspecbuffs = has_rune("C");
 has_rune_hungerregen = has_rune("G");
 has_rune_petrifystatus = has_rune("H");
+has_rune_uspecaimable = has_rune("I");
 has_rune_sleeperchase = has_rune("L");
 
 if (has_rune_extrasleeper) nspec_max_sleepers_active = 2
 if (has_rune_fspecbuffs) fspec_max_armor = 99; // not the only change applied; see attack_update and got_hit.
+uspec_rune_angle = 0;
 putrolce_status_owner = 0;  // status trackers for dspec rune.
 putrolce_status_timer = 0;  // reflected in other_init.gml.
 sleeperchase_used = false;
