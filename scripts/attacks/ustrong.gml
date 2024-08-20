@@ -5,11 +5,12 @@ var window_length   = 0;
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("ustrong"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("ustrong_hurt"));
-set_attack_value(atk, AG_NUM_WINDOWS                    , 6);
+set_attack_value(atk, AG_NUM_WINDOWS                    , 5);
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 1);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 set_attack_value(atk, AG_GRABS_SLEEPERS                 , 1);
 
+// Pre-charge startup
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 //set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 10);
 //    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
@@ -21,6 +22,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN,
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
+// Post-chargestartup
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
@@ -52,19 +54,12 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_S
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 window_num++;
 
+// Endlag
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 11);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 22);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 6);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
-window_num++;
-
-set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 11);
-    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 8);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 window_num++;
 
@@ -170,8 +165,8 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_bit
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , -12);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -12);
 set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
-set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 7);
-set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 9);
+set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 6);
+set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 8);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
 set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab");
 
@@ -179,7 +174,7 @@ hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , hbox_num);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 9);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 8);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
@@ -204,7 +199,7 @@ hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , hbox_num);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 9);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 8);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
@@ -229,7 +224,7 @@ hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , hbox_num);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 9);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 8);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
@@ -254,7 +249,7 @@ hbox_num++;
 set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , hbox_num);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 9);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 8);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);

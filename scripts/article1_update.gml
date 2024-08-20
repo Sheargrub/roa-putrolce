@@ -190,7 +190,14 @@ if (!ignore_grabs) with pHitBox {
 			if (!player_id.has_hit) sound_play(sound_effect);
 			
 			// Emulate hit_player stuff
+			print_debug("claimed: " + string(player_claimed));
 			with player_id if player_claimed {
+				
+				// Old speed info
+				if (!hitpause) {
+					old_hsp = hsp;
+					old_vsp = vsp;
+				}
 				
 				// Hitstop
 				has_hit = true;
@@ -251,8 +258,12 @@ if (!ignore_grabs) with pHitBox {
 			spawn_hit_fx(other.x, other.y, hit_effect);
 			if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
 			
-			// Hitstop
+			// Hitstop/speed
 			with player_id {
+				if (!hitpause) {
+					old_hsp = hsp;
+					old_vsp = vsp;
+				}
 				
 				has_hit = true;
 				hitpause = true;
@@ -277,8 +288,12 @@ if (!ignore_grabs) with pHitBox {
 				spawn_hit_fx(other.x, other.y, hit_effect);
 				if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
 				
-				// Hitstop
+				// Hitstop/speed
 				with player_id {
+					if (!hitpause) {
+						old_hsp = hsp;
+						old_vsp = vsp;
+					}
 					
 					has_hit = true;
 					hitpause = true;

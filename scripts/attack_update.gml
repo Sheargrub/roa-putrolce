@@ -127,11 +127,28 @@ switch(attack) {
     	}
     	break;
     case AT_USTRONG:
-    	if (window < 3 && window > 5) hud_offset = -24;
-    	else hud_offset = 72;
-    	if (window == 2 && window_timer == 1){
+    	if (window != 1 && (window != 8 || hitstop >= 4)) hud_offset = clamp(hud_offset+30, 0, 72);
+    	if (window == 2 && window_timer == 1) {
         	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
         	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
+    	}
+    	if (has_rune_ustrongpull) {
+    		print_debug(hitpause);
+    		print_debug(hitstop);
+    		if (window == 1 && window_timer == 1) {
+    			set_attack_value(attack, AG_CATEGORY, 0);
+    			reset_window_value(attack, 6, AG_WINDOW_LENGTH);
+    		}
+    		if (window == 6 && window_timer == 1) {
+    			set_attack_value(attack, AG_CATEGORY, 2);
+    			if (grabbed_player_obj == noone) set_window_value(attack, 6, AG_WINDOW_LENGTH, 2);
+    		}
+    		if (window == 7 && !hitpause) vsp = -11;
+    		if (window == 8 && !hitpause) {
+    			if (window_timer == 1) vsp += 3;
+    			can_move = true;
+    			iasa_script();
+    		}
     	}
     	break;
     case AT_FSTRONG:
