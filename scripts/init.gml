@@ -138,6 +138,7 @@ grabbed_sleeper_id = noone;
 
 fspec_hit_sleeper = false;
 fspec_armor_hits = 0;
+fspec_max_armor = 1; // Applied when overstuffed
 
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
@@ -181,11 +182,13 @@ mamizou_transform_spr = sprite_get("mami_transformation");
 has_rune_extrasleeper = has_rune("A");
 has_rune_ustrongpull = has_rune("B");
 has_rune_uspecaimable = has_rune("C");
+has_rune_fspecbuffs = has_rune("D");
 has_rune_hungerregen = has_rune("G");
 has_rune_petrifystatus = has_rune("H");
 has_rune_sleeperchase = has_rune("L");
 
-if (has_rune_extrasleeper) nspec_max_sleepers_active = 2;
+if (has_rune_extrasleeper) nspec_max_sleepers_active = 2
+if (has_rune_fspecbuffs) fspec_max_armor = 99; // not the only change applied; see attack_update and got_hit.
 putrolce_status_owner = 0;  // status trackers for dspec rune.
 putrolce_status_timer = 0;  // reflected in other_init.gml.
 sleeperchase_used = false;

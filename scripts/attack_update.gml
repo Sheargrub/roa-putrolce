@@ -178,17 +178,20 @@ switch(attack) {
 	        		max_hsp = max_hsp_vals[stance-1];
 	        		if (vsp >= 1) vsp -= 1;
 	        		buffer_pratfall = free;
-	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
+	        		if (stance == ST_OVERSTUFFED) fspec_armor_hits = fspec_max_armor;
 	        		fspec_hit_sleeper = false;
 	        		fspec_aftim_length = (stance == 1 || stance == 3) ? 10 : 20;
-	        	} else if (window_timer == window_length) && (stance > 1){
-	        		sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
-	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
-	        	} else if (window_timer == window_length) && (stance == 1) {
-	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        	}
-	        	else if (vsp > 0) vsp = 0;
+	        	
+	        	else if (window_timer == window_length) {
+	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
+	        		if (stance > 1) sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
+	        		if (has_rune_fspecbuffs && stance == 2) hunger_meter += 5;
+	        	}
+	        	
+	        	if (vsp > 0) vsp = 0;
 	        	hsp = clamp(hsp, -2, 2);
+	        	
     			break;
     		
     		case 2:
