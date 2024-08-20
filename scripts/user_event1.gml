@@ -1,10 +1,13 @@
 
 // Stance stat refresh
+var old_stance = stance;
 
 if (hunger_meter <= 0) stance = 1;
 else if (hunger_meter <= 20) stance = 2;
 else if (hunger_meter <= 70) stance = 3;
 else stance = 4;
+
+if (old_stance == stance) exit;
 
 var i = stance-1;
 

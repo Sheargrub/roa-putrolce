@@ -143,7 +143,7 @@ switch(attack) {
     	break;
     
     case AT_NSPECIAL:
-    	move_cooldown[AT_NSPECIAL] = 20;
+    	move_cooldown[AT_NSPECIAL] = 45;
         if (window == 1 && window_timer == window_length) {
         	instance_create(x+(30*spr_dir), y-30, "obj_article1");
         }

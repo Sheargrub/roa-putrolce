@@ -180,8 +180,14 @@ knight_compat_dream =
 mamizou_transform_spr = sprite_get("mami_transformation"); //Replace "X" with your sprite.
 
 // Runes
-has_rune_petrifystatus = has_rune("A");
-has_rune_sleeperchase = has_rune("B");
+has_rune_extrasleeper = has_rune("A");
+has_rune_ustrongpull = has_rune("B");
+has_rune_uspecaimable = has_rune("C");
+has_rune_hungerregen = has_rune("G");
+has_rune_petrifystatus = has_rune("H");
+has_rune_sleeperchase = has_rune("L");
+
+if (has_rune_extrasleeper) nspec_max_sleepers_active = 2;
 sleeperchase_used = false;
 
 
@@ -212,21 +218,6 @@ grabbed_player_relative_x       = 0;    // x position in relation to the player,
                                         // for the grabbed player to be moved to
 grabbed_player_relative_y       = 0;    // y position in relation to the player, 
                                         // for the grabbed player to be moved to
-
-// animation stuff
-idle_air_loops                  = false;// whether idle air has a looping 
-                                        // animation or not
-idle_air_looping                = false;// checks if the loop is happening
-jump_frames                     = 5;    // how many animation frames the jump 
-                                        // has, the loop starts there
-idle_air_loop_speed             = 0.25;  // animation speed of the loop
-idle_air_platfalls              = false; // if the character has an animation for
-                                        // dropping from platforms
-idle_air_platfalling            = false;// checks if platfall is happening
-idle_air_platfall_speed         = 0.25; // platfall animation speed
-idle_air_platfall_frames        = 7;    // how many frames the platfall anim has
-                                        // when finished goes to air idle
-dash_moonwalks                  = false; // if the character has a moonwalk anim
 
 
 
