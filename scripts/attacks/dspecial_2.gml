@@ -17,7 +17,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, tru
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_fstrong"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 set_window_value(atk, window_num                        , AG_WINDOW_GRAB_OPPONENT, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, 40);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, 24);
 set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_Y, -4);
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_VSPEED_TYPE, 1);

@@ -40,7 +40,6 @@ if (get_gameplay_time() % 177 == 174) {
 
 
 //#region Rune behavior
-print_debug(get_gameplay_time());
 if (get_match_setting(SET_RUNES)) {
 	
 	if (has_rune_hungerregen && state != PS_RESPAWN && state != PS_DEAD) {

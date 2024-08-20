@@ -144,6 +144,7 @@ fspec_armor_hits = 0;
 grabbed_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
+dspec_rethrow_turnaround = false;
 
 attack_sfx_instance = noone;
 sfx_attack = 0;
@@ -151,6 +152,7 @@ do_sfx_cancel = false;
 
 idle_flourish_timer = 0;
 idle_flourish_speed_stances = [0.2, 0.2, 0.2, 0.2];
+// stance support is mostly vestigal, since only default currently has a flourish
 
 vis_meter_falls = array_create(9);
 vis_meter_rises = array_create(9);
