@@ -45,7 +45,11 @@ active_move_polarity = 1; // used to smooth the transition into the active state
 active_move_coefficient = 2*pi / 40; // denominator should be the period of the motion in frames
 active_move_offset = 0; // used by reflects to maintain continuity
 
+var col_id = player_id.nspec_next_id;
 inactive_flash_alpha = 0;
+inactive_collision_radius = 24; // min distance between any two sleepers
+inactive_collision_id = col_id; // used for uniqueness of rng functions
+player_id.nspec_next_id = (col_id + 1) % 100;
 
 unbashable = false;
 orig_player = player; // because ori is a thief >:(

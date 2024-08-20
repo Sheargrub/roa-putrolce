@@ -663,6 +663,17 @@ switch (state) {
         	}
         }
         
+        // Manage collision with other sleepers
+        else with (obj_article1) if (self != other && "is_putrolce_sleeper" in self && state == SLP_INACTIVE_DEFAULT) {
+        	var dist = point_distance(x, y, other.x, other.y);
+        	if (dist < inactive_collision_radius) {
+        		if (dist == 0) var dir = random_func_2(inactive_collision_id, 360, false);
+        		else var dir = point_direction(x, y, other.x, other.y);
+        		other.hsp += lengthdir_x(0.5, dir);
+        		other.vsp += lengthdir_y(0.5, dir);
+        	}
+        }
+        
         break;
     
     // ------------------

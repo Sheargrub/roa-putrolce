@@ -136,6 +136,7 @@ ftilt_x_draw_offset = 0;    // non-constant, used by post_draw.gml
 
 nspec_max_sleepers_active = 1;
 nspec_sleepers_active = 0;
+nspec_next_id = 0; // Loops 0-99. Used for adjucating collisions if the max sleeper count is more than 1.
 is_sleeper_grab = 0;
 
 fspec_hit_sleeper = false;

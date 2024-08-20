@@ -9,7 +9,6 @@ var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
 //good dust
 switch(attack)
 {
-    	
     case AT_UTILT:
     	if (window == 1 && window_timer == 1 && get_window_value(AT_UTILT, 1, AG_WINDOW_LENGTH)-1 )
     		spawn_base_dust(x+(48*spr_dir),y, "dash", -spr_dir);
@@ -30,7 +29,6 @@ switch(attack)
     		spawn_base_dust(x-(32*-spr_dir),y, "dash_start", -spr_dir);
     	}
     break;
-    	
 }
 
 // specific attack behaviour
