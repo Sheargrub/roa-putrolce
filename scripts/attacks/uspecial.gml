@@ -24,13 +24,11 @@ set_window_value(atk, window_num, AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_tra
 set_window_value(atk, window_num, AG_WINDOW_CUSTOM_GRAVITY, 0.5);
 window_num++;
 
-// Active window
+// Rise
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
 set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 4);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED, -12);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED_TYPE, 1);
 window_num++;
 
 // Spin
@@ -38,8 +36,6 @@ set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
 set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
 set_window_value(atk, window_num, AG_WINDOW_VSPEED, 0);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED, -5);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED_TYPE, 2);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 7);
 set_window_value(atk, window_num, AG_WINDOW_HAS_SFX, 1);
 set_window_value(atk, window_num, AG_WINDOW_SFX_FRAME, 8);

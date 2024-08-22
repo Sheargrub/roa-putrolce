@@ -16,6 +16,17 @@ if (attack == AT_FTILT && (image_index > 0) && (state == PS_ATTACK_GROUND || sta
     draw_sprite_ext(sprite_get("ftilt_rock"), image_index-1, x+ftilt_x_draw_offset, y, 2*spr_dir, 2, 0, c_white, 1);
 }
 
+// Abyss
+if (has_rune_uspecaimable && attack == AT_USPECIAL && window == 2 && (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)) {
+    var draw_angle = uspec_rune_angle-90
+    var draw_radians = draw_angle*(pi/360);
+    var r = sin(draw_radians)
+    var x_offset = 54*(r*cos(draw_radians));
+    var y_offset = -54*(r*r); // technically r*sin(draw_radians) - this is a polar-to-cartesian conversion
+    shader_start();
+    draw_sprite_ext(sprite_get("uspecial"), 4+clamp((state_timer-1)/5, 0, 2), x+x_offset, y+y_offset, 2*spr_dir, 2, draw_angle, c_white, 1);
+    shader_end();
+}
 
 // Overhead HUD
 if (get_local_setting(SET_HUD_SIZE) == 0 && get_local_setting(SET_HUD_NAMES) == 0) exit;

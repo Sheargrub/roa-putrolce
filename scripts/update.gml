@@ -15,11 +15,91 @@ if (get_gameplay_time() == post_init_time && get_match_setting(SET_PRACTICE)) {
 	}
 }
 
-// reset idle_air_looping if the character isn't in air idle anymore
-if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
-	idle_air_looping = false;
-	idle_air_platfalling = false;
+
+//#region Gameplay behavior
+
+// NSpec cooldown management
+if (nspec_sleepers_active >= nspec_max_sleepers_active && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
+
+// FSpec cooldown management
+if (!free || state == PS_HITSTUN || state == PS_WALL_JUMP || state == PS_RESPAWN) move_cooldown[AT_FSPECIAL] = 0;
+
+// Every 3 seconds, poll for discrepancies in the sleeper count.
+// (This shouldn't really come up, hence the infrequency of the check.)
+// (If opponents are improperly destroying articles, though, this will trigger.)
+if (get_gameplay_time() % 177 == 174) {
+	var detected_sleepers = 0;
+	with (obj_article1) if (player_id == other) detected_sleepers++;
+	if (detected_sleepers != nspec_sleepers_active) {
+		nspec_sleepers_active = detected_sleepers;
+		print_debug("Discrepancy corrected in sleeper count. Opponent may be improperly destroying articles.");
+	}
 }
+
+//#endregion
+
+
+//#region Rune behavior
+if (get_match_setting(SET_RUNES)) {
+	
+	if (has_rune_hungerregen && state != PS_RESPAWN && state != PS_DEAD) {
+		if (get_gameplay_time() % 180 == 0 && get_gameplay_time() > 180) {
+			hunger_change = 5;
+			user_event(0);
+			if (state != PS_ATTACK_GROUND && state != PS_ATTACK_AIR) user_event(1); // immediately update stance
+		}
+	}
+	
+	if (has_rune_petrifystatus) {
+		// status management
+		var status_proc_list = [];
+		var break_sfx = sound_get("hero_quake_impact");
+		
+		with oPlayer {
+		    if (putrolce_status_owner == other.player) {
+		    	state_timer = 0;
+		        if (!hitpause) putrolce_status_timer++;
+		        can_tech = false;
+		        can_bounce = false;
+		        
+		        if (activated_kill_effect) {
+		            putrolce_status_timer = 0;
+		            putrolce_status_owner = 0;
+		            spawn_hit_fx(x, floor(y+char_height/2), fx_kragg_big);
+		        	sound_play(break_sfx);
+		        }
+		        
+		        else {
+		        	if (hitpause && putrolce_status_timer > 10) putrolce_status_timer = 10;
+		        	
+			        var hit_wall = false;
+			        if (hsp == 0) hit_wall = (place_meeting(x+1, y, asset_get("par_block")) || place_meeting(x-1, y, asset_get("par_block")));
+			        if (putrolce_status_timer >= 30 || !free || hit_wall || state_cat != SC_HITSTUN) array_push(status_proc_list, self);
+		        }
+		    }
+		}
+		
+		for (var i = 0; i < array_length(status_proc_list); i++) {
+		    
+		    var target = status_proc_list[i];
+		    var _x = floor(target.x);
+		    var _y = floor(target.y - (target.char_height/2));
+		    
+		    var hbox = create_hitbox(AT_DSPECIAL, 4, _x, _y);
+			
+			with target sound_play(break_sfx); // ensures accurate panning
+			
+		    target.putrolce_status_timer = 0;
+		    target.putrolce_status_owner = 0;
+		    
+		}
+	}
+	
+}
+//#endregion
+
+
+//#region Aesthetic management
 
 // Idle flourish
 if (state == PS_IDLE) {
@@ -51,63 +131,6 @@ for (i = 8; i >= 0; i--) {
 	}
 }
 
-// status management
-var status_proc_list = [];
-var break_sfx = sound_get("hero_quake_impact");
-
-with oPlayer {
-    if (putrolce_status_owner == other.player) {
-    	state_timer = 0;
-        if (!hitpause) putrolce_status_timer++;
-        can_tech = false;
-        can_bounce = false;
-        
-        if (activated_kill_effect) {
-            putrolce_status_timer = 0;
-            putrolce_status_owner = 0;
-            spawn_hit_fx(x, floor(y+char_height/2), fx_kragg_big);
-        	sound_play(break_sfx);
-        }
-        
-        else {
-        	if (hitpause && putrolce_status_timer > 10) putrolce_status_timer = 10;
-        	
-	        var hit_wall = false;
-	        if (hsp == 0) hit_wall = (place_meeting(x+1, y, asset_get("par_block")) || place_meeting(x-1, y, asset_get("par_block")));
-	        if (putrolce_status_timer >= 30 || !free || hit_wall || state_cat != SC_HITSTUN) array_push(status_proc_list, self);
-        }
-    }
-}
-
-for (var i = 0; i < array_length(status_proc_list); i++) {
-    
-    var target = status_proc_list[i];
-    var _x = floor(target.x);
-    var _y = floor(target.y - (target.char_height/2));
-    
-    var hbox = create_hitbox(AT_DSPECIAL, 4, _x, _y);
-	
-	with target sound_play(break_sfx); // ensures accurate panning
-	
-    target.putrolce_status_timer = 0;
-    target.putrolce_status_owner = 0;
-    
-}
-
-// Every 3 seconds, poll for discrepancies in the sleeper count.
-// (This shouldn't really come up, hence the infrequency of the check.)
-// (If opponents are improperly destroying articles, though, this will trigger.)
-if (get_gameplay_time() % 177 == 174) {
-	var detected_sleepers = 0;
-	with (obj_article1) if (player_id == other) detected_sleepers++;
-	if (detected_sleepers != nspec_sleepers_active) {
-		nspec_sleepers_active = detected_sleepers;
-		print_debug("Discrepancy corrected in sleeper count. Opponent may be improperly destroying articles.");
-	}
-}
-// NSpec cooldown management
-if (nspec_sleepers_active >= 2 && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
-
 // SFX management
 if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state != PS_ATTACK_GROUND))) {
 	sound_stop(attack_sfx_instance);
@@ -138,8 +161,7 @@ for (var i = 0; i < ds_list_size(afterimage_list); i++) {
     }
 }
 
-// Cooldown eeset
-if (!free || state == PS_HITSTUN || state == PS_WALL_JUMP) move_cooldown[AT_FSPECIAL] = 0;
+//#endregion
 
 
 #define spawn_base_dust // written by supersonic

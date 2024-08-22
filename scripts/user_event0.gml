@@ -10,18 +10,4 @@ hunger_meter = clamp(hunger_meter, 0, 90);
 if (hunger_change > 0) vis_meter_rises[0] = vis_meter_bump_duration;
 else vis_meter_falls[clamp(ceil(hunger_meter/10), 0, 8)] = vis_meter_bump_duration;
 
-buffer_stance_update = false;
-switch stance {
-	case 1: // Famished
-		if (hunger_meter > 0) buffer_stance_update = true;
-		break;
-	case 2: // Voracious
-		if (hunger_meter <= 0 || hunger_meter > 20) buffer_stance_update = true;
-		break;
-	case 3: // Normal
-		if (hunger_meter <= 20 || hunger_meter > 70) buffer_stance_update = true;
-		break;
-	case 4: // Overstuffed
-		if (hunger_meter <= 70) buffer_stance_update = true;
-		break;
-}
+buffer_stance_update = true;

@@ -104,10 +104,10 @@ if (!putrolce_handled_victory_quote)
         case "3308351120": //Saelune
         case "3115049167": //Saelukune (legacy)
             quote = "I gotta admit, you creeped me out at first. And you still do. But you're also pretty nice!"
+            break;
+        case "3310371100": //Usher
+            quote = "Oh, what I would give to dance in the rain again without smelling of burning petrichor."
             break; 
-        //case "": //Usher
-        //    quote = "Oh, what I would give to dance in the rain again without smelling of burning petrichor."
-        //    break; 
         //case "": //Ciela
         //    quote = ""
         //    break; 
@@ -124,12 +124,12 @@ if (!putrolce_handled_victory_quote)
            
         //reapers
         case "2871608790": //Azi
-            quote = "Hey kid, join me next hunt if your backpack really is that hungry!"
+            quote = "Hey kid, join me next hunt if your backpack's really that hungry!"
             break;
         case "2977835488": //Qoedil
             quote = "Salvbub, what was that about a great horror? I just saw a 5-star banquet."
             break;
-        case "2965700442": // Humanthem
+        case "2965700442": //Humanthem
             quote = "If I could skewer things like that, I'd go get me some Jig-Apart kebabs!";
             break;
         case "3079776883": //Kumaki
@@ -137,13 +137,13 @@ if (!putrolce_handled_victory_quote)
             break;
         
         //misc
-        case "2605377553": //Mal
+        case "2605377553": // Mal
             var starbucks_event_chance = random_func_2(7, 9, true)
             if (starbucks_event_chance != 0) quote = "Oi! Stop trying to steal my flow! Go get your own fashion sense!"
             else quote = "And this is why you're banned from Starbucks."
             print_debug(starbucks_event_chance)
             break;
-        case "3136330641": //Vakna
+        case "3136330641": // Vakna
             quote = "No, I’m -not- giving you a slice of this pizza!!!"
             break;
         case "2778789055": // Po Gumbo 
@@ -157,13 +157,16 @@ if (!putrolce_handled_victory_quote)
             break;
         case "1917856427": // Liz
         case "1917856427": // Liz
-        case "2108895293": //Lumina
-        case "2064167290": //Hana
+        case "2108895293": // Lumina
+        case "2064167290": // Hana
             quote = "What's a kid like you doing here? You should be back home, eating candy and watching cartoons!"
             break;
-        case "2917082599": //Madeline
+        case "2917082599": // Madeline
             quote = "'Part of you'?! I don't even know who you are!!"
             break;
+        //case "": // Commando
+        //    quote = "If you're not gonna eat those weird mushrooms, at least let me take one, you hoarder!"
+        //    break; 
         default: break;
     }
 
@@ -203,9 +206,9 @@ return quote
         
         
         //sad
-        //case "": //Usher
-        //    icon = 3;
-        //    break;
+        case "3310371100": //Usher
+            icon = 3;
+            break;
         
         //confused
         case "3302238950": //Alexis

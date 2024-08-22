@@ -190,7 +190,14 @@ if (!ignore_grabs) with pHitBox {
 			if (!player_id.has_hit) sound_play(sound_effect);
 			
 			// Emulate hit_player stuff
+			print_debug("claimed: " + string(player_claimed));
 			with player_id if player_claimed {
+				
+				// Old speed info
+				if (!hitpause) {
+					old_hsp = hsp;
+					old_vsp = vsp;
+				}
 				
 				// Hitstop
 				has_hit = true;
@@ -233,6 +240,7 @@ if (!ignore_grabs) with pHitBox {
 				}
 				else if (state == SLP_ACTIVE_HOMING || state == SLP_ACTIVE_RUSH) set_state(SLP_DESPAWN_DIE_HOMING);
 	    		else set_state(SLP_DESPAWN_DIE);
+	    		block_despawn_cooldown = true;
 			}
 			
 			other.is_linked = false;
@@ -250,8 +258,12 @@ if (!ignore_grabs) with pHitBox {
 			spawn_hit_fx(other.x, other.y, hit_effect);
 			if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
 			
-			// Hitstop
+			// Hitstop/speed
 			with player_id {
+				if (!hitpause) {
+					old_hsp = hsp;
+					old_vsp = vsp;
+				}
 				
 				has_hit = true;
 				hitpause = true;
@@ -276,8 +288,12 @@ if (!ignore_grabs) with pHitBox {
 				spawn_hit_fx(other.x, other.y, hit_effect);
 				if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
 				
-				// Hitstop
+				// Hitstop/speed
 				with player_id {
+					if (!hitpause) {
+						old_hsp = hsp;
+						old_vsp = vsp;
+					}
 					
 					has_hit = true;
 					hitpause = true;
@@ -403,8 +419,11 @@ switch (state) {
             break_fx.depth = depth-1;
             sound_play(asset_get("sfx_kragg_rock_shatter"));
             sound_play(asset_get("sfx_absa_jump"), false, noone, 0.75, 0.9)
-            set_state(SLP_ACTIVE_DEFAULT);
-            auto_gen_hitbox();
+            if (state == SLP_PETRIFIED_DEFAULT) {
+	            set_state(SLP_ACTIVE_DEFAULT);
+	            auto_gen_hitbox();
+            }
+            else set_state(SLP_INACTIVE_DEFAULT);
         }
         
         // PETRIFIED_PERMANENT needs to be able to hit plats.
@@ -603,11 +622,11 @@ switch (state) {
             set_state(SLP_DESPAWN_DIE);
         }
         
-        else if (state_timer >= 300) {
+        else if (state_timer >= 420) {
             set_state(SLP_DESPAWN_FADE);
         }
         
-        else if (state_timer >= 200) {
+        else if (state_timer >= 320) {
         	inactive_flash_alpha = 0.15 * (1-cos(state_timer*pi/25)) / 2;
         }
         
@@ -641,6 +660,17 @@ switch (state) {
         		auto_gen_hitbox();
         		spawn_hit_fx(x, y, player_id.fx_kragg_small);
         		sound_play(sound_get("weakshadowlaunch"));
+        	}
+        }
+        
+        // Manage collision with other sleepers
+        else with (obj_article1) if (self != other && "is_putrolce_sleeper" in self && state == SLP_INACTIVE_DEFAULT) {
+        	var dist = point_distance(x, y, other.x, other.y);
+        	if (dist < inactive_collision_radius) {
+        		if (dist == 0) var dir = random_func_2(inactive_collision_id, 360, false);
+        		else var dir = point_direction(x, y, other.x, other.y);
+        		other.hsp += lengthdir_x(0.5, dir);
+        		other.vsp += lengthdir_y(0.5, dir);
         	}
         }
         
@@ -788,6 +818,9 @@ if (should_die) {
 	    despawn_fx.depth = depth;
 	    despawn_fx.spr_dir = spr_dir;
 	    sound_play(despawn_sfx);
+	}
+	if (!block_despawn_cooldown && player_id.nspec_max_sleepers_active == player_id.nspec_sleepers_active) {
+		player_id.move_cooldown[AT_NSPECIAL] = despawn_cooldown;
 	}
 	player_id.nspec_sleepers_active--;
     instance_destroy();

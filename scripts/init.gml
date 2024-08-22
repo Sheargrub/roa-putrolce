@@ -21,12 +21,11 @@ post_init_time = get_gameplay_time()+1;
 make it look cleaner
 */
 
-// AG_HUNGER_COST = 30;
 AG_LAST_STANCE = 31; // used on-the-fly, should not be set in attack scripts
 AG_HAS_STANCE_SPRITES = 32;
-AG_STANCE_SPRITES = 33;
+AG_STANCE_SPRITES = 33; // array of four sprites, all with matching frame timings. currently unused
 AG_HAS_STANCE_HURT_SPRITES = 34;
-AG_STANCE_HURT_SPRITES = 35;
+AG_STANCE_HURT_SPRITES = 35; // array of four sprites, all with matching frame timings. currently unused
 AG_GRABS_SLEEPERS = 36; // determines whether sleeper grab checks should be applied
 
 
@@ -54,11 +53,13 @@ AG_WINDOW_CAN_WALLJUMP          = 79;   // if the player can walljump out of the
                                         // window
 
 AG_WINDOW_HAS_STANCE_LENGTHS    = 80;
-AG_WINDOW_STANCE_LENGTHS        = 81;
-AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS
+AG_WINDOW_STANCE_LENGTHS        = 81;   // Array of 4 window durations, in frames
+AG_WINDOW_STANCE_SFX_FRAMES     = 82;   // Bound to HAS_STANCE_LENGTHS. Works same as above.
 
-AG_WINDOW_HUNGER_GAIN           = 83;
-AG_WINDOW_HUNGER_GAIN_FRAME     = 84;
+AG_WINDOW_HUNGER_GAIN           = 83;   // Amount of hunger to grant during window. Usually negative.
+AG_WINDOW_HUNGER_GAIN_FRAME     = 84;   // Frame to apply above hunger gain. Negative values apply
+                                        // relative to the end of the window, and are recommended if
+                                        // variable stance lengths are in effect.
 
 
 
@@ -82,10 +83,10 @@ HG_LERP_PERCENT                 = 65;   // how much pull the lerp has
 HG_LERP_POS_X                   = 66;   // x position that the lerp pulls to
 HG_LERP_POS_Y                   = 67;   // y position that the lerp pulls to
 
-HG_HUNGER_GAIN                  = 80;
+HG_HUNGER_GAIN                  = 80;   // Amount of hunger to grant on hit. Can be negative.
 HG_STANCE                       = 81;   // If uninitialized/set to 0, will appear in all stances
                                         // NOTE: If using HG_STANCE, the hitbox must be included in set_num_hitboxes()
-HG_SLEEPER_TAG                  = 82;   // Behavioral tag, currently only checked during USpec and DSpec.
+HG_SLEEPER_TAG                  = 82;   // Behavioral tag, gets checked if is_sleeper_grab is true (i.e. AG_GRABS_SLEEPERS == 1).
                                         // 1: Grab that interacts with sleepers
                                         // 2: Hitbox that eats sleepers
                                         // 3: Hitbox that harmlessly collides with sleepers
@@ -93,23 +94,19 @@ HG_SLEEPER_TAG                  = 82;   // Behavioral tag, currently only checke
 
 HG_MUNO_HITBOX_NAME             = 99;   // Frame Data Woodcock compatability
 
-// if you're making custom indexes for your character, I recommend starting at
-// 80 or 90, as slots up to 79 may be filled in future updates
-
-/*
-if you're using multihit properties, be sure to check if the projectile goes 
-through enemies, otherwise it might just despawn on hit
-*/
-
 
 //=-(                    ~~//** CUSTOM VARIABLES **//~~                    )-=//
-//                              PUT YOURS HERE                                //
 
 is_putrolce                     = true;
 
-hunger_meter                    = 50; // 0 to 100, used to update stance
-hunger_change                   = 0; // how much user_event0 will change hunger byss
-stance                          = 3; // 1-4, see below
+ST_FAMISHED                     = 1; // Indices for readability.
+ST_VORACIOUS                    = 2; // Remember, these are incompatible with switch statements.
+ST_NORMAL                       = 3;
+ST_OVERSTUFFED                  = 4;
+
+hunger_meter                    = 50; // 0 to 90, used to update stance
+hunger_change                   = 0; // how much user_event0 will change hunger by
+stance                          = 3; // 1-4, see above
 stance_names                    = ["Famished", "Voracious", "Normal", "Overstuffed"] // For debug and training mode elements
 stance_suffixes                 = ["_famished", "_voracious", "", "_overstuffed"] // for movement anim handling
 stance_colors = [   // Mostly for fspecial afterimages
@@ -121,52 +118,56 @@ stance_colors = [   // Mostly for fspecial afterimages
 
 afterimage_list = ds_list_create();
 
-ST_FAMISHED                     = 1; // remember, these are incompatible with switch statements
-ST_VORACIOUS                    = 2;
-ST_NORMAL                       = 3;
-ST_OVERSTUFFED                  = 4;
+// Grab management
+grabbed_player_obj              = noone;// the player that got grabbed
+grabbed_player_relative_x       = 0;    // x position in relation to the player, 
+                                        // for the grabbed player to be moved to
+grabbed_player_relative_y       = 0;    // y position in relation to the player, 
+                                        // for the grabbed player to be moved to
 
-putrolce_status_owner = 0;  // reflected in other_init.gml
-putrolce_status_timer = 0;
-
+// Move-specific variables
 ftilt_x_default = 60;       // furthest position for ftilt rock, relative to player x-coord
 ftilt_x_minimum = -12;      // nearest position for ftilt rock, relative to player x-coord
 ftilt_x_search_offset = 20; // offset of tested position relative to center of rock (higher values will force the rock to be more grounded)
 ftilt_x_draw_offset = 0;    // non-constant, used by post_draw.gml
 
+nspec_max_sleepers_active = 1; // constant. gets changed below by runes if appropriate
 nspec_sleepers_active = 0;
-is_sleeper_grab = 0;
+nspec_next_id = 0; // Loops 0-99, used for managing same-player sleeper collisions
+is_sleeper_grab = 0; // Set automatically by AG_GRABS_SLEEPERS
+grabbed_sleeper_id = noone;
 
 fspec_hit_sleeper = false;
 fspec_armor_hits = 0;
+fspec_max_armor = 1; // Applied when overstuffed
 
-grabbed_sleeper_id = noone;
 dspec_sfx_instance = noone;
 dspec_rethrow = false;
+dspec_rethrow_turnaround = false;
 
+// sound_play_cancellable() vars
+// Used to stop longer sounds if an attack is interrupted.
 attack_sfx_instance = noone;
 sfx_attack = 0;
 do_sfx_cancel = false;
 
+// Idle flourish
 idle_flourish_timer = 0;
 idle_flourish_speed_stances = [0.2, 0.2, 0.2, 0.2];
+// stance support is mostly vestigal, since only default currently has a flourish
 
-vis_meter_falls = array_create(9);
+// Meter management
+vis_meter_falls = array_create(9); // Anim trackers for the hud meter's "bump" animation
 vis_meter_rises = array_create(9);
-vis_meter_bump_duration = 10;
-vis_meter_pass_time = 8;
+vis_meter_bump_duration = 10; // Number of frames over which each pip's anim should play
+vis_meter_pass_time = 8; // Frame timing at which a bump anim is passed to the next pip
 stance_sfx_instance = noone;
 sfx_stances = [sound_get("famished_effect"), asset_get("mfx_mm_coin"), asset_get("mfx_mm_coin_all"), sound_get("parachute")];
 
-buffer_stance_update = false; // set to true when a change in hunger level is detected.
-buffer_pratfall = false; // applied as soon as a state change occurs.
-buffer_pratfall_paused = false; // causes the next application of buffer_pratfall to be delayed by one state change.
-
-skull_idle_timer = 30;
-
-//Special alt indices
-alt_ashe = 20;
-alt_stanced = 23;
+// Buffers. Applied on state changes - see set_attack.gml and set_state.gml
+buffer_stance_update = false; // should be set to true when changing hunger during attacks
+buffer_pratfall = false; // forces pratfall during the next state change
+buffer_pratfall_paused = false; // causes the next application of buffer_pratfall to be delayed by one state change
 
 //Compatibility
 arena_title = "The Never-Ending Hunger";
@@ -176,57 +177,41 @@ knight_compat_dream =
         "Running low... gotta be careful",
         "A figment? Looks like a light snack."
     ]
-mamizou_transform_spr = sprite_get("mami_transformation"); //Replace "X" with your sprite.
+mamizou_transform_spr = sprite_get("mami_transformation");
 
 // Runes
-has_rune_petrifystatus = has_rune("A");
-has_rune_sleeperchase = has_rune("B");
+has_rune_extrasleeper = has_rune("A");
+has_rune_ustrongpull = has_rune("B");
+has_rune_fspecbuffs = has_rune("C");
+has_rune_hungerregen = has_rune("G");
+has_rune_petrifystatus = has_rune("H");
+has_rune_uspecaimable = has_rune("I");
+has_rune_sleeperchase = has_rune("L");
+
+if (has_rune_extrasleeper) nspec_max_sleepers_active = 2
+if (has_rune_fspecbuffs) fspec_max_armor = 99; // not the only change applied; see attack_update and got_hit.
+uspec_rune_angle = 0;
+putrolce_status_owner = 0;  // status trackers for dspec rune.
+putrolce_status_timer = 0;  // reflected in other_init.gml.
 sleeperchase_used = false;
 
 
+//Special alt indices
+alt_ashe = 20;
+alt_stanced = 23;
 
+// Outline management
+// Can be used to give distinct outline colors to specific alts,
+// though this should be approached carefully for clarity reasons.
 var default_outline = [0, 0, 0];
 switch get_player_color(player) {
-    
-    case 0:
-        var famished_outline = [30, 2, 50];
-        var voracious_outline = [57, 4, 3];
-        var overstuffed_outline = [0, 16, 67];
-        break;
-    
     default:
         var famished_outline = [30, 2, 50];
         var voracious_outline = [57, 4, 3];
         var overstuffed_outline = [0, 16, 67];
         break;
-        
 }
 stance_outlines = [famished_outline, voracious_outline, default_outline, overstuffed_outline];
-
-
-//                               PRE-SET STUFF                                //
-// attack/hitbox index variables
-grabbed_player_obj              = noone;// the player that got grabbed
-grabbed_player_relative_x       = 0;    // x position in relation to the player, 
-                                        // for the grabbed player to be moved to
-grabbed_player_relative_y       = 0;    // y position in relation to the player, 
-                                        // for the grabbed player to be moved to
-
-// animation stuff
-idle_air_loops                  = false;// whether idle air has a looping 
-                                        // animation or not
-idle_air_looping                = false;// checks if the loop is happening
-jump_frames                     = 5;    // how many animation frames the jump 
-                                        // has, the loop starts there
-idle_air_loop_speed             = 0.25;  // animation speed of the loop
-idle_air_platfalls              = false; // if the character has an animation for
-                                        // dropping from platforms
-idle_air_platfalling            = false;// checks if platfall is happening
-idle_air_platfall_speed         = 0.25; // platfall animation speed
-idle_air_platfall_frames        = 7;    // how many frames the platfall anim has
-                                        // when finished goes to air idle
-dash_moonwalks                  = false; // if the character has a moonwalk anim
-
 
 
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
@@ -366,20 +351,19 @@ putrolce_victory_icon = 4;
 bubble_x                        = 0;
 bubble_y                        = 8;
 
-// effects/particles
-fx_ftilt_rock = hit_fx_create(sprite_get("ftilt_rock"), 24);
-fx_ashe_trail = hit_fx_create(sprite_get("fx_ashe_trail"), 20);
-
 // hfx
 fx_kragg_small = hit_fx_create(sprite_get("hfx_rock_small_bg"),20);
 fx_kragg_big = hit_fx_create(sprite_get("hfx_rock_large"),32);
 
 fx_bite = hit_fx_create(sprite_get("hfx_bite"),28);
 
+// general particles
 fx_slp_phase = hit_fx_create(sprite_get("slp_phase"), 24);
 fx_slp_destroyed = hit_fx_create(sprite_get("slp_destroyed"), 32);
 fx_slp_destroyed_homing = hit_fx_create(sprite_get("slp_homing_death"), 32);
 fx_slp_sleeping = hit_fx_create(sprite_get("slp_sleepingvfx_temp"), 24);
+
+fx_ashe_trail = hit_fx_create(sprite_get("fx_ashe_trail"), 20);
 
 // Transparency matrices (courtesy of Supersonic - used for drawing enemy outlines)
 outline_catch_colorI = [

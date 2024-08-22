@@ -9,13 +9,12 @@ var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
 //good dust
 switch(attack)
 {
-    	
     case AT_UTILT:
     	if (window == 1 && window_timer == 1 && get_window_value(AT_UTILT, 1, AG_WINDOW_LENGTH)-1 )
     		spawn_base_dust(x+(48*spr_dir),y, "dash", -spr_dir);
     	if (window == 3 && window_timer == 1 && get_window_value(AT_UTILT, 1, AG_WINDOW_LENGTH)-1 )
     		spawn_base_dust(x+(16*-spr_dir),y, "dash", spr_dir);
-    break;
+    	break;
     
     case AT_USPECIAL:
     	if (window == 1 && window_timer == get_window_value(AT_USPECIAL, 1, AG_WINDOW_LENGTH)-1 && !free) {
@@ -23,14 +22,13 @@ switch(attack)
     		spawn_base_dust(x+(12*spr_dir),y, "dattack", spr_dir);
     	}
     	if (window == 2 && window_timer == 1 ) {
-    		spawn_base_dust(x,y-24, "doublejump", -spr_dir);
+    		spawn_base_dust(x,y-24, "doublejump", 0, uspec_rune_angle-90); // angle gets set to 0 if rune is not active
     	}
     	if (window == 5 && window_timer == 1 && get_window_value(AT_USPECIAL, 1, AG_WINDOW_LENGTH)-1 ) {
     		spawn_base_dust(x+(32*-spr_dir),y, "dash_start", spr_dir);
     		spawn_base_dust(x-(32*-spr_dir),y, "dash_start", -spr_dir);
     	}
-    break;
-    	
+    	break;
 }
 
 // specific attack behaviour
@@ -127,11 +125,28 @@ switch(attack) {
     	}
     	break;
     case AT_USTRONG:
-    	if (window < 3 && window > 5) hud_offset = -24;
-    	else hud_offset = 72;
-    	if (window == 2 && window_timer == 1){
+    	if (window != 1 && (window != 8 || hitstop >= 4)) hud_offset = clamp(hud_offset+30, 0, 72);
+    	if (window == 2 && window_timer == 1) {
         	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
         	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
+    	}
+    	if (has_rune_ustrongpull) {
+    		print_debug(hitpause);
+    		print_debug(hitstop);
+    		if (window == 1 && window_timer == 1) {
+    			set_attack_value(attack, AG_CATEGORY, 0);
+    			reset_window_value(attack, 6, AG_WINDOW_LENGTH);
+    		}
+    		if (window == 6 && window_timer == 1) {
+    			set_attack_value(attack, AG_CATEGORY, 2);
+    			if (grabbed_player_obj == noone) set_window_value(attack, 6, AG_WINDOW_LENGTH, 2);
+    		}
+    		if (window == 7 && !hitpause) vsp = -11;
+    		if (window == 8 && !hitpause) {
+    			if (window_timer == 1) vsp += 3;
+    			can_move = true;
+    			iasa_script();
+    		}
     	}
     	break;
     case AT_FSTRONG:
@@ -143,7 +158,7 @@ switch(attack) {
     	break;
     
     case AT_NSPECIAL:
-    	move_cooldown[AT_NSPECIAL] = 20;
+    	move_cooldown[AT_NSPECIAL] = 45;
         if (window == 1 && window_timer == window_length) {
         	instance_create(x+(30*spr_dir), y-30, "obj_article1");
         }
@@ -163,17 +178,20 @@ switch(attack) {
 	        		max_hsp = max_hsp_vals[stance-1];
 	        		if (vsp >= 1) vsp -= 1;
 	        		buffer_pratfall = free;
-	        		fspec_armor_hits = (stance == ST_OVERSTUFFED);
+	        		if (stance == ST_OVERSTUFFED) fspec_armor_hits = fspec_max_armor;
 	        		fspec_hit_sleeper = false;
 	        		fspec_aftim_length = (stance == 1 || stance == 3) ? 10 : 20;
-	        	} else if (window_timer == window_length) && (stance > 1){
-	        		sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
-	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
-	        	} else if (window_timer == window_length) && (stance == 1) {
-	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        	}
-	        	else if (vsp > 0) vsp = 0;
+	        	
+	        	else if (window_timer == window_length) {
+	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
+	        		if (stance > 1) sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
+	        		if (has_rune_fspecbuffs && stance == 2) hunger_meter += 5; // Decrease hunger cost
+	        	}
+	        	
+	        	if (vsp > 0) vsp = 0;
 	        	hsp = clamp(hsp, -2, 2);
+	        	
     			break;
     		
     		case 2:
@@ -245,6 +263,7 @@ switch(attack) {
     	if (window == 1) {
     		dspec_sfx_instance = noone;
     		dspec_rethrow = false;
+    		dspec_rethrow_turnaround = false;
     	}
     	else if (4 <= window && window <= 6) {
     		can_move = false;
@@ -268,30 +287,40 @@ switch(attack) {
     	}
         break;
     case AT_DSPECIAL_2:
-    	if (window == 1 && window_timer == window_length && instance_exists(grabbed_sleeper_id)) {
-        	grabbed_sleeper_id.state = 1; // petrified, no lifetime checks
-        	grabbed_sleeper_id.state_timer = 0;
-        	grabbed_sleeper_id.reflected_player_id = (player == grabbed_sleeper_id.player) ? noone : self;
-        	grabbed_sleeper_id.refresh_hitboxes = true;
-        	grabbed_sleeper_id.is_grabbed = false;
-        	grabbed_sleeper_id.is_linked = false;
-        	grabbed_sleeper_id.block_idle_state = false;
-			grabbed_sleeper_id.block_active_state = false;
-        	grabbed_sleeper_id.venus_article_reflect = 1;
-            grabbed_sleeper_id.hit_player_id = noone;
-        	grabbed_sleeper_id.hsp = 7*spr_dir;
-        	grabbed_sleeper_id.vsp = -5;
-        	grabbed_sleeper_id.spr_dir = spr_dir;
-        	
-        	var rethrow_hbox = create_hitbox(AT_NSPECIAL, 1, floor(grabbed_sleeper_id.x), floor(grabbed_sleeper_id.y));
-        	grabbed_sleeper_id.active_hitbox = rethrow_hbox;
-        	rethrow_hbox.hsp = grabbed_sleeper_id.hsp;
-        	rethrow_hbox.vsp = grabbed_sleeper_id.vsp;
-        	
-        	grabbed_player_obj = noone;
-        	
-        	spawn_hit_fx(grabbed_sleeper_id.x + 12*spr_dir, grabbed_sleeper_id.y, fx_kragg_small);
-        }
+    	if (window == 1) {
+    		if (window_timer < ceil(window_length/2)) {
+    			dir_held = (right_down - left_down);
+    			if (spr_dir + dir_held == 0 && !dspec_rethrow_turnaround) {
+    				dspec_rethrow_turnaround = true;
+    				spr_dir *= -1;
+    			}
+    		}
+    		else if (window_timer == window_length && instance_exists(grabbed_sleeper_id)) {
+	        	grabbed_sleeper_id.state = 1; // petrified, no lifetime checks
+	        	grabbed_sleeper_id.state_timer = 0;
+	        	grabbed_sleeper_id.reflected_player_id = (player == grabbed_sleeper_id.player) ? noone : self;
+	        	grabbed_sleeper_id.refresh_hitboxes = true;
+	        	grabbed_sleeper_id.is_grabbed = false;
+	        	grabbed_sleeper_id.is_linked = false;
+	        	grabbed_sleeper_id.block_idle_state = true;
+				grabbed_sleeper_id.block_active_state = false;
+	        	grabbed_sleeper_id.venus_article_reflect = 1;
+	            grabbed_sleeper_id.hit_player_id = noone;
+	        	grabbed_sleeper_id.hsp = 7*spr_dir;
+	        	grabbed_sleeper_id.vsp = -5;
+	        	grabbed_sleeper_id.spr_dir = spr_dir;
+	        	
+	        	var rethrow_hbox = create_hitbox(AT_NSPECIAL, 1, floor(grabbed_sleeper_id.x), floor(grabbed_sleeper_id.y));
+	        	grabbed_sleeper_id.active_hitbox = rethrow_hbox;
+	        	rethrow_hbox.hsp = grabbed_sleeper_id.hsp;
+	        	rethrow_hbox.vsp = grabbed_sleeper_id.vsp;
+	        	
+	        	grabbed_player_obj = noone;
+	        	
+	        	spawn_hit_fx(grabbed_sleeper_id.x + 12*spr_dir, grabbed_sleeper_id.y, fx_kragg_small);
+	        }
+    	}
+    	
         break;
         
     case AT_USPECIAL:
@@ -299,77 +328,123 @@ switch(attack) {
         if (window == 1 || window >= 10) can_move = false;
         if (window < 5 || window == 9) can_wall_jump = true;
         
-		if (window == 1 && vsp > 0) vsp = 0;
-		
-        //land
-        if(window == 4 && !free){
-        	window = 5;
-        	window_timer = 0;
+        switch window {
         	
-        	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
-        	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
-        }
-        
-        //grab
-        if ((window == 3 || window == 4) && (special_pressed || is_special_pressed(DIR_ANY))) {
-        	set_attack_value(attack, AG_NUM_WINDOWS, 9);
-        	window = 7;
-        	window_timer = 0;
-        	hsp = (spr_dir == -1) ? clamp(hsp, -3, -1) : clamp(hsp, 1, 3) 
-        	vsp = -2;
-        	var dir_held = (right_down - left_down);
-        	if (dir_held != 0) spr_dir = dir_held;
-        	grabbed_sleeper_id = noone;
-        }
-        
-        if (window == 5 && window_timer == 1 && !has_hit_player) {
-        	shake_camera(3,6);	
-        }
-        
-        if (7 <= window && window <= 9) {
-        	hsp = clamp(hsp, -3, 3);
-        }
-        
-        if (!free) {
-        	if (window == 9) {
-	        	set_state(PS_PRATLAND);
-	        	landing_lag = prat_land_time;
-        	}
-        	if (window == 15) {
-        		set_state(PS_LANDING_LAG);
-        		landing_lag = get_attack_value(attack, AG_LANDING_LAG);
-        	}
-        }
-        
-        // Hunger: adjust grab counts
-        if (window == 11 && window_timer == 1) {
-        	if (stance == 1 || stance == 4 || grabbed_player_obj == noone) {
-        		set_window_value(attack, window, AG_WINDOW_GOTO, 14);
-        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_X, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_X));
-        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_Y));
-        		set_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_ARC_Y));
-        	}
-        	else {
-        		reset_window_value(attack, window, AG_WINDOW_GOTO);
-        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_X);
-        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_Y);
-        		reset_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y);
-        	}
-        }
-        
-        if (window == 12 && window_timer == 1) {
-        	if (stance != 2) {
-        		set_window_value(attack, window, AG_WINDOW_GOTO, 14);
-        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_X, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_X));
-        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_Y));
-        		set_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_ARC_Y));
-        	}
-        	else {
-        		reset_window_value(attack, window, AG_WINDOW_GOTO);
-        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_X);
-        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_Y);
-        		reset_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y);
-        	}
+        	case 1:
+        		if (vsp > 0) vsp = 0;
+        		if (window_timer == 1) uspec_rune_angle = 90;
+        		if (has_rune_uspecaimable && !joy_pad_idle) uspec_rune_angle = joy_dir;
+        		break;
+        	
+        	case 2:
+        		if (!has_rune_uspecaimable) {
+        			vsp = -12;
+        			if (window_timer < window_length - 2) break;
+        		}
+	    		else {
+	    			can_move = false;
+	    			if (window_timer == 1) {
+	        			hsp = lengthdir_x(10, uspec_rune_angle);
+	        			vsp = lengthdir_y(12, uspec_rune_angle);
+	        			if (!free && uspec_rune_angle % 180 == 0) {
+	        				y -= 1;
+	        				vsp -= gravity_speed;
+	        			}
+	        			break;
+	    			}
+        		}
+        		// no break (except for the conditional ones above)
+        	
+        	case 3:
+        		if (window_timer == 1) {
+        			if (!has_rune_uspecaimable) vsp = -5;
+        			else {
+        				hsp = lengthdir_x(5, uspec_rune_angle);
+	        			vsp = lengthdir_y(5, uspec_rune_angle);
+        			}
+        		}
+        		// no break
+        	
+        	case 4:
+        		if (!free) {
+		        	window = 5;
+		        	window_timer = 0;
+		        	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
+		        	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
+		        }
+		        if (special_pressed || is_special_pressed(DIR_ANY)) {
+		        	clear_button_buffer(PC_SPECIAL_PRESSED);
+		        	set_attack_value(attack, AG_NUM_WINDOWS, 9);
+		        	window = 7;
+		        	window_timer = 0;
+		        	hsp = (spr_dir == -1) ? clamp(hsp, -3, -1) : clamp(hsp, 1, 3) 
+		        	vsp = -2;
+		        	var dir_held = (right_down - left_down);
+		        	if (dir_held != 0) spr_dir = dir_held;
+		        	grabbed_sleeper_id = noone;
+		        }
+        		break;
+        	
+        	case 5:
+        		if (window_timer == 1 && !has_hit_player) shake_camera(3, 6);
+		        break;
+        	
+        	case 7:
+        	case 8:
+        		hsp = clamp(hsp, -3, 3);
+        		break;
+        	
+        	case 9:
+        		hsp = clamp(hsp, -3, 3);
+        		if (!free) {
+        			set_state(PS_PRATLAND);
+	        		landing_lag = prat_land_time;
+        		}
+        		break;
+        	
+        	case 11:
+        		// Hunger: adjust grab counts
+        		if (window_timer == 1) {
+	        		if (stance == 1 || stance == 4 || grabbed_player_obj == noone) {
+		        		set_window_value(attack, window, AG_WINDOW_GOTO, 14);
+		        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_X, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_X));
+		        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_Y));
+		        		set_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_ARC_Y));
+		        	}
+		        	else {
+		        		reset_window_value(attack, window, AG_WINDOW_GOTO);
+		        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_X);
+		        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_Y);
+		        		reset_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y);
+		        	}
+        		}
+        		break;
+        	
+        	case 12:
+        		// Hunger: adjust grab counts
+        		if (window_timer == 1) {
+	        		if (stance != 2) {
+		        		set_window_value(attack, window, AG_WINDOW_GOTO, 14);
+		        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_X, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_X));
+		        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_Y));
+		        		set_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_ARC_Y));
+		        	}
+		        	else {
+		        		reset_window_value(attack, window, AG_WINDOW_GOTO);
+		        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_X);
+		        		reset_window_value(attack, window, AG_WINDOW_GRAB_POS_Y);
+		        		reset_window_value(attack, window, AG_WINDOW_GRAB_ARC_Y);
+		        	}
+        		}
+        		break;
+        	
+        	case 15:
+        		if (!free) {
+        			set_state(PS_LANDING_LAG);
+        			landing_lag = get_attack_value(attack, AG_LANDING_LAG);
+        		}
+        		break;
+        	
         }
         break;
     
@@ -380,7 +455,7 @@ if (!hitpause && !smash_charging) {
 	var whiff_lag_mult = (!has_hit && get_window_value(attack, window, AG_WINDOW_HAS_WHIFFLAG)) ? 1.5 : 1;
 	var raw_hgf = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME);
 	if (raw_hgf >= 0) var hunger_gain_frame = floor(raw_hgf*whiff_lag_mult) + 1;
-	else var hunger_gain_frame = floor((get_window_value(attack, window, AG_WINDOW_LENGTH)+raw_hgf)*whiff_lag_mult);
+	else var hunger_gain_frame = floor((get_window_value(attack, window, AG_WINDOW_LENGTH)+raw_hgf+1)*whiff_lag_mult);
 	if (window_timer == hunger_gain_frame) {
 		hunger_change = get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN);
 		user_event(0);
@@ -520,15 +595,16 @@ attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
 
 #define spawn_base_dust // written by supersonic
-/// spawn_base_dust(x, y, name, dir = 0)
+/// spawn_base_dust(x, y, name, dir = 0, angle = 0)
 var dlen; //dust_length value
 var dfx; //dust_fx value
 var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
-var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var x = argument[0], y = argument[1], name = argument[2], dir = argument[3];
+var angle = argument_count > 4 ? argument[4] : 0;
 
+dfa = angle;
 switch (name) {
 	default: 
 	case "dash_start":dlen = 21; dfx = 3; dfg = 2626; break;
