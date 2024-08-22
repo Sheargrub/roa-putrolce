@@ -339,7 +339,7 @@ switch(attack) {
         	case 2:
         		if (!has_rune_uspecaimable) {
         			vsp = -12;
-        			break;
+        			if (window_timer < window_length - 2) break;
         		}
 	    		else {
 	    			can_move = false;
@@ -353,7 +353,7 @@ switch(attack) {
 	        			break;
 	    			}
         		}
-        		// no break (continues after frame 1 if rune is present)
+        		// no break (except for the conditional ones above)
         	
         	case 3:
         		if (window_timer == 1) {
