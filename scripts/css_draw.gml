@@ -234,31 +234,35 @@ if (ee > 0){
 	var tw_g = (ease_quartOut(0, 1, ee, ee_m)) + (ease_quartIn(0, 1, ee, ee_m)/3);
 	var dist = 16;//14
 	var typ = round(ease_expoIn(0, dist, ee, ee_m-2));
-	//using muno's function;
 	//up
 	if (ue-2>=0){
-	rectDraw(temp_x + 2, temp_y + 74 +(0-(dist*2)-10+(typ*ie)), temp_x + 16, temp_y + 91 +(0-(dist*2)-6+(typ*ie)),
-	ce[clamp(ue-2,0,col_max),0], c_gray, (ie==-1) ? tw_c : tw_e );
+	stomachDraw(temp_x + 2, temp_y + 74 +(0-(dist*2)-10+(typ*ie)),
+	ce[clamp(ue-2,0,col_max),0], c_gray, (ie==-1) ? tw_c : tw_e,
+	(ue-2 == alt_stanced));
 	}
 	if (ue-1>=0){
-	rectDraw(temp_x + 2, temp_y + 74 +(0-dist-5+(typ*ie)), temp_x + 16, temp_y + 91 +(0-dist-3+(typ*ie)),
-	ce[clamp(ue-1,0,col_max),0], c_gray, (ie==-1) ? tw_b : tw_d );
+	stomachDraw(temp_x + 2, temp_y + 74 +(0-dist-5+(typ*ie)),
+	ce[clamp(ue-1,0,col_max),0], c_gray, (ie==-1) ? tw_b : tw_d,
+	(ue-1 == alt_stanced));
 	}
 	
-	rectDraw(temp_x + 2, temp_y + 74 +(typ*ie), temp_x + 16, temp_y + 91 +(typ*ie), ce[ue,0], c_white, tw);
+	stomachDraw(temp_x + 2, temp_y + 74 +(typ*ie), ce[ue,0], c_white, tw,
+	(ue == alt_stanced));
 	
 	if (ue+1<=col_max){
-	rectDraw(temp_x + 2, temp_y + 74 +(dist+5+(typ*ie)), temp_x + 16, temp_y + 91 +(dist+3+(typ*ie)),
-	ce[clamp(ue+1,0,col_max),0], c_gray, (ie==1) ? tw_b : tw_d );
+	stomachDraw(temp_x + 2, temp_y + 74 +(dist+5+(typ*ie)),
+	ce[clamp(ue+1,0,col_max),0], c_gray, (ie==1) ? tw_b : tw_d,
+	(ue+1 == alt_stanced));
 	}
 	if (ue+2<=col_max){
-	rectDraw(temp_x + 2, temp_y + 74 +((dist*2)+10+(typ*ie)), temp_x + 16, temp_y + 91 +((dist*2)+6+(typ*ie)),
-	ce[clamp(ue+2,0,col_max),0], c_gray, (ie==1) ? tw_c : tw_e );
+	stomachDraw(temp_x + 2, temp_y + 74 +((dist*2)+10+(typ*ie)),
+	ce[clamp(ue+2,0,col_max),0], c_gray, (ie==1) ? tw_c : tw_e,
+	(ue+2 == alt_stanced));
 	}
 	//down
 	
 	/*if (ue+(3*-ie)<=col_max && ue+(3*-ie)>=0){
-	rectDraw(temp_x + 2, temp_y + 77 +((((dist*3)+9)*-ie)+(typ*ie)),
+	stomachDraw(temp_x + 2, temp_y + 77 +((((dist*3)+9)*-ie)+(typ*ie)),
 	temp_x + 16, temp_y + 91 +((((dist*3)+9)*-ie)+(typ*ie)),
 	ce[clamp(ue+(3*-ie),0,col_max),0], c_gray, tw_f);
 	}*/
@@ -343,17 +347,11 @@ draw_text_ext_transformed_color(argument[0], argument[1], argument[9], argument[
 return string_width_ext(argument[9], argument[4], argument[5]);
 
 
-#define rectDraw(x1, y1, x2, y2, color, out_color, alpha)
+#define stomachDraw()
+var x1 = argument[0], y1 = argument[1], color = argument[2], out_color = argument[3], alpha = argument[4];
+var stanced = argument_count > 5 ? argument[5] : 0;;
 
-//starred land
-
-//draw_set_alpha(argument[6]);
-//main
-draw_sprite_ext( sprite_get("stomachCSS"), 0, argument[0], argument[1], 1, 1, 0, argument[4], argument[6] )
-//draw_rectangle_color(argument[0], argument[1], argument[2], argument[3], argument[5], argument[5], argument[5], argument[5], false);
-//outline
-//draw_set_alpha(argument[6]*1.5);
-draw_sprite_ext( sprite_get("stomachCSS"), 1, argument[0], argument[1], 1, 1, 0, argument[5], argument[6]*1.5 )
-//draw_rectangle_color(argument[0]+2, argument[1]+2, argument[2]-2, argument[3]-2, argument[4], argument[4], argument[4], argument[4], false);
-//draw_set_alpha(1);
-
+var spr = stanced ? sprite_get("stomachCSS_stanced") : sprite_get("stomachCSS");
+var in_col = stanced ? c_white : argument[2];
+draw_sprite_ext( spr, 0, argument[0], argument[1], 1, 1, 0, in_col, argument[4] )
+draw_sprite_ext( spr, 1, argument[0], argument[1], 1, 1, 0, argument[3], argument[4]*1.5 )
