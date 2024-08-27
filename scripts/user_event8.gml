@@ -1,12 +1,12 @@
-
-// Copy all changes into user_event8 for Demon Horde compat.
+// Alternate draw_hud (compat for Demon Horde)
+// Arrow sprite differs from normal.
 
 if ("stance" not in self) exit;
 
 var st = stance-1;
 
 draw_sprite_ext(sprite_get("hud"), 0, temp_x-8, temp_y-38, 2, 2, 0, c_white, 1);
-draw_sprite_ext(sprite_get("hud_playerarrows"), 0, temp_x-8, temp_y-38, 2, 2, 0, get_player_hud_color(player), 1);
+draw_sprite_ext(sprite_get("hud_floatingarrows"), 0, temp_x-8, temp_y-38, 2, 2, 0, stance_colors[st], 1);
 draw_sprite_ext(sprite_get("hud_stomach"), st, temp_x-10, temp_y-32, 2, 2, 0, c_white, 1);
 
 var pips = ceil(hunger_meter/10);

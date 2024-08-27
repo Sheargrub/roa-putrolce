@@ -498,8 +498,8 @@ if (instance_exists(grabbed_player_obj) && get_window_value(attack, window, AG_W
 			if (hitpause) {
 				var current = floor(hitstop_full - hitstop);
 				var duration = floor(hitstop_full)
-				grabbed_player_obj.x = x + ease_circOut( grabbed_player_relative_x, pull_to_x, current, duration);
-				grabbed_player_obj.y = y + ease_circOut( grabbed_player_relative_y, pull_to_y, current, duration);
+				grabbed_player_obj.x = x + ease_circOut( round(grabbed_player_relative_x), pull_to_x, current, duration);
+				grabbed_player_obj.y = y + ease_circOut( round(grabbed_player_relative_y), pull_to_y, current, duration);
 			}
 			else { // upon leaving hitpause, just lock their position
 				grabbed_player_obj.x = x + pull_to_x;
@@ -508,8 +508,8 @@ if (instance_exists(grabbed_player_obj) && get_window_value(attack, window, AG_W
 		}
 		
 		else { // using an easing function, smoothly pull the opponent into the grab over the duration of this window.
-			grabbed_player_obj.x = x + ease_circOut( grabbed_player_relative_x, pull_to_x, window_timer, window_length);
-			grabbed_player_obj.y = y + ease_circOut( grabbed_player_relative_y, pull_to_y, window_timer, window_length);
+			grabbed_player_obj.x = x + ease_circOut( round(grabbed_player_relative_x), pull_to_x, window_timer, window_length);
+			grabbed_player_obj.y = y + ease_circOut( round(grabbed_player_relative_y), pull_to_y, window_timer, window_length);
 		}
 		
 	}

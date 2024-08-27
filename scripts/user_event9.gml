@@ -1,11 +1,9 @@
+// Alternate hit_player (compat for Demon Horde)
+
 var hbox_atk = my_hitboxID.attack;
 var hbox_num = my_hitboxID.hbox_num;
 var is_kragg_rocks = false;
 var is_melee = my_hitboxID.type == 1;
-
-//                           --hit stuff--                                    //
-// Copy all changes into user_event9 for Demon Horde compat.
-
 
 if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.orig_player == player) {
 	if ("sleeper_owner" in my_hitboxID) {
@@ -47,7 +45,6 @@ switch(attack) {
 }
 
 
-
 // hitbox lerp code
 if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_LERP) == true) {
 	if (my_hitboxID.type == 1) { //if physical, pull relative to player
@@ -70,7 +67,7 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_GRAB) == t
 
 	if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 	  && (hit_player_obj.state == PS_HITSTUN || hit_player_obj.state == PS_HITSTUN_LAND)
-    	  && was_parried == false
+      && was_parried == false
 	  && hit_player_obj.clone == false) {
 		
 		//transition to the 'throw' part of the attack.

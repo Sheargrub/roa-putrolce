@@ -178,6 +178,8 @@ knight_compat_dream =
         "A figment? Looks like a light snack."
     ]
 mamizou_transform_spr = sprite_get("mami_transformation");
+draw_hud_event = 8;
+hit_player_event = 9;
 
 // Runes
 has_rune_extrasleeper = has_rune("A");
