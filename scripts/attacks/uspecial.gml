@@ -188,6 +188,7 @@ set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 40);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 8);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 1);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 65);
+set_hitbox_value(atk, hbox_num, HG_ANGLE_FLIPPER            , 6);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 8);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.5);
