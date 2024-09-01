@@ -179,6 +179,7 @@ switch(attack) {
 	        		if (vsp >= 1) vsp -= 1;
 	        		buffer_pratfall = free;
 	        		if (stance == ST_OVERSTUFFED) fspec_armor_hits = fspec_max_armor;
+	        		else fspec_armor_hits = 0;
 	        		fspec_hit_sleeper = false;
 	        		fspec_aftim_length = (stance == 1 || stance == 3) ? 10 : 20;
 	        	}
