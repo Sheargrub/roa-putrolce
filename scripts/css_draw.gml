@@ -82,7 +82,7 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	altsel = 0; // change the alt select sound here. if you don't want to change the sound, put 0 here.
 	color_desc_activate = true; // optional "alt color description button". set to "true" to turn it on.
 	
-	col_max = 24; // number of alternate color palettes. 0 is the default color, count it accordingly.
+	col_max = 25; // number of alternate color palettes. 0 is the default color, count it accordingly.
 	
 	//first array index is for alternate color. second array index is for distinguishing the information in it.
 	ce[0,0] = make_color_rgb(236, 0, 79) // "color preview square" color. can be any color!
@@ -186,9 +186,9 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	ce[24,2] = "
 	hell yes."
 	
-	ce[25,0] = make_color_rgb(206, 17, 38)
-	ce[25,1] = "Undefined"
-	ce[25,2] = ""
+	ce[25,0] = make_color_rgb(19, 45, 101)
+	ce[25,1] = "Riptide"
+	ce[25,2] = "Based on the yearly fighting game event Riptide"
 	
 	ce[26,0] = make_color_rgb(206, 17, 38)
 	ce[26,1] = "Undefined"
@@ -349,7 +349,7 @@ return string_width_ext(argument[9], argument[4], argument[5]);
 
 #define stomachDraw()
 var x1 = argument[0], y1 = argument[1], color = argument[2], out_color = argument[3], alpha = argument[4];
-var stanced = argument_count > 5 ? argument[5] : 0;;
+var stanced; if (argument_count > 5) stanced = argument[5]; else stanced = 0;;
 
 var spr = stanced ? sprite_get("stomachCSS_stanced") : sprite_get("stomachCSS");
 var in_col = stanced ? c_white : argument[2];
