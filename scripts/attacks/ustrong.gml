@@ -192,7 +192,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_crunch"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 20);
-set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
 set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
 
 hbox_num++;
