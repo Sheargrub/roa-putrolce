@@ -40,6 +40,8 @@ if (get_attack_value(attack, AG_LAST_STANCE) != stance) {
     
     if (should_debug) print_debug("Attack data updated! (" + string(get_gameplay_time()) + ")");
 
+    // Gameplay-related code ends here. ----------------------------------------
+    
     // Woodcock data hook
     if (woodcock_active) with (woodcock_obj) {
         

@@ -622,11 +622,11 @@ switch (state) {
             set_state(SLP_DESPAWN_DIE);
         }
         
-        else if (state_timer >= 300) {
+        else if (state_timer >= inactive_time) {
             set_state(SLP_DESPAWN_FADE);
         }
         
-        else if (state_timer >= 200) {
+        else if (state_timer >= inactive_flash_time) {
         	inactive_flash_alpha = 0.15 * (1-cos(state_timer*pi/25)) / 2;
         }
         
