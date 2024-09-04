@@ -45,16 +45,17 @@ switch(attack) {
         	var x_maximum = x_default;
         	var x_minimum = ftilt_x_minimum + ftilt_x_search_offset;
         	var x_offset = 0;
+        	var check_jumpthrough = (ground_type == 2);
         	
         	// First, check if the farthest position is valid
-        	if ( place_meeting(x+(x_maximum*spr_dir), y+1, asset_get("par_block"))
-        	  || place_meeting(x+(x_maximum*spr_dir), y+1, asset_get("par_jumpthrough"))
+        	if ( position_meeting(x+(x_maximum*spr_dir), y+1, asset_get("par_block"))
+        	  || position_meeting(x+(x_maximum*spr_dir), y+1, asset_get("par_jumpthrough"))
         	) {
         		print_debug("near");
         		x_offset = x_maximum;
         	}
         	
-        	// Then, check of the closest position needs to be used
+        	// Then, check if the closest position needs to be used
         	else if ( !line_meeting(x+(x_default*spr_dir), y+1, x+(x_minimum*spr_dir), y+1, asset_get("par_block"))
         	  && !line_meeting(x+(x_default*spr_dir), y+1, x+(x_minimum*spr_dir), y+1, asset_get("par_jumpthrough"))
         	) {
