@@ -1,6 +1,16 @@
 
+
+// NSpec pity projectile
+if (attack == AT_NSPECIAL && hbox_num == 4) {
+    
+    if (!free) destroyed = true;
+    if (destroyed == true) sound_play(asset_get("sfx_kragg_spike"), 0, noone, 1, 1);
+        
+}
+
+
 // Taunt skull
-if (attack == AT_TAUNT) {
+else if (attack == AT_TAUNT) {
     
     if (!free) {
         hsp = 0;

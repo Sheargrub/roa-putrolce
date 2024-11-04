@@ -18,9 +18,6 @@ if (get_gameplay_time() == post_init_time && get_match_setting(SET_PRACTICE)) {
 
 //#region Gameplay behavior
 
-// NSpec cooldown management
-if (nspec_sleepers_active >= nspec_max_sleepers_active && move_cooldown[AT_NSPECIAL] < 2) move_cooldown[AT_NSPECIAL] = 2;
-
 // FSpec cooldown management
 if (!free || state == PS_HITSTUN || state == PS_WALL_JUMP || state == PS_RESPAWN) move_cooldown[AT_FSPECIAL] = 0;
 

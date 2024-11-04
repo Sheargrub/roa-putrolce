@@ -161,7 +161,12 @@ switch(attack) {
     case AT_NSPECIAL:
     	move_cooldown[AT_NSPECIAL] = 45;
         if (window == 1 && window_timer == window_length) {
-        	instance_create(x+(30*spr_dir), y-30, "obj_article1");
+        	if (nspec_sleepers_active < nspec_max_sleepers_active) {
+        		instance_create(x+(30*spr_dir), y-30, "obj_article1");
+        		set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 99);
+        	} else {
+        		set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 2);
+        	}
         }
         
         // This SFX felt out of place outside of a voiced mode.
