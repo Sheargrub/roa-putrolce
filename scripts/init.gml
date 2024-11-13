@@ -12,6 +12,9 @@ hunger_locked = false;
 woodcock_active = false;
 post_init_time = get_gameplay_time()+1;
 
+// Voice mode flag: self-explanatory
+is_voiced = get_synced_var(player);
+
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
 
 //                           ATTACK/WINDOW INDEXES                            //

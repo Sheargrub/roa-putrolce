@@ -1,8 +1,6 @@
 
 init_shader();
 
-
-
 //--- ---
 //
 // hyuponia's "ae" css code
@@ -315,8 +313,9 @@ else {
 	swap_timer = 0;
 }
 
+shader_end();
+
 if (char_flash_alpha > 0) {
-	shader_end();
 	gpu_set_fog(true, c_white, 0, 0);
 	draw_sprite_ext(get_char_info(player, INFO_CHARSELECT), 0, x+8, y+8, 2, 2, 0, c_white, char_flash_alpha);
 	gpu_set_fog(false, c_white, 0, 0);
@@ -324,11 +323,27 @@ if (char_flash_alpha > 0) {
 
 //
 
+
+// voice mode button display
+var ht_iindex_offset = ht_hovered ? (menu_a_down ? 4 : 2) : 0;
+draw_sprite(sprite_get("_voice_hud_cssbutton"), ht_status+ht_iindex_offset, x+ht_x, y+ht_y);
+draw_sprite(sprite_get("_voice_hud_cssicon"), ht_status, x+ht_x, y+ht_y);
+
+// cpu hover display
+if (cpu_hover_time > 0) {
+    var prog = min(cpu_hover_time/10, 1);
+    var colprog = min(cpu_color_swap_time/5, 1);
+    var col = merge_color(cpuh_prev_color, cpuh_new_color, colprog);
+    draw_sprite_ext(cpu_hover_sprite, 0, x - 4, y - 6, 2, 2, 0, col, prog);
+    draw_set_alpha(prog);
+    draw_debug_text(plate_bounds[2]-17, plate_bounds[3]+1, `P${cpu_hovering_player}`);
+    draw_set_alpha(1);
+}
+
+
 //--- ---
 // altered version of muno's functions. if you have other css codes, this part needs to be at the bottom of the code.
 //--- ---
-
-
 
 #define textDraw(x, y, font, color, lineb, linew, scale, outline, alpha, string)
 
@@ -349,7 +364,7 @@ return string_width_ext(argument[9], argument[4], argument[5]);
 
 #define stomachDraw()
 var x1 = argument[0], y1 = argument[1], color = argument[2], out_color = argument[3], alpha = argument[4];
-var stanced; if (argument_count > 5) stanced = argument[5]; else stanced = 0;;
+var stanced = argument_count > 5 ? argument[5] : 0;;
 
 var spr = stanced ? sprite_get("stomachCSS_stanced") : sprite_get("stomachCSS");
 var in_col = stanced ? c_white : argument[2];
