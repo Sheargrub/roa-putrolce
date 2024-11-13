@@ -94,7 +94,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE,
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 0);
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 3);
+set_num_hitboxes(atk, 4);
 var hbox_num = 1;
 
 // Initial hit
@@ -149,12 +149,38 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 4);
 set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 7);
-set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
 set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab");
+hbox_num++;
+
+// Sleeper detection hit
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 64);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -32);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 100);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 40);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 0);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 20);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.5);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
+set_hitbox_value(atk, hbox_num, HG_HAS_GRAB                 , 1);
+set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOW_GOTO         , 4);
+set_hitbox_value(atk, hbox_num, HG_GRAB_WINDOWS_NUM         , 7);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 1);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab (Hits sleeper)");
 hbox_num++;
 
 // Bite
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
@@ -181,7 +207,7 @@ hbox_num++;
 
 // Status followup
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 3);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 6);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 20);

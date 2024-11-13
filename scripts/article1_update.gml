@@ -181,8 +181,8 @@ if (!ignore_grabs) with pHitBox {
 				is_linked = player_claimed;
 				grab_petrified = (other.attack == AT_DSPECIAL);
 				grabbed_player_id = other.player_id;
-				relative_x = floor(other.x - grabbed_player_id.x);
-				relative_y = floor(other.y - grabbed_player_id.y);
+				relative_x = floor(x - grabbed_player_id.x);
+				relative_y = floor(y - grabbed_player_id.y);
 			}
 			
 			// SFX/VFX
