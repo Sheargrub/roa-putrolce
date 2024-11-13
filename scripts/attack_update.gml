@@ -259,7 +259,10 @@ switch(attack) {
 	    		destroy_hitboxes();
 	    		sound_play(asset_get("sfx_blow_medium2"));
     		}
-    		else vsp -= 0.3; // reduce gravity
+    		else {
+    			vsp -= 0.3; // reduce gravity
+    			do_ledge_snap(40);
+    		}
     		
     		if (window_timer == 1) num_loops++;
     		if (num_loops > 2 || (has_hit && stance == 2)) can_jump = true;
@@ -569,6 +572,24 @@ if (has_rune_sleeperchase) {
 
 // Defines
 
+#define do_ledge_snap(max_snap)
+	if (vsp < 1 && place_meeting(x+hsp, y+vsp, asset_get("par_block")) && !place_meeting(x+hsp, y+vsp-max_snap, asset_get("par_block"))) {
+		var snap_dist = max_snap / 2;
+		var delta = snap_dist / 2;
+		var reps = ceil(log2(max_snap));
+		
+		for (var i = 0; i < reps; i++) {
+			if (place_meeting(x+hsp, y+vsp-snap_dist, asset_get("par_block"))) {
+				snap_dist += delta;
+			} else {
+				snap_dist -= delta;
+			}
+			delta /= 2;
+		}
+		
+		y -= snap_dist;
+		print_debug(snap_dist);
+	}
 
 #define create_afterimage(in_lifetime, in_color)
 var afterimage = {
