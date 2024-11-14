@@ -48,7 +48,7 @@ set_window_value(atk, window_num, AG_WINDOW_LENGTH, 999);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 10);
 set_window_value(atk, window_num, AG_WINDOW_VSPEED, 20);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED_TYPE, 2);
+set_window_value(atk, window_num, AG_WINDOW_VSPEED_TYPE, 2); // also reapplied manually for safety reasons
 set_window_value(atk, window_num, AG_WINDOW_HAS_CUSTOM_FRICTION, 1);
 set_window_value(atk, window_num, AG_WINDOW_CUSTOM_AIR_FRICTION, 0);
 window_num++;

@@ -148,6 +148,8 @@ dspec_sfx_instance = noone;
 dspec_rethrow = false;
 dspec_rethrow_turnaround = false;
 
+uspec_fall_gravity = 0.4; // Changed frequently. Mostly a safety measure vs vsp-setters like dedede drum
+
 // sound_play_cancellable() vars
 // Used to stop longer sounds if an attack is interrupted.
 attack_sfx_instance = noone;

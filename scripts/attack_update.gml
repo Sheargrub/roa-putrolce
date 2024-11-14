@@ -376,12 +376,17 @@ switch(attack) {
         		// no break
         	
         	case 4:
+        		var fall_speed = get_window_value(attack, window, AG_WINDOW_VSPEED);
         		if (!free) {
 		        	window = 5;
 		        	window_timer = 0;
 		        	sound_play(asset_get("sfx_zetter_downb"), 0, noone, 1, 1)
 		        	sound_play(asset_get("sfx_kragg_rock_pillar"), 0, noone, 1, 1)
-		        }
+		        } else if (window == 4 && vsp < fall_speed) {
+		        	vsp += uspec_fall_gravity;
+		        	if (vsp > fall_speed) vsp = fall_speed;
+		        	uspec_fall_gravity = clamp(uspec_fall_gravity + 0.08, 0, 1.2);
+		        } else uspec_fall_gravity = 0.4; // starts slow to allow interruptions to feel meaningful
 		        if (special_pressed || is_special_pressed(DIR_ANY)) {
 		        	clear_button_buffer(PC_SPECIAL_PRESSED);
 		        	set_attack_value(attack, AG_NUM_WINDOWS, 9);
