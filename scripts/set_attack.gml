@@ -3,6 +3,9 @@
 //reset number of windows in case of a grab
 reset_attack_value(attack, AG_NUM_WINDOWS);
 
+//reset nspec cooldown flag
+nspec_extended_cooldown = false;
+
 // reset grab variables on new attack
 // if your grab uses different attack indexes, you may want to add additional
 // checks to prevent accidental grab releases

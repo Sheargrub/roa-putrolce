@@ -159,13 +159,14 @@ switch(attack) {
     	break;
     
     case AT_NSPECIAL:
-    	move_cooldown[AT_NSPECIAL] = 45;
+    	move_cooldown[AT_NSPECIAL] = nspec_extended_cooldown ? 75 : 45;
         if (window == 1 && window_timer == window_length) {
         	if (nspec_sleepers_active < nspec_max_sleepers_active) {
         		instance_create(x+(30*spr_dir), y-30, "obj_article1");
         		set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 99);
         	} else {
         		set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 2);
+        		nspec_extended_cooldown = true;
         	}
         }
         
