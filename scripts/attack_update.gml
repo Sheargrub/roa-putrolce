@@ -406,7 +406,10 @@ switch(attack) {
         		break;
         	
         	case 5:
-        		if (window_timer == 1 && !has_hit_player) shake_camera(3, 6);
+        		if (window_timer == 1 && !hitpause)  {
+        			if (!has_hit_player) shake_camera(3, 6);
+        			if (has_rune_uspecaimable) hsp *= 0.6;
+        		}
 		        break;
         	
         	case 7:
