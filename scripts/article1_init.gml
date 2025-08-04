@@ -34,6 +34,7 @@ move_angle = (spr_dir == 1) ? 0 : 180;
 move_speed = 0;
 refresh_hitboxes = false;
 target_galaxied = false;
+fast_homing = false; // becomes true on parry
 
 // Hitbox/on-hit pointers
 petrified_hitbox = noone;

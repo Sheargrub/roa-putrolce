@@ -7,6 +7,7 @@ if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.orig_player == player && "s
     if (hit_player != player) {
     	my_hitboxID.sleeper_owner.reflected_player_id = hit_player_obj;
     	my_hitboxID.sleeper_owner.was_parried = true;
+    	my_hitboxID.sleeper_owner.fast_homing = true;
     	my_hitboxID.sleeper_owner.block_idle_state = true;
     } else {
         my_hitboxID.sleeper_owner.state = (my_hitboxID.sleeper_owner.state <= 9) ? SLP_DESPAWN_PETRIFIED : SLP_DESPAWN_FADE;

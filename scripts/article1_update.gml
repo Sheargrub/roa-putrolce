@@ -567,7 +567,8 @@ switch (state) {
             else if (diff < 0) move_angle += 10;
             else move_angle -= 10;
         }
-        move_speed = clamp(move_speed+0.8, -20, 20);
+        var homing_accel = fast_homing ? 1.2 : 0.8;
+        move_speed = clamp(move_speed+homing_accel, -20, 20);
         hsp = lengthdir_x(move_speed, move_angle);
         vsp = lengthdir_y(move_speed, move_angle);
         spr_dir = (90 < move_angle && move_angle <= 270) ? -1 : 1;
@@ -586,12 +587,12 @@ switch (state) {
             set_state(SLP_ACTIVE_HOMING);
         }
         
-        else if (move_speed <= 0.9) {
+        else if (move_speed <= homing_accel+0.1) {
             if (place_meeting(x, y, asset_get("plasma_field_obj"))) { // since there's no hitbox to do the detection
                 sound_play(asset_get("sfx_clairen_hit_weak"));
                 set_state(SLP_DESPAWN_DIE_HOMING);
             }
-            else if (move_speed >= 0 && active_hitbox == noone && !target_galaxied) auto_gen_hitbox();
+            else if (move_speed >= 0 && !instance_exists(active_hitbox) && !target_galaxied) auto_gen_hitbox();
             else block_hitbox_checks = true;
         }
         
@@ -902,13 +903,13 @@ venus_late_reflect_frame = venus_reflected;
         case SLP_ACTIVE_HOMING:
             // precondition: targetted_player_id should be set
             if (old_state < SLP_ACTIVE_RUSH) transition_timer = 0;
-            move_speed = -15;
+            move_speed = fast_homing ? 10 : -15;
             if (instance_exists(targetted_player_id)) move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
             else move_angle = (spr_dir == 1) ? 0 : 180;
             hsp = lengthdir_x(move_speed, move_angle);
             vsp = lengthdir_y(move_speed, move_angle);
             if (instance_exists(active_hitbox)) active_hitbox.destroyed = true;
-            active_hitbox = noone;
+            active_hitbox = fast_homing ? auto_gen_hitbox() : noone;
             block_hitbox_checks = true;
             hit_player_id = noone;
             venus_article_reflect = 1;
@@ -968,7 +969,7 @@ venus_late_reflect_frame = venus_reflected;
         article_hitbox = create_article_hitbox(AT_NSPECIAL, 3, x, y-99);
         active_hitbox = article_hitbox;
     }
-    return article_hitbox
+    return article_hitbox;
 
 // Mirror changes in init.gml
 #define create_article_hitbox(atk, hitbox_num, _x, _y)
