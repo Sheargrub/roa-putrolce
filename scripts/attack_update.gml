@@ -285,9 +285,17 @@ switch(attack) {
     			dspec_rethrow = true;
     		}
 	        if (dspec_rethrow && !hitpause) {
+	        	dir_held = (right_down - left_down);
+    			if (spr_dir + dir_held == 0 && !dspec_rethrow_turnaround) {
+    				dspec_rethrow_turnaround = true;
+    				spr_dir *= -1;
+    			}
+    			
 	        	attack_end();
     			set_attack(AT_DSPECIAL_2);
     			user_event(2); // load new attack data, if appropriate
+    			
+    			if (!dspec_rethrow_turnaround) window = 2;
     			hurtboxID.sprite_index = get_attack_value(attack, AG_HURTBOX_SPRITE);
     			do_sfx_cancel = true;
 	        }
@@ -298,38 +306,29 @@ switch(attack) {
     	}
         break;
     case AT_DSPECIAL_2:
-    	if (window == 1) {
-    		if (window_timer < ceil(window_length/2)) {
-    			dir_held = (right_down - left_down);
-    			if (spr_dir + dir_held == 0 && !dspec_rethrow_turnaround) {
-    				dspec_rethrow_turnaround = true;
-    				spr_dir *= -1;
-    			}
-    		}
-    		else if (window_timer == window_length && instance_exists(grabbed_sleeper_id)) {
-	        	grabbed_sleeper_id.state = 1; // petrified, no lifetime checks
-	        	grabbed_sleeper_id.state_timer = 0;
-	        	grabbed_sleeper_id.reflected_player_id = (player == grabbed_sleeper_id.player) ? noone : self;
-	        	grabbed_sleeper_id.refresh_hitboxes = true;
-	        	grabbed_sleeper_id.is_grabbed = false;
-	        	grabbed_sleeper_id.is_linked = false;
-	        	grabbed_sleeper_id.block_idle_state = true;
-				grabbed_sleeper_id.block_active_state = false;
-	        	grabbed_sleeper_id.venus_article_reflect = 1;
-	            grabbed_sleeper_id.hit_player_id = noone;
-	        	grabbed_sleeper_id.hsp = 7*spr_dir;
-	        	grabbed_sleeper_id.vsp = -5;
-	        	grabbed_sleeper_id.spr_dir = spr_dir;
-	        	
-	        	var rethrow_hbox = create_hitbox(AT_NSPECIAL, 1, floor(grabbed_sleeper_id.x), floor(grabbed_sleeper_id.y));
-	        	grabbed_sleeper_id.active_hitbox = rethrow_hbox;
-	        	rethrow_hbox.hsp = grabbed_sleeper_id.hsp;
-	        	rethrow_hbox.vsp = grabbed_sleeper_id.vsp;
-	        	
-	        	grabbed_player_obj = noone;
-	        	
-	        	spawn_hit_fx(grabbed_sleeper_id.x + 12*spr_dir, grabbed_sleeper_id.y, fx_kragg_small);
-	        }
+    	if (window == 2 && window_timer == window_length && instance_exists(grabbed_sleeper_id)) {
+        	grabbed_sleeper_id.state = 1; // petrified, no lifetime checks
+        	grabbed_sleeper_id.state_timer = 0;
+        	grabbed_sleeper_id.reflected_player_id = (player == grabbed_sleeper_id.player) ? noone : self;
+        	grabbed_sleeper_id.refresh_hitboxes = true;
+        	grabbed_sleeper_id.is_grabbed = false;
+        	grabbed_sleeper_id.is_linked = false;
+        	grabbed_sleeper_id.block_idle_state = true;
+			grabbed_sleeper_id.block_active_state = false;
+        	grabbed_sleeper_id.venus_article_reflect = 1;
+            grabbed_sleeper_id.hit_player_id = noone;
+        	grabbed_sleeper_id.hsp = 7*spr_dir;
+        	grabbed_sleeper_id.vsp = -5;
+        	grabbed_sleeper_id.spr_dir = spr_dir;
+        	
+        	var rethrow_hbox = create_hitbox(AT_NSPECIAL, 1, floor(grabbed_sleeper_id.x), floor(grabbed_sleeper_id.y));
+        	grabbed_sleeper_id.active_hitbox = rethrow_hbox;
+        	rethrow_hbox.hsp = grabbed_sleeper_id.hsp;
+        	rethrow_hbox.vsp = grabbed_sleeper_id.vsp;
+        	
+        	grabbed_player_obj = noone;
+        	
+        	spawn_hit_fx(grabbed_sleeper_id.x + 12*spr_dir, grabbed_sleeper_id.y, fx_kragg_small);
     	}
     	
         break;
@@ -343,35 +342,40 @@ switch(attack) {
         	
         	case 1:
         		if (vsp > 0) vsp = 0;
-        		if (window_timer == 1) uspec_rune_angle = 90;
+        		if (window_timer == 1) {
+        			// Be sure to ensure that all variants travel the same distance.
+        			// https://www.desmos.com/calculator/j07obyvalz
+        			var max_speeds = [15, 25, 25, 19];
+        			uspec_max_speed = max_speeds[stance-1];
+        			uspec_rune_angle = 90;
+        		}
         		if (has_rune_uspecaimable && !joy_pad_idle) uspec_rune_angle = joy_dir;
         		break;
         	
         	case 2:
+        		var spd = uspec_max_speed - (uspec_max_speed-5)*(window_timer/window_length);
         		if (!has_rune_uspecaimable) {
-        			vsp = -12;
+        			vsp = -spd;
         			if (window_timer < window_length - 2) break;
         		}
 	    		else {
 	    			can_move = false;
+	    			hsp = lengthdir_x(spd, uspec_rune_angle);
+	        		vsp = lengthdir_y(spd, uspec_rune_angle);
 	    			if (window_timer == 1) {
-	        			hsp = lengthdir_x(10, uspec_rune_angle);
-	        			vsp = lengthdir_y(12, uspec_rune_angle);
-	        			if (!free && uspec_rune_angle % 180 == 0) {
-	        				y -= 1;
-	        				vsp -= gravity_speed;
-	        			}
+	        			if (!free && uspec_rune_angle % 180 == 0) y -= 1;
 	        			break;
 	    			}
         		}
         		// no break (except for the conditional ones above)
         	
         	case 3:
-        		if (window_timer == 1) {
-        			if (!has_rune_uspecaimable) vsp = -5;
+        		if (window == 3) { // yes, it's awkward. this allows the no-break behavior passing
+        			var spd = 5 - 5*(window_timer/window_length);
+        			if (!has_rune_uspecaimable) vsp = -spd;
         			else {
-        				hsp = lengthdir_x(5, uspec_rune_angle);
-	        			vsp = lengthdir_y(5, uspec_rune_angle);
+        				hsp = lengthdir_x(spd, uspec_rune_angle);
+	        			vsp = lengthdir_y(spd, uspec_rune_angle);
         			}
         		}
         		// no break

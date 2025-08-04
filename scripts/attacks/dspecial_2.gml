@@ -5,9 +5,24 @@ var window_length   = 0;
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("nspecial"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("nspecial_hurt"));
-set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
+set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 2);
 
+// Turnaround (manually skipped if unneeded)
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
+    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+// Sprite is manually replaced with walkturn in animation.gml
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_OPPONENT, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_X, -4);
+set_window_value(atk, window_num                        , AG_WINDOW_GRAB_POS_Y, -4);
+set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_VSPEED_TYPE, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_VSPEED, 0);
+window_num++;
+
+// Actual startup
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);

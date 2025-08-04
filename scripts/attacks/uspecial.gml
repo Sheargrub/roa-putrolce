@@ -26,6 +26,9 @@ window_num++;
 
 // Rise
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
+set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
+set_window_value(atk, window_num, AG_WINDOW_HAS_STANCE_LENGTHS, 1);
+set_window_value(atk, window_num, AG_WINDOW_STANCE_LENGTHS, [24, 16, 16, 20]); // Update speeds accordingly in attack_update.gml
 set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 4);
@@ -34,7 +37,6 @@ window_num++;
 // Spin
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
 set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
-set_window_value(atk, window_num, AG_WINDOW_VSPEED, 0);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 7);
 set_window_value(atk, window_num, AG_WINDOW_HAS_SFX, 1);

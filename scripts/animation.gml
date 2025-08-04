@@ -13,16 +13,7 @@ switch(state) {
         break;
     
     // attacks
-    case PS_ATTACK_GROUND:
-        // loop strong charge window, if the loop is set
-        if (window == get_attack_value(attack,AG_STRONG_CHARGE_WINDOW) && get_window_value(attack,window,AG_WINDOW_HAS_CHARGE_LOOP) && strong_charge > 0) {
-            image_index = get_window_value(attack,window,AG_WINDOW_CHARGE_FRAME_START) + (round(strong_charge * get_window_value(attack,window,AG_WINDOW_CHARGE_LOOP_SPEED)) mod get_window_value(attack,window,AG_WINDOW_CHARGE_FRAMES));
-        }
-        break;
     case PS_ATTACK_AIR:
-        if (window == get_attack_value(attack,AG_STRONG_CHARGE_WINDOW) && get_window_value(attack,window,AG_WINDOW_HAS_CHARGE_LOOP) && strong_charge > 0) {
-            image_index = get_window_value(attack,window,AG_WINDOW_CHARGE_FRAME_START) + (round(strong_charge * get_window_value(attack,window,AG_WINDOW_CHARGE_LOOP_SPEED)) mod get_window_value(attack,window,AG_WINDOW_CHARGE_FRAMES));
-        }
         if (attack == AT_USPECIAL) {
             if (7 <= window) {
                 sprite_index = sprite_get("uspecial_grab");
@@ -31,6 +22,15 @@ switch(state) {
             else if (has_rune_uspecaimable && window == 2) {
                 sprite_index = sprite_get("null");
             }
+        }
+        // no break
+    case PS_ATTACK_GROUND:
+        // loop strong charge window, if the loop is set
+        if (window == get_attack_value(attack,AG_STRONG_CHARGE_WINDOW) && get_window_value(attack,window,AG_WINDOW_HAS_CHARGE_LOOP) && strong_charge > 0) {
+            image_index = get_window_value(attack,window,AG_WINDOW_CHARGE_FRAME_START) + (round(strong_charge * get_window_value(attack,window,AG_WINDOW_CHARGE_LOOP_SPEED)) mod get_window_value(attack,window,AG_WINDOW_CHARGE_FRAMES));
+        }
+        if (attack == AT_DSPECIAL_2 && window == 1) {
+            sprite_index = sprite_get("walkturn");
         }
         break;
 }
