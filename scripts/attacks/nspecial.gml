@@ -167,7 +167,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("taunt_skull"));
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("pity_strip8"));
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_ANIM_SPEED    , 0.3);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MASK          , -1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_COLLISION_SPRITE,  sprite_get("taunt_skull_mask"));
