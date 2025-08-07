@@ -37,7 +37,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 10);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);

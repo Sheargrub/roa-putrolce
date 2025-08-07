@@ -18,8 +18,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_syl_uspecial_travel_start"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 4);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
-set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
+//set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -5);
+//set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -44,7 +44,7 @@ var hbox_num = 1;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 4);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 7);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -52);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
@@ -69,7 +69,7 @@ hbox_num++;
 var hbox_num = 2;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 4);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 4);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 6);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -50);

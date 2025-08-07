@@ -94,7 +94,7 @@ switch(attack) {
         //a
         break;
     case AT_DATTACK:
-        if (has_hit) { can_ustrong = true }
+        //a
         break;
     case AT_NAIR:
     	if (window == 1){
@@ -627,10 +627,10 @@ return (noone != collision_line(x1, y1, x2, y2, obj, false, true));
 #define sound_play_cancellable 
 /// sound_play_cancellable(_sound, _looping = false, _panning = noone, _volume = 1, _pitch = 1)
 var _sound = argument[0];
-var _looping = argument_count > 1 ? argument[1] : false;
-var _panning = argument_count > 2 ? argument[2] : noone;
-var _volume = argument_count > 3 ? argument[3] : 1;
-var _pitch = argument_count > 4 ? argument[4] : 1;
+var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
+var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
+var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
+var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -643,7 +643,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2], dir = argument[3];
-var angle = argument_count > 4 ? argument[4] : 0;
+var angle; if (argument_count > 4) angle = argument[4]; else angle = 0;
 
 dfa = angle;
 switch (name) {

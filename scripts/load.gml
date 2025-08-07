@@ -92,6 +92,8 @@ sprite_change_offset("slp_sleepingvfx_temp", 12, 14);
 
 sprite_change_offset("petrify_rocks", 11, 10);
 
+sprite_change_offset("pity", 32, 32); // pity projectile
+
 sprite_change_offset("taunt_skull", 32, 32);
 
 sprite_change_offset("mami_transformation", 32, 48); // compat
