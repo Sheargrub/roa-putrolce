@@ -25,10 +25,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_S
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-//set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 24);
-//    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_LENGTHS, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGTHS, [24, 24, 24, 24]);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 24);
+    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 6);
 //set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true); // handled manually
@@ -39,76 +37,9 @@ set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 4);
+set_num_hitboxes(atk, 1);
 var hbox_num = 1;
 
-set_hitbox_value(atk, hbox_num, HG_STANCE                   , 1);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 44);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -28);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 46);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
-set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 80);
-set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 7);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.25);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.3);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium"));
-
-var hbox_num = 2;
-
-set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 44);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -28);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 46);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
-set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 80);
-set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 7);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.25);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.3);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium"));
-
-var hbox_num = 3;
-
-set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 44);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -28);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 46);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
-set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 80);
-set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 7);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.25);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.3);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 301);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium"));
-
-var hbox_num = 4;
-
-set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
