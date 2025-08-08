@@ -84,7 +84,11 @@ switch(attack) {
     case AT_DTILT:
     	if (window == 3) && !was_parried {
     		var whiff_lag_mult = (has_hit ? 1 : 1.5)
-    		if (window_timer == 1) sound_play_cancellable(get_window_value(attack, window, AG_WINDOW_SFX));
+    		if (window_timer == 1) {
+    			sound_play_cancellable(get_window_value(attack, window, AG_WINDOW_SFX));
+    			if (stance == ST_FAMISHED) set_window_value(attack, window, AG_WINDOW_HUNGER_GAIN, 20);
+    			else set_window_value(attack, window, AG_WINDOW_HUNGER_GAIN, 10);
+    		}
         	if (window_timer >= 10*whiff_lag_mult) iasa_script(); // update woodcock to match!
         	do_sfx_cancel = (window_timer-1 < floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult));
         	can_crouch = false;
