@@ -275,13 +275,11 @@ switch(attack) {
     	break;
     	
     case AT_DSPECIAL:
-    	if (!has_hit_player){
-  move_cooldown[AT_DSPECIAL] = 30;
-		}
     	if (window == 1) {
     		dspec_sfx_instance = noone;
     		dspec_rethrow = false;
     		dspec_rethrow_turnaround = false;
+    		 move_cooldown[AT_DSPECIAL] = 30;
     	}
     	else if (4 <= window && window <= 6) {
     		can_move = false;
