@@ -650,7 +650,7 @@ switch (state) {
         
         if (fspec_pusher != noone) {
         	fspec_pusher.fspec_hit_sleeper = true;
-        	if (fspec_pusher.stance >= 3) {
+        	if (fspec_pusher.stance == 2 || fspec_pusher.stance == 3) {
         		block_active_state = true;
         		block_idle_state = true;
         		reflected_player_id = fspec_pusher;

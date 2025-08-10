@@ -258,7 +258,7 @@ dash_turn_accel                 = 1.5;
 dash_stop_time                  = 4;
 dash_stop_percent               = 0.35;
 ground_friction                 = 0.5;
-moonwalk_accel                  = 1.4;
+moonwalk_accel                  = 1.2;
 
 //                       --aerial movement stats--                            //
 jump_start_time                 = 5;
@@ -269,7 +269,7 @@ djump_speed                     = 11;
 leave_ground_max                = 7;
 leave_ground_max_stances        = [6, 8.5, 7, 6.5];
 max_jump_hsp                    = 6;
-max_jump_hsp_stances            = [5, 7.5, 6, 5.5];
+max_jump_hsp_stances            = [5, 6, 6, 5.5];
 air_max_speed                   = 4;
 air_max_speed_stances           = [3, 5, 4, 4];
 jump_change                     = 3;
@@ -288,7 +288,7 @@ walljump_time                   = 32;
 max_fall                        = 11;
 max_fall_stances                = [9.5, 11, 11, 11];
 fast_fall                       = 14;
-fast_fall_stances               = [12, 14, 14, 14];
+fast_fall_stances               = [12, 14, 14, 15];
 gravity_speed                   = 0.55;
 hitstun_grav                    = 0.51;
 
@@ -303,8 +303,9 @@ knockback_adj                   = 0.95;
 land_time                       = 4; 
 prat_land_time                  = 18;
 wave_land_time                  = 8;
-wave_land_adj                   = 1.28;
-wave_friction                   = 0.33;
+wave_land_adj                   = 1.3;
+wave_land_adj_stances           = [1, 1.4, 1.1, 0.95];
+wave_friction                   = 0.1;
 
 //                          --animation frames--                              //
 crouch_startup_frames           = 1;

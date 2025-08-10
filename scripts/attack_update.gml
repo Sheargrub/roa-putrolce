@@ -214,7 +214,7 @@ switch(attack) {
         		if (!hitpause) hsp = max_hsp * spr_dir;
         		super_armor = (fspec_armor_hits >= 1);
         		
-        		if (fspec_hit_sleeper && stance == 1 || stance == 4 ) {
+        		if (fspec_hit_sleeper && stance == 1 || fspec_hit_sleeper && stance == 4 ) {
         			attack_end();
         			destroy_hitboxes();
         			buffer_pratfall = false;
@@ -223,7 +223,7 @@ switch(attack) {
         			user_event(2); // update move data
         		}
         		
-        		else if (stance == 1 && !hitpause) {
+        		else if (stance == 2 && !hitpause) {
         			can_attack = true;
         			can_jump = !free;
         			buffer_pratfall_paused = free;
@@ -252,8 +252,8 @@ switch(attack) {
     case AT_FSPECIAL_2:
     	can_move = false;
     	if (window == 1 && window_timer == 1) {
-    		hsp = ((stance == 1) ? 4 : 5.5) * spr_dir;
-			vsp = (stance == 1) ? -5 : -6;
+    		hsp = ((stance == 1) ? 5 : 6) * spr_dir;
+			vsp = (stance == 1) ? -6 : -5;
 			num_loops = 0;
 			create_afterimage(20, stance_colors[stance-1]);
     	}

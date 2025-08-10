@@ -24,6 +24,8 @@ air_max_speed = air_max_speed_stances[i];
 max_fall = max_fall_stances[i];
 fast_fall = fast_fall_stances[i];
 
+wave_land_adj = wave_land_adj_stances[i];
+
 if (should_debug) print_debug("Stats refreshed! (" + string(get_gameplay_time()) + ")");
 
 outline_color = stance_outlines[stance-1];
