@@ -1,4 +1,4 @@
-var atk             = AT_FSPECIAL_2; // famished/voracious ~ put to sleep
+var atk             = AT_FSPECIAL_2; // famished/overstuffed ~ put to sleep
 var window_num      = 1;
 var window_length   = 0;
 
@@ -85,7 +85,7 @@ set_hitbox_value(atk, hbox_num, HG_IGNORES_PROJECTILES      , 1);
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_STANCE                   , ST_VORACIOUS);
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , ST_OVERSTUFFED);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 24);
@@ -137,7 +137,7 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_STANCE                   , ST_VORACIOUS);
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , ST_OVERSTUFFED);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 3);

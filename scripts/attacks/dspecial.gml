@@ -14,13 +14,13 @@ set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 //set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
 //    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_STANCE_LENGTHS, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGTHS, [10, 15, 15, 20]);
+set_window_value(atk, window_num                        , AG_WINDOW_STANCE_LENGTHS, [10, 15, 15, 25]);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, sound_get("bair"));
 //set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
-set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [8, 13, 13, 18]);
+set_window_value(atk, window_num                        , AG_WINDOW_STANCE_SFX_FRAMES, [8, 13, 13, 23]);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN, -10);
 set_window_value(atk, window_num                        , AG_WINDOW_HUNGER_GAIN_FRAME, -1);
 window_num++;
@@ -97,7 +97,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE,
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 0);
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 4);
+set_num_hitboxes(atk, 8);
 var hbox_num = 1;
 
 // Initial hit
@@ -111,7 +111,7 @@ set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 88);
 set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 16);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 3);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 5);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 60);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
@@ -182,6 +182,7 @@ set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Grab (Hits sleepe
 hbox_num++;
 
 // Bite
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
@@ -193,7 +194,63 @@ set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 1);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 30);
 set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 20);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 5);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 8);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 40);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 7);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.4);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 16);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.5);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_orca_crunch"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 30);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
+hbox_num++;
+
+// Bite
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , 2);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 26);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -34);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 1);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 30);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 20);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 8);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 50);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 6.5);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.3);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 16);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.5);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , sound_get("single_bite"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 30);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
+hbox_num++;
+
+// Bite
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , 3);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 26);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -34);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 1);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 30);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 20);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 8);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 40);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 6.5);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.4);
@@ -203,6 +260,34 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_orca_crunch"));
+set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 30);
+set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
+set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
+hbox_num++;
+
+// Bite
+set_hitbox_value(atk, hbox_num, HG_STANCE                   , 4);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 26);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -34);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 1);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 30);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 20);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 14);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 9);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 1);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 16);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1.2);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_bite);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , sound_get("ultimate_chomp"));
 set_hitbox_value(atk, hbox_num, HG_HUNGER_GAIN              , 30);
 set_hitbox_value(atk, hbox_num, HG_SLEEPER_TAG              , 2);
 set_hitbox_value(atk, hbox_num, HG_MUNO_HITBOX_NAME         , "Launcher");
