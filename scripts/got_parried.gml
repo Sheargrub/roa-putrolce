@@ -13,3 +13,8 @@ if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.orig_player == player && "s
         my_hitboxID.sleeper_owner.state = (my_hitboxID.sleeper_owner.state <= 9) ? SLP_DESPAWN_PETRIFIED : SLP_DESPAWN_FADE;
     }
 }
+
+if (is_voiced) {
+	var voiceline = sound_get("voice_gotparried"+string(1+random_func(15, 4, true)));
+	sound_play(voiceline);
+}

@@ -14,6 +14,7 @@ post_init_time = get_gameplay_time()+1;
 
 // Voice mode flag: self-explanatory
 is_voiced = get_synced_var(player);
+death_voice_timer = 0; // When 1, plays death SFX
 
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
 
@@ -353,9 +354,10 @@ air_dodge_sound                 = asset_get("sfx_quick_dodge");
 
 //                            --misc--                     //
 
-putrolce_victory_quote = "That was... me-! Not an illusion that was- What?! What's happening?!";
+putrolce_victory_quote = "You should have known not to mess with the real me before fighting me-me!!";
 putrolce_handled_victory_quote = false;
 putrolce_victory_icon = 4;
+putrolce_victory_voiceline = sound_get("voice_putrolcewin");
 
 //                       --ranno bubble visual offset--                       //
 bubble_x                        = 0;

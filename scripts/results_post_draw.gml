@@ -44,6 +44,10 @@ if (winner == player /* && uhc_batteries */)
     }
 }
 
+if (is_voiced && results_timer == 260 && putrolce_victory_voiceline != noone) {
+    sound_play(putrolce_victory_voiceline);
+}
+
 //debug version
 /*
     {
@@ -54,6 +58,8 @@ if (winner == player /* && uhc_batteries */)
                        "lmaoooooo haahahhashahh he said it he said tit im piickle woodmaaaan!!!!11!!");
     }
 */
+
+//print_debug(get_gameplay_time());
 
 //====================================================
 #define draw_win_quote(posx, posy, quote)
@@ -90,10 +96,10 @@ if (winner == player /* && uhc_batteries */)
     var quotes = [];
     var i = 0;
     quotes[i++] = "That fight left me hungry.. Why don’t we go somewhere to eat?";
-    quotes[i++] = "What do you mean you're not a figment? So all that fighting was for nothing!?";
-    quotes[i++] = "Thank God that's over.. I don't know how much longer I could've lasted";
+    quotes[i++] = "Thank God that's over.. I don't know how much longer I could've lasted.";
     quotes[i++] = "I don't have the energy for this! Leave me alone!!!";
-    return quotes[(current_time) % array_length(quotes)];
+    var index = (current_time) % array_length(quotes);
+    return [quotes[index], sound_get("voice_defaultwin"+string(index+1))];
 }
 
 #define get_victory_screen_data()
@@ -104,6 +110,7 @@ if (winner == player /* && uhc_batteries */)
     with (asset_get("pHitBox")) if ("putrolce_victory_screen_array" in self)
     {
         data_array = putrolce_victory_screen_array;
+        other.is_voiced = is_voiced;
         //data_batteries = uhc_batteries;
         break;
     }
@@ -128,7 +135,8 @@ if (winner == player /* && uhc_batteries */)
     {
         //Status messages always take precedence for winner Hypercam
         putrolce_victory_quote = data_array[winner].status_quote;
-        putrolce_victory_icon = data_array[best_player].icon;
+        putrolce_victory_icon = data_array[winner].icon;
+        putrolce_victory_voiceline = noone;
     }
     else
     {
@@ -157,9 +165,12 @@ if (winner == player /* && uhc_batteries */)
 
         putrolce_victory_quote = data_array[best_player].quote;
         putrolce_victory_icon = data_array[best_player].icon;
-        if (string_length(putrolce_victory_quote) < 1)
-        { putrolce_victory_quote = get_random_quote(); 
-          putrolce_victory_icon = 5;    
+        putrolce_victory_voiceline = data_array[best_player].voiceline;
+        if (string_length(putrolce_victory_quote) < 1) {
+            var default_quote = get_random_quote();
+            putrolce_victory_quote = default_quote[0];
+            putrolce_victory_voiceline = default_quote[1];
+            putrolce_victory_icon = 5;    
         }
     }
     

@@ -31,6 +31,42 @@ switch(attack)
     	break;
 }
 
+// Generalistic voiced effects
+var generic_light_attacks = [AT_UTILT, AT_UAIR, AT_BAIR]; // Plays on window 1
+var generic_heavy_attacks = [AT_FAIR, AT_FTILT, AT_DAIR]; // Plays at the end of window 1
+var generic_strong_attacks = [AT_USTRONG, AT_FSTRONG, AT_DSTRONG]; // Plays om window 2
+// These seem to start slowly, so I'm running them at the start of the window
+
+if (!hitpause) { //
+	if (window == 1 && window_timer == 1) {
+		for (var i = 0; i < array_length(generic_light_attacks); i++) {
+			if (attack == generic_light_attacks[i]) {
+				play_voice_light();
+				i = 999;
+			}
+		}
+	}
+	else if (window == 1 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH)) {
+		for (var i = 0; i < array_length(generic_heavy_attacks); i++) {
+			if (attack == generic_heavy_attacks[i]) {
+				play_voice_heavy();
+				i = 999;
+			}
+		}
+	}
+	else if (window == 2 && window_timer == 1) {
+		for (var i = 0; i < array_length(generic_strong_attacks); i++) {
+			if (attack == generic_strong_attacks[i]) {
+				play_voice_heavy();
+				i = 999;
+			}
+		}
+	}
+}
+
+
+
+
 // specific attack behaviour
 switch(attack) {
     case AT_JAB:
@@ -89,9 +125,17 @@ switch(attack) {
     			if (stance == ST_FAMISHED) set_window_value(attack, window, AG_WINDOW_HUNGER_GAIN, 20);
     			else set_window_value(attack, window, AG_WINDOW_HUNGER_GAIN, 10);
     		}
-        	if (window_timer >= 10*whiff_lag_mult) iasa_script(); // update woodcock to match!
+        	else if (window_timer >= 10*whiff_lag_mult) iasa_script(); // update woodcock to match!
         	do_sfx_cancel = (window_timer-1 < floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult));
         	can_crouch = false;
+        	
+        	if (window_timer == floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult)) {
+        		if (is_voiced && random_func(14, 1, false) < 0.6) {
+				    if (random_func(13, 1, false) < 0.03) var voiceline = sound_get("voice_dtilt3");
+				    else var voiceline = sound_get("voice_dtilt"+string(1+random_func(15, 2, true)));
+				    sound_play(voiceline);
+				}
+        	}
     	}
         break;
     case AT_UTILT:
@@ -199,6 +243,10 @@ switch(attack) {
 	        		sound_play(asset_get("sfx_shovel_swing_med1"), 0, noone, 1, 1)
 	        		if (stance > 1) sound_play(asset_get("sfx_kragg_roll_turn"), 0, noone, 0.8 + stance*0.1, 1.4 - stance*0.15)
 	        		if (has_rune_fspecbuffs && stance == 2) hunger_meter += 5; // Decrease hunger cost
+	        		if (is_voiced && random_func(14, 1, false) < 0.7) {
+				    	var voiceline = sound_get("voice_fspec"+string(1+random_func(15, 3, true)));
+				    	sound_play(voiceline);
+			    	}
 	        	}
 	        	
 	        	if (vsp > 0) vsp = 0;
@@ -279,7 +327,8 @@ switch(attack) {
     		dspec_sfx_instance = noone;
     		dspec_rethrow = false;
     		dspec_rethrow_turnaround = false;
-    		 move_cooldown[AT_DSPECIAL] = 40;
+    		move_cooldown[AT_DSPECIAL] = 40;
+    		dspec_voice_played = false;
     	}
     	else if (4 <= window && window <= 6) {
     		can_move = false;
@@ -308,6 +357,13 @@ switch(attack) {
 	        	if (window_timer == window_length && !dspec_rethrow) hsp = 20*spr_dir;
 	        	else hsp = 0;
 	        }
+    	}
+    	if (is_voiced && !dspec_voice_played && window == 4 && window_timer == 1) {
+    		if (random_func(14, 1, false) < 0.7) {
+	    		var voiceline = sound_get("voice_dspec"+string(1+random_func(15, 3, true)));
+	    		sound_play(voiceline);
+    		}
+    		dspec_voice_played = true;
     	}
         break;
     case AT_DSPECIAL_2:
@@ -608,6 +664,27 @@ if (has_rune_sleeperchase) {
 		y -= snap_dist;
 		print_debug(snap_dist);
 	}
+	
+#define play_voice_light
+	if !(is_voiced && random_func(14, 1, false) < 0.4) return noone;
+	if (stance == ST_VORACIOUS) return play_voice_voracious();
+	else {
+		var voiceline = sound_get("voice_lattack"+string(1+random_func(15, 3, true)));
+    	return sound_play(voiceline);
+	}
+	
+#define play_voice_heavy
+	if !(is_voiced && random_func(14, 1, false) < 0.6) return noone;
+	if (stance == ST_VORACIOUS) return play_voice_voracious();
+	else {
+		var voiceline = sound_get("voice_hattack"+string(1+random_func(15, 2, true)));
+    	return sound_play(voiceline);
+	}
+
+#define play_voice_voracious
+	// Strictly a helper function, so no need for initial checks
+	var voiceline = sound_get("voice_vattack"+string(1+random_func(15, 5, true)));
+	return sound_play(voiceline);
 
 #define create_afterimage(in_lifetime, in_color)
 var afterimage = {
@@ -632,10 +709,10 @@ return (noone != collision_line(x1, y1, x2, y2, obj, false, true));
 #define sound_play_cancellable 
 /// sound_play_cancellable(_sound, _looping = false, _panning = noone, _volume = 1, _pitch = 1)
 var _sound = argument[0];
-var _looping; if (argument_count > 1) _looping = argument[1]; else _looping = false;
-var _panning; if (argument_count > 2) _panning = argument[2]; else _panning = noone;
-var _volume; if (argument_count > 3) _volume = argument[3]; else _volume = 1;
-var _pitch; if (argument_count > 4) _pitch = argument[4]; else _pitch = 1;
+var _looping = argument_count > 1 ? argument[1] : false;
+var _panning = argument_count > 2 ? argument[2] : noone;
+var _volume = argument_count > 3 ? argument[3] : 1;
+var _pitch = argument_count > 4 ? argument[4] : 1;
 sound_stop(attack_sfx_instance);
 attack_sfx_instance = sound_play(_sound, _looping, _panning, _volume, _pitch);
 sfx_attack = attack;
@@ -648,7 +725,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2], dir = argument[3];
-var angle; if (argument_count > 4) angle = argument[4]; else angle = 0;
+var angle = argument_count > 4 ? argument[4] : 0;
 
 dfa = angle;
 switch (name) {

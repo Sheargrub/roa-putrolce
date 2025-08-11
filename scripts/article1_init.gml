@@ -12,6 +12,7 @@ ignores_walls = true; // Sometimes performs place_meeting checks for par_blocks,
 spr_dir = player_id.spr_dir;
 
 uses_shader = true;
+is_voiced = player_id.is_voiced;
 
 // Initial movement
 hsp = 3.5*spr_dir;

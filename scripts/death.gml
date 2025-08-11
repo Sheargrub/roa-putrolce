@@ -7,3 +7,7 @@ hunger_meter -= meter_offset;
 user_event(1);
 
 sound_stop(stance_sfx_instance);
+
+if (is_voiced) {
+    death_voice_timer = 10;
+}

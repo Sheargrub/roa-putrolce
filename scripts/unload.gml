@@ -16,6 +16,7 @@ if (!putrolce_handled_victory_quote)
             priority: 0,              // message priority (0 default, 1 builtin, 2 explicit)
             quote:"",                 // message if Hypercam wins against you
             icon: 0,                   // victory icon for putrolce
+            voiceline: noone,
             //===========================================================================
             status_quote: ""         // message for this Hypercam if he wins under certain conditions
             //held_cd_color:-1          // Current color of CD for Hypercam
@@ -33,32 +34,28 @@ if (!putrolce_handled_victory_quote)
             data.priority = 2;
             data.icon = putrolce_victory_icon;
             data.quote = putrolce_victory_quote;
-            //else... >:]
+            data.voiceline = putrolce_victory_voiceline;
             
         }
         else if ("putrolce_victory_quote" in self)
         {
-            var builtin_quote = try_get_quote(url);
-            var builtin_icon = try_get_icon(url);
-            data.icon = builtin_icon;
-            if (string_length(builtin_quote) > 0)
-            {
-                data.priority = 1;
-                data.quote = builtin_quote;
-            }
+            print_debug("overriding");
+            data.icon = putrolce_victory_icon;
+            data.quote = putrolce_victory_quote;
+            data.voiceline = ("putrolce_victory_voiceline" in self) ? putrolce_victory_voiceline : noone;
             init_shader();
         }
         else
         {
             var builtin_icon = try_get_icon(url);
             data.icon = builtin_icon;
-
             
-            var builtin_quote = try_get_quote(url);
-            if (string_length(builtin_quote) > 0)
+            with (other) var builtin_quote = try_get_quote(other.url); // Scope trickery is for the sake of sfx
+            if (string_length(builtin_quote[0]) > 0)
             {
                 data.priority = 1;
-                data.quote = builtin_quote;
+                data.quote = builtin_quote[0];
+                data.voiceline = builtin_quote[1];
             }
             
         }
@@ -73,6 +70,7 @@ if (!putrolce_handled_victory_quote)
     smuggler.length = 60; //will destroy itself automatically after one second.
     
     smuggler.putrolce_victory_screen_array = transfer_array;
+    smuggler.is_voiced = is_voiced;
     //smuggler.uhc_batteries = uhc_batteries;
 }
 /*checklist
@@ -86,17 +84,21 @@ if (!putrolce_handled_victory_quote)
             //      "aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa";
     //=========================================================
     var quote = "";
+    var voiceline = noone;
     switch (char_url)
     {
         //ash characters
         case "3302238950": //Alexis
             quote = "I can't say I’m a big fan of sci-fi or fantasy. But that magic hoverboard does look cool."
+            voiceline = sound_get("voice_alexiswin");
             break; 
         case "3306584099": //Tomoko
             quote = "You should've known better than to chase me if you didn't want to get your ass kicked!"
+            voiceline = sound_get("voice_tomokowin");
             break; 
         case "3307368173": //Sarolyn
             quote = "Don't call me pathetic.. You don't know the hell I've been through to be here!"
+            voiceline = sound_get("voice_sarolynwin");
             break; 
         case "3307937190": //Pastelle
             quote = "Hey, mind lending me that pen? Because I could really use a drink right now!"
@@ -162,7 +164,12 @@ if (!putrolce_handled_victory_quote)
             break;
         case "3482233882": // Commando
             quote = "If you're not gonna eat those weird mushrooms, at least let me take one, you hoarder!"
-        
+            break;
+        case "3353256940": // Twenny
+            quote = "I'm sorry, but I'm not interested in being a janitor! Though the location would be an improvement..."
+            voiceline = sound_get("voice_twennywin");
+            break;
+
         //riptide
         case "3139930266": //Amanita
             quote = "Toasted, roasted, stewed, charred, sliced… I can imagine a million ways to prepare your little minions!"
@@ -239,7 +246,7 @@ if (!putrolce_handled_victory_quote)
         default: break;
     }
 
-return quote
+return [quote, voiceline];
 
 }
 

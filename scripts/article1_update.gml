@@ -191,6 +191,7 @@ if (!ignore_grabs) with pHitBox {
 			
 			// Emulate hit_player stuff
 			print_debug("claimed: " + string(player_claimed));
+			uspecial_hit_player(self, other);
 			with player_id if player_claimed {
 				
 				// Old speed info
@@ -220,6 +221,7 @@ if (!ignore_grabs) with pHitBox {
 						set_attack_value(attack,AG_NUM_WINDOWS,get_hitbox_value(other.attack, other.hbox_num, HG_GRAB_WINDOWS_NUM));
 					}
 				}
+				
 			}
 			
 			// Apply hitpause to article
@@ -257,6 +259,7 @@ if (!ignore_grabs) with pHitBox {
     		// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
 			if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
+			uspecial_hit_player(self, other);
 			
 			// Hitstop/speed
 			with player_id {
@@ -287,6 +290,7 @@ if (!ignore_grabs) with pHitBox {
 				// SFX/VFX
 				spawn_hit_fx(other.x, other.y, hit_effect);
 				if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
+				uspecial_hit_player(self, other);
 				
 				// Hitstop/speed
 				with player_id {
@@ -548,6 +552,11 @@ switch (state) {
         hsp = old_hsp;
         vsp = old_vsp;
     
+    	if (state_timer == 1 && is_voiced) {
+    		var voiceline = sound_get("voice_sleeper"+string(1+random_func(15, 4, true)));
+			sound_play(voiceline);
+    	}
+    
         if (hit_wall || !free || state_timer > 20 || hit_player_id != noone) {
             set_state(SLP_INACTIVE_DEFAULT);
             hit_player_id = noone;
@@ -559,6 +568,11 @@ switch (state) {
     case SLP_ACTIVE_HOMING:
         block_ground_checks = true;
     	var has_target = instance_exists(targetted_player_id);
+    	
+    	if (state_timer == 1 && is_voiced) {
+    		var voiceline = sound_get("voice_sleeper"+string(1+random_func(15, 4, true)));
+			sound_play(voiceline);
+    	}
     	
         if (has_target) {
             var target_move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
@@ -1028,3 +1042,15 @@ venus_late_reflect_frame = venus_reflected;
 
 #define get_center_y(in_player_id)
     return in_player_id.y - floor(in_player_id.char_height/2)
+
+// Name may be slightly misleading -- this emulates the hit_player.gml script behavior for uspecial hitboxes.
+// As such, it actually runs when the sleeper is hit.
+#define uspecial_hit_player(hitbox_id, sleeper_id) {
+	if (hitbox_id.attack == AT_USPECIAL) {
+		if (hitbox_id.hbox_num == 5) sound_play(asset_get("sfx_orca_crunch"), false, noone, 1, 1);
+        if (hitbox_id.hbox_num == 3 || hitbox_id.hbox_num == 4 || hitbox_id.hbox_num == 6) sound_play(sound_get("ftilt"), false, noone, 1, 1);
+        if (hitbox_id.hbox_num == 7) sound_play(asset_get("sfx_bigplant_eat"), false, noone, 1, 1);
+        if (hitbox_id.hbox_num == 8) sound_play(sound_get("ultimate_chomp"), false, noone, 1, 1);
+        if (hitbox_id.hbox_num > 2) spawn_hit_fx(sleeper_id.x, sleeper_id.y, sleeper_id.player_id.fx_bite); 
+	}
+}

@@ -136,6 +136,15 @@ if (do_sfx_cancel && (attack != sfx_attack || (state != PS_ATTACK_AIR && state !
 }
 do_sfx_cancel = false;
 
+// Handle death SFX
+if (death_voice_timer > 0) {
+	death_voice_timer--;
+	if (death_voice_timer == 0) {
+		var voiceline = "voice_death"+string(1+random_func(4, 3, true));
+		sound_play(sound_get(voiceline));
+	}
+}
+
 // ASHe alt vfx
 if (get_player_color(player) == alt_ashe && get_gameplay_time() % 7 == 0 && point_distance(0, 0, hsp, vsp) > 2.5 && visible)
 {
@@ -169,7 +178,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 

@@ -186,6 +186,7 @@ switch(my_hitboxID.attack) {
         if (hbox_num == 4 && grabbed_player_obj != noone && !has_rune_petrifystatus) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
         break;
     case AT_USPECIAL:
+    	// Needs to be mirrored in article1_update!!
         if (my_hitboxID.hbox_num == 5) sound_play(asset_get("sfx_orca_crunch"), false, noone, 1, 1);
         if (my_hitboxID.hbox_num == 3 || my_hitboxID.hbox_num == 4 || my_hitboxID.hbox_num == 6) sound_play(sound_get("ftilt"), false, noone, 1, 1);
         if (my_hitboxID.hbox_num == 7) sound_play(asset_get("sfx_bigplant_eat"), false, noone, 1, 1);
@@ -205,7 +206,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 
