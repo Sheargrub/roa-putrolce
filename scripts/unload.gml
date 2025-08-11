@@ -90,13 +90,13 @@ if (!putrolce_handled_victory_quote)
     {
         //ash characters
         case "3302238950": //Alexis
-            quote = "A wizard engineer? What d'ya make? Robot brooms? Fireball guns? Well, that's just a gun."
+            quote = "I can't say I’m a big fan of sci-fi or fantasy. But that magic hoverboard does look cool."
             break; 
         case "3306584099": //Tomoko
-            quote = "You could've saved yourself an ass-whooping if you'd just left me alone."
+            quote = "You should've known better than to chase me if you didn't want to get your ass kicked!"
             break; 
         case "3307368173": //Sarolyn
-            quote = "Never thought I'd see another girl with purple skin. I liked her style, though!"
+            quote = "Don't call me pathetic.. You don't know the hell I've been through to be here!"
             break; 
         case "3307937190": //Pastelle
             quote = "Hey, mind lending me that pen? Because I could really use a drink right now!"
@@ -106,21 +106,17 @@ if (!putrolce_handled_victory_quote)
             quote = "I gotta admit, you creeped me out at first. And you still do. But you're also pretty nice!"
             break;
         case "3310371100": //Usher
-            quote = "Oh, what I would give to dance in the rain again without smelling of burning petrichor."
+            quote = "...I wish I was as carefree... dancing in the rain without smelling like sulfur..."
             break; 
-        //case "": //Ciela
-        //    quote = ""
-        //    break; 
-        //case "": //Lumi
-        //    quote = "Thank God I'm wearing my big jacket. We can go ice skating now!"
-        //    break; 
-        
-        //case "": //Asra
-        //    quote = ""
-        //    break; 
-        //case "": //Venus
-        //    quote = "Such graceful movements… Say, you wouldn't mind joining me for a dance, right?"
-        //    break; 
+        case "3382637663": //Ciela
+            quote = "Fighting from high up won't help you! Don't you know one stone can kill two birds?"
+            break; 
+        case "3316054693": //Asra
+            quote = "Do not sneak up on me again, or I swear I'll stab YOUR back for real!"
+            break; 
+        case "3316053085": //Venus
+            quote = "I didn't know angels could look so... modern?"
+            break; 
            
         //reapers
         case "2871608790": //Azi
@@ -139,7 +135,7 @@ if (!putrolce_handled_victory_quote)
         //misc
         case "2605377553": // Mal
             var starbucks_event_chance = random_func_2(7, 9, true)
-            if (starbucks_event_chance != 0) quote = "Oi! Stop trying to steal my flow! Go get your own fashion sense!"
+            if (starbucks_event_chance != 0) quote = "... What are you looking at, huh? Get your own fashion sense!"
             else quote = "And this is why you're banned from Starbucks."
             print_debug(starbucks_event_chance)
             break;
@@ -153,7 +149,7 @@ if (!putrolce_handled_victory_quote)
             quote = "Have I seen your face before? Oh! You're one of those “Two-whos”, right?"; 
             break;
         case "2885762133": // Brook
-            quote = "I don't remember ordering a pizza- But I'm definitely not saying no to free food!";
+            quote = "Huh? What do you mean I gotta pay!? I didn't even get a drink with this!";
             break;
         case "1917856427": // Liz
         case "1917856427": // Liz
@@ -164,8 +160,8 @@ if (!putrolce_handled_victory_quote)
         case "2917082599": // Madeline
             quote = "'Part of you'?! I don't even know who you are!!"
             break;
-        //case "": // Commando
-        //    quote = "If you're not gonna eat those weird mushrooms, at least let me take one, you hoarder!"
+        case "3482233882": // Commando
+            quote = "If you're not gonna eat those weird mushrooms, at least let me take one, you hoarder!"
         
         //riptide
         case "3139930266": //Amanita
@@ -174,77 +170,32 @@ if (!putrolce_handled_victory_quote)
         case "2593144115": //Amaya
             quote = "What’s that, Salvbub? No, absolutely not! We can’t eat that snake, she’s also a person!"
             break;
-        case "3139869895": //Arcuin
-            quote = "I can sense some unusual darkness in your ice.. This means I can make Figment-flavored shaved ice!"
-            break;
-        case "3118680316": //Awatsu
-            quote = "Aww! You’re so adorable! Now I feel bad about beating you up.. I’m sorry!"
-            break;
-        case "2490060793": //Barr
-            quote = "So.. what’s up with the magnet? Oh it’s not a magnet? It’s your power meter? Huh… Unorthodox…"
-            break;
-        case "3117219382": //Bhadra
-            quote = "For how much I was expecting to fight a wandering samurai, it sure took this long to happen."
-            break;
         case "1882960192": //Bluey
             quote = "¡No manches! Otro latinoamericano? ¡Qué chido! Vengo de México, y tú?"
-            break;
-        case "2605304929": //Daora
-            quote = "Keep your big, electric claws off-a me, lady. I’m not afraid to leave some awful scratch and bite marks!"
             break;
         case "3120902361": //Desperado
             quote = "What kind of animal were you? I hope you weren’t a Taxawolf, because that would be awkward."
             break;
-        case "2606508459": //Fernet
-            quote = "Ayayay, you sure don’t give up, do you? I could really use your enthusiasm."
-            break;
-        case "2652644223": //Future Ducky
-            quote = "Is everyone a talking animal in the future? It doesn’t seem much different from right now, then."
-            break;
-        case "2605468032": //Gawr Gura
-            quote = "Who the heck is this sassy talking shark girl? And what’s a “vee toobir”?"
-            break;
-        case "3119664631": //Helios
-            quote = "I’m not at the age where I can drink alcohol. Do you serve soft drinks too?"
-            break;
         case "3292951946": //Hex
-            quote = "These Figments are just getting weirder and weirder. I can’t even tell what you’re supposed to be."
+            quote = "These Figments are just getting weirder and weirder. What the hell are you even supposed to be?"
             break;
         case "2817605804": //Jerma986
             quote = "Jesucristo… Thank god we got out of there alive. I’ve never fought something so terrifying!"
-            break;
-        case "2983344228": //Kiku
-            quote = "Why do you smell like baked apples after that fight? Meanwhile I have to settle with monster blood and guts.."
             break;
         case "3109768585": //Koishi
             quote = "Huh??? What just happened? Did I fight a ghost? Was that a figment? I really oughta take it easy…"
             break;
         case "3137450762": //La Reina
-            quote = "Woah.. I didn’t know wrestling was real! I thought every wrestler persona was made up!"
+            quote = "¡No mames, es el R*y Mist*rio!"
             break;
         case "2871136791": //Lode and Puul
             quote = "Geez, you’re really heavy! Salvbub could use a few tricks of yours to move around."
-            break;
-        case "2108895293": //Lumina
-            quote = "Where did you learn to say such solemn things? Aren’t you seven like years old?"
-            break;
-        case "3311683657": //Luna
-            quote = "Your bubbles taste like explosive purple. What does purple taste like? That’s a secret!"
-            break;
-        case "2167624888": //Lyca
-            quote = "Leave my Sleepers alone! They’re not shooting practice! They’re my lunch!"
             break;
         case "2546990424": //Maverick
             quote = "It’s a big monkey! Wow! Incredible!"
             break;
         case "2229832619": //N-A
-            quote = "At this point I can’t tell if you’re a Figment or part of something else. I must take a bite to confirm this."
-            break;
-        case "3284331017": //Nacht
-            quote = "That’s a space animal from the future! I wonder how I would look like in the future."
-            break;
-        case "2035357584": //Nade
-            quote = "I didn’t know there was a war going on! Why are you fighting me!? I’m not the enemy!"
+            quote = "I can’t even tell if you’re a Figment or not. Still, you look pretty appetizing, heh."
             break;
         case "3070186949": //Napstablook
             quote = "You sure you’re up to fight? Because I’m not. We can just chill together instead."
@@ -253,25 +204,10 @@ if (!putrolce_handled_victory_quote)
             quote = "You remind me of this wizard girl I worked with. Can you also make gadgets by any chance?"
             break;
         case "2904134945": //Noelle
-            quote = "Please stop making the air colder! Or else I’m gonna give you a frostbite!"
-            break;
-        case "2005036466": //Penny
-            quote = "Another future fighter!? How many time rifts are open around here!?"
-            break;
-        case "2904498757": //Peppino
-            quote = "Ooh, a tower of pizza? Wait, that’s just Italy."
-            break;
-        case "2820380997": //Roekoko
-            quote = "I’m seein’ double here! Four foxes!"
-            break;
-        case "2561479115": //Rokesha
-            quote = "Hey, how many rations do you have? I’ve always wanted to try ration food!"
-            break;
-        case "2241098230": //Rykenburn
-            quote = "I hate this guy. No reason in particular, he looks like a b- Oh, we can’t say that."
+            quote = "The hell do you mean I remind you of another mean girl? I'm not trying to be mean!"
             break;
         case "2802424939": //Sakuya
-            quote = "That’s an awful amount of knives for a maid to carry. You don’t suppose I can take some with me?"
+            quote = "That’s an awful amount of knives for a maid to carry. You don't mind if I take some, right?"
             break;
         case "2940069199": //Suisei
             quote = "Geez, I didn’t think a newscaster anchor would be so good at fighting, let alone be a pro gamer."
@@ -285,19 +221,21 @@ if (!putrolce_handled_victory_quote)
         case "3294183869": //Vale
             quote = "Why would you give up on such a perfect opportunity? Oh well, at least I can reap the fame!"
             break;
-        case "1917713379": //Valkyrie
-            quote = "What kind of spirits can you summon with your totems? Ooh, can you summon a guiding spirit?"
-            break;
         case "2811386719": //Wally
             quote = "You look like you’d give the biggest hugs. And you sure give some dangerous hugs."
-            break;
-        case "3118007135": //Wren
-            quote = "No lady, the coat ain’t coming off for any reason, not even in this heat!"
             break;
         case "3118659566": //Yono
             quote = "Hey, I got an important letter to send to… If you can find this person, deliver it to him, ok?"
             break;
-        //    break; 
+        case "2811822410": //Hatsune Miku
+            quote = "*nom* ...thish leek ish a little... digital, ya know? *om nom*"
+            break;
+        case "3512110671": //Kasane Teto
+            quote = "*om nom* ..shorry, but that baguette looked sho good! *nom*"
+            break;
+        case "3258475151": //Case Oh
+            quote = "Dios... I never thought I would ever meet someone who eats more than me."
+            break; 
         default: break;
     }
 
@@ -317,85 +255,69 @@ return quote
         case "3115049167": //Saelukune (legacy)
         case "2871608790": //Azi
         case "3079776883": //Kumaki
-        case "3307368173": //Sarolyn
-        case "2885762133": // Brook
         case "3139930266": //Amanita
-        case "3139869895": //Arcuin
         case "1882960192": //Bluey
-        case "2561479115": //Rokesha
+        case "3137450762": //La Reina
+        case "3512110671": //Kasane Teto
             icon = 0;
             break;
             
         //confident snarky
-        case "3311683657": //Luna
         case "1996010699": //Suitcase
         case "3294183869": //Vale
+        case "3382637663": //Ciela
             icon = 1;
             break;
         
         //angry
+        case "2885762133": //Brook
+        case "3307368173": //Sarolyn
         case "3306584099": //Tomoko
         case "2605377553": //Mal
         case "3136330641": //Vakna
         case "2917082599": //Madeline
         case "2593144115": //Amaya
-        case "2605304929": //Daora
-        case "2983344228": //Kiku
         case "2871136791": //Lode and Puul
-        case "2167624888": //Lyca
-        case "2035357584": //Nade
-        case "2904134945": //Noelle
-        case "2005036466": //Penny
-        case "3118007135": //Wren
+        case "3316054693": //Asra
+        case "3482233882": // Commando
             icon = 2;
             break;
         
         
         //sad
         case "3310371100": //Usher
-        case "3118680316": //Awatsu
         case "3120902361": //Desperado
         case "2817605804": //Jerma986
-        case "2108895293": //Lumina
-        case "2241098230": //Rykenburn
         case "3118659566": //Yono
+        case "2904134945": //Noelle
+        case "3258475151": //CaseOh
             icon = 3;
             break;
         
         //confused
         case "3302238950": //Alexis
-        case "2778789055": // Po Gumbo 
+        case "2778789055": //Po Gumbo 
         case "2977835488": //Qoedil
-        case "2802914735": // Ayaka
-        case "2490060793": //Barr
-        case "2652644223": //Future Ducky
-        case "2605468032": //Gawr Gura
+        case "2802914735": //Ayaka
         case "3292951946": //Hex
         case "3109768585": //Koishi
-        case "3284331017": //Nacht
-        case "2820380997": //Roekoko
         case "2802424939": //Sakuya
         case "2997493298": //Truck-kun
+        case "3316053085": //Venus
+        case "2811822410": //Hatsune Miku
             icon = 4;
             break;
             
         //normal
         case "2965700442": // Humanthem
-        case "1917856427": // Liz
-        case "1917856427": // Liz
+        case "1917856427": //Liz
         case "2108895293": //Lumina
         case "2064167290": //Hana
-        case "3117219382": //Bhadra
-        case "2606508459": //Fernet
-        case "3119664631": //Helios
-        case "3137450762": //La Reina
         case "2546990424": //Maverick
         case "2229832619": //N-A
         case "3070186949": //Napstablook
         case "2456124960": //Nate
-        case "2904498757": //Peppino
         case "2940069199": //Suisei
-        case "1917713379": //Valkyrie
         case "2811386719": //Wally
             icon = 5;
             break;

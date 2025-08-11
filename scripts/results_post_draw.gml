@@ -6,7 +6,7 @@ if ("putrolce_initialized_victory_screen" not in self)
 {
     putrolce_initialized_victory_screen = true;
     //defaults to prevent errors
-    putrolce_victory_quote = "ermmmm that wasnt supposed to happen";
+    putrolce_victory_quote = "the hell did you do!? that wasnt supposed to happen";
     putrolce_victory_icon = 0;
     
     //magic happens in there
@@ -89,10 +89,10 @@ if (winner == player /* && uhc_batteries */)
 {
     var quotes = [];
     var i = 0;
-    quotes[i++] = "Another fight won! I should treat myself to something delicious tonight.";
+    quotes[i++] = "That fight left me hungry.. Why don’t we go somewhere to eat?";
     quotes[i++] = "What do you mean you're not a figment? So all that fighting was for nothing!?";
-    quotes[i++] = "Hey, I know we just beat each other up, but do you have any food by chance? I'm still REALLY hungry.";
-    quotes[i++] = "I actually hate fighting- so why don't we forget about this and raid the nearest endless buffet?";
+    quotes[i++] = "Thank God that's over.. I don't know how much longer I could've lasted";
+    quotes[i++] = "I don't have the energy for this! Leave me alone!!!";
     return quotes[(current_time) % array_length(quotes)];
 }
 
