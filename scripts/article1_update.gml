@@ -833,6 +833,9 @@ if (should_die) {
 	    despawn_fx.depth = depth;
 	    despawn_fx.spr_dir = spr_dir;
 	    sound_play(despawn_sfx);
+	    if (is_voiced && state != SLP_DESPAWN_FADE && state != SLP_DESPAWN_PETRIFIED){
+	    	sound_play(despawn_vo)
+	    }
 	}
 	if (!block_despawn_cooldown && player_id.nspec_max_sleepers_active == player_id.nspec_sleepers_active) {
 		player_id.move_cooldown[AT_NSPECIAL] = despawn_cooldown;

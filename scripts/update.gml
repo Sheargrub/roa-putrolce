@@ -4,6 +4,12 @@ if (should_debug && taunt_pressed && shield_pressed) {
 	hunger_locked = !hunger_locked;
 }
 
+//Match start voicelines
+if (state == PS_SPAWN){
+	if (state_timer == 2 + (player-1))
+		intro_voiceline = sound_play(sound_get("voice_matchstart" + (string(random_func(player, 3, true) + 1))), false, noone, 1, 1);
+}
+
 // Initialize woodcock hook
 if (get_gameplay_time() == post_init_time && get_match_setting(SET_PRACTICE)) {
 	with asset_get("pet_obj") {
@@ -178,7 +184,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir = argument_count > 3 ? argument[3] : 0;
+var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
 
 switch (name) {
 	default: 

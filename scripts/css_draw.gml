@@ -54,8 +54,8 @@ if (variable_instance_exists(id,"qe")){
 if (!variable_instance_exists(id,"ae") || ye == true){
 	
 	//Special alt indices
-	alt_ashe = 20;
-	alt_stanced = 23;
+	alt_ashe = 21;
+	alt_stanced = 24;
 	
 	// Special alt: colored stances
 	stance = 3;
@@ -155,38 +155,38 @@ if (!variable_instance_exists(id,"ae") || ye == true){
 	ce[17,1] = "Welcome to Chaos"
 	ce[17,2] = "Based on Kaiman from Dorohedoro."
 	
-	ce[18,0] = make_color_rgb(250, 200, 228)
-	ce[18,1] = "Pastel Clouds"
-	ce[18,2] = "Eat the sky."
+	ce[18,0] = make_color_rgb(136, 23, 106)
+	ce[18,1] = "Chalk Eater"
+	ce[18,2] = "Based on Susie from Deltarune"
 	
-	ce[19,0] = make_color_rgb(144, 83, 194)
-	ce[19,1] = "Generous Envy"
-	ce[19,2] = "Eat your heart out."
+	ce[19,0] = make_color_rgb(250, 200, 228)
+	ce[19,1] = "Pastel Clouds"
+	ce[19,2] = "Eat the sky."
 	
-    ce[20,0] = make_color_rgb(98, 66, 214)
-	ce[20,1] = "All-Starve"
-	ce[20,2] = "Based on the color scheme for the All-Star Heroines pack."
+	ce[20,0] = make_color_rgb(144, 83, 194)
+	ce[20,1] = "Generous Envy"
+	ce[20,2] = "Eat your heart out."
 	
-    ce[21,0] = make_color_rgb(240, 194, 46)
-	ce[21,1] = "Feasting & Winning"
-	ce[21,2] = "Based on the color scheme for the Black Lives Winning group."
+    ce[21,0] = make_color_rgb(98, 66, 214)
+	ce[21,1] = "All-Starve"
+	ce[21,2] = "Based on the color scheme for the All-Star Heroines pack."
 	
-	ce[22,0] = make_color_rgb(48, 236, 0)
-	ce[22,1] = "Gutrolce"
-	ce[22,2] = "Putrolce's evil twin from lore who is kind of green."
+    ce[22,0] = make_color_rgb(240, 194, 46)
+	ce[22,1] = "Feasting & Winning"
+	ce[22,2] = "Based on the color scheme for the Black Lives Winning group."
 	
-    ce[23,0] = make_color_rgb(152, 168, 181)
-	ce[23,1] = "Colorful Stances"
-	ce[23,2] = "Changes colors based on your current stance."
+	ce[23,0] = make_color_rgb(48, 236, 0)
+	ce[23,1] = "Gutrolce"
+	ce[23,2] = "Putrolce's evil twin from lore who is kind of green."
 	
-	ce[24,0] = make_color_rgb(206, 17, 38)
-	ce[24,1] = "Mexico"
-	ce[24,2] = "
+    ce[24,0] = make_color_rgb(152, 168, 181)
+	ce[24,1] = "Colorful Stances"
+	ce[24,2] = "Changes colors based on your current stance."
+	
+	ce[25,0] = make_color_rgb(206, 17, 38)
+	ce[25,1] = "Mexico"
+	ce[25,2] = "
 	hell yes."
-	
-	ce[25,0] = make_color_rgb(19, 45, 101)
-	ce[25,1] = "Riptide"
-	ce[25,2] = "Based on the yearly fighting game event Riptide"
 	
 	ce[26,0] = make_color_rgb(206, 17, 38)
 	ce[26,1] = "Undefined"
@@ -364,7 +364,7 @@ return string_width_ext(argument[9], argument[4], argument[5]);
 
 #define stomachDraw()
 var x1 = argument[0], y1 = argument[1], color = argument[2], out_color = argument[3], alpha = argument[4];
-var stanced = argument_count > 5 ? argument[5] : 0;;
+var stanced; if (argument_count > 5) stanced = argument[5]; else stanced = 0;;
 
 var spr = stanced ? sprite_get("stomachCSS_stanced") : sprite_get("stomachCSS");
 var in_col = stanced ? c_white : argument[2];

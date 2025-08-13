@@ -95,6 +95,7 @@ inactive_flash_time = inactive_time-100;
 
 despawn_vfx = player_id.fx_kragg_small;
 despawn_sfx = asset_get("sfx_kragg_rock_shatter");
+despawn_vo = sound_get("voice_sleeperdie")
 
 // inital hitbox
 petrified_hitbox = create_article_hitbox(AT_NSPECIAL, 1, x, y)

@@ -207,8 +207,8 @@ sleeperchase_used = false;
 
 
 //Special alt indices
-alt_ashe = 20;
-alt_stanced = 23;
+alt_ashe = 21;
+alt_stanced = 24;
 
 // Outline management
 // Can be used to give distinct outline colors to specific alts,
@@ -358,6 +358,7 @@ putrolce_victory_quote = "You should have known not to mess with the real me bef
 putrolce_handled_victory_quote = false;
 putrolce_victory_icon = 4;
 putrolce_victory_voiceline = sound_get("voice_putrolcewin");
+intro_voiceline = noone;
 
 //                       --ranno bubble visual offset--                       //
 bubble_x                        = 0;

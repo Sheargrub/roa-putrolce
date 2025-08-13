@@ -1,3 +1,17 @@
+css_intro_timer = 0;
+css_intro_state = 0;
+
+//kill victory screen audio
+for(var i = 1; i < 4; i++){
+  sound_stop(sound_get("voice_defaultwin"+string(i)));
+}
+
+//kill specific win quotes
+sound_stop(sound_get("voice_alexiswin"));
+sound_stop(sound_get("voice_putrolcewin"));
+sound_stop(sound_get("voice_sarolynwin"));
+sound_stop(sound_get("voice_tomokowin"));
+sound_stop(sound_get("voice_twennywin"));
 
 // Voice mode button vars
 if (get_synced_var(player) != clamp(get_synced_var(player), 0, 1)) set_synced_var(player, 0); 
