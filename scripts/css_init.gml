@@ -25,8 +25,8 @@ ht_x_default = 74;
 ht_y_default = 178;
 ht_x_cpu = 60;
 ht_y_cpu = 178;
-ht_x_online = 172;
-ht_y_online = 36;
+ht_x_online = 180;
+ht_y_online = 38;
 
 ht_x = ht_x_default;
 ht_y = ht_y_default;
