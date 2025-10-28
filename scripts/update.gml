@@ -21,7 +21,6 @@ if (get_gameplay_time() == post_init_time && get_match_setting(SET_PRACTICE)) {
 	}
 }
 
-
 //#region Gameplay behavior
 
 // FSpec cooldown management
@@ -184,7 +183,7 @@ var dfg; //fg_sprite value
 var dfa = 0; //draw_angle value
 var dust_color = 0;
 var x = argument[0], y = argument[1], name = argument[2];
-var dir; if (argument_count > 3) dir = argument[3]; else dir = 0;
+var dir = argument_count > 3 ? argument[3] : 0;
 
 switch (name) {
 	default: 
