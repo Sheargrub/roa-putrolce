@@ -125,7 +125,13 @@ switch(attack) {
     			if (stance == ST_FAMISHED) set_window_value(attack, window, AG_WINDOW_HUNGER_GAIN, 20);
     			else set_window_value(attack, window, AG_WINDOW_HUNGER_GAIN, 10);
     		}
-        	else if (window_timer >= 10*whiff_lag_mult) iasa_script(); // update woodcock to match!
+        	else if (window_timer >= 10*whiff_lag_mult) { // update woodcock to match!
+        		// IASA only on press inputs to avoid frustrating situations where held inputs would cancel the hunger gain.
+        		// Yes all of these extra strong checks are necessary, thank you Dan
+        		if (is_attack_pressed(DIR_ANY) || is_special_pressed(DIR_ANY) || is_strong_pressed(DIR_ANY) || up_strong_pressed || right_strong_pressed || left_strong_pressed || down_strong_pressed || shield_pressed || jump_pressed || tap_jump_pressed || taunt_pressed || left_pressed || right_pressed) {
+        			iasa_script(); 
+        		}
+        	}
         	do_sfx_cancel = (window_timer-1 < floor(get_window_value(attack, window, AG_WINDOW_HUNGER_GAIN_FRAME)*whiff_lag_mult));
         	can_crouch = false;
         	
