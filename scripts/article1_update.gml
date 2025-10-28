@@ -922,7 +922,7 @@ venus_late_reflect_frame = venus_reflected;
             if (old_state < SLP_ACTIVE_RUSH) transition_timer = 0;
             move_speed = fast_homing ? 10 : -15;
             if (instance_exists(targetted_player_id) && !(x == targetted_player_id.x && y == targetted_player_id.y)) {
-            	move_angle = 270 + (50*spr_dir);
+            	move_angle = point_direction(x, y, targetted_player_id.x, get_center_y(targetted_player_id));
             }
             else move_angle = (spr_dir == 1) ? 0 : 180;
             hsp = lengthdir_x(move_speed, move_angle);

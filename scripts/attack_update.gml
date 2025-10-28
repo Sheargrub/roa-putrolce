@@ -405,21 +405,35 @@ switch(attack) {
         if (window == 1 || window >= 10) can_move = false;
         if (window < 5 || window == 9) can_wall_jump = true;
         
+        if (instance_exists(uspec_vfx)) {
+        	uspec_vfx.depth = depth+1;
+        	uspec_vfx.x = x;
+        	uspec_vfx.y = y-30;
+        }
+        
         switch window {
         	
         	case 1:
         		if (vsp > 0) vsp = 0;
+        		hsp *= 0.92;
+        		vsp *= 0.92;
         		if (window_timer == 1) {
         			// Be sure to ensure that all variants travel the same distance.
-        			// https://www.desmos.com/calculator/j07obyvalz
-        			var max_speeds = [15, 25, 25, 19];
+        			// https://www.desmos.com/calculator/j07obyvalz (note: included numbers outdated)
+        			var max_speeds = [15, 21.67, 21.67, 19];
         			uspec_max_speed = max_speeds[stance-1];
         			uspec_rune_angle = 90;
+        			
+        			// Startup tells
+        			sound_play(asset_get('sfx_absa_whip_charge'));
+        			uspec_vfx = spawn_hit_fx(x, y-30, HFX_ABY_PROJ_HIT);
+        			uspec_vfx.depth = depth+1;
         		}
         		if (has_rune_uspecaimable && !joy_pad_idle) uspec_rune_angle = joy_dir;
         		break;
         	
         	case 2:
+        		uspec_vfx = noone;
         		var spd = uspec_max_speed - (uspec_max_speed-5)*(window_timer/window_length);
         		if (!has_rune_uspecaimable) {
         			vsp = -spd;

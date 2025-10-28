@@ -16,7 +16,7 @@ set_attack_value(atk, AG_GRABS_SLEEPERS, 1);
 
 // Startup
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
-set_window_value(atk, window_num, AG_WINDOW_LENGTH, 15);
+set_window_value(atk, window_num, AG_WINDOW_LENGTH, 20);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 4);
 set_window_value(atk, window_num, AG_WINDOW_HAS_SFX, 1);
 set_window_value(atk, window_num, AG_WINDOW_SFX_FRAME, 14);
@@ -28,20 +28,24 @@ window_num++;
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
 set_window_value(atk, window_num, AG_WINDOW_HAS_STANCE_LENGTHS, 1);
-set_window_value(atk, window_num, AG_WINDOW_STANCE_LENGTHS, [24, 16, 16, 20]); // Update speeds accordingly in attack_update.gml
-set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
+set_window_value(atk, window_num, AG_WINDOW_STANCE_LENGTHS, [24, 18, 18, 20]); // Update speeds accordingly in attack_update.gml
+set_window_value(atk, window_num, AG_WINDOW_LENGTH, 18);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 4);
+set_window_value(atk, window_num, AG_WINDOW_HAS_SFX, 1);
+set_window_value(atk, window_num, AG_WINDOW_SFX_FRAME, 15);
+set_window_value(atk, window_num, AG_WINDOW_SFX, asset_get("sfx_ori_stomp_spin"));
+set_window_value(atk, window_num, AG_WINDOW_STANCE_SFX_FRAMES, [22, 16, 16, 18]);
 window_num++;
 
 // Spin
 set_window_value(atk, window_num, AG_WINDOW_TYPE, 1);
-set_window_value(atk, window_num, AG_WINDOW_LENGTH, 16);
+set_window_value(atk, window_num, AG_WINDOW_LENGTH, 20);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num, AG_WINDOW_ANIM_FRAME_START, 7);
 set_window_value(atk, window_num, AG_WINDOW_HAS_SFX, 1);
-set_window_value(atk, window_num, AG_WINDOW_SFX_FRAME, 8);
-set_window_value(atk, window_num, AG_WINDOW_SFX, asset_get("sfx_ori_stomp_spin"));
+set_window_value(atk, window_num, AG_WINDOW_SFX_FRAME, 19);
+set_window_value(atk, window_num, AG_WINDOW_SFX, asset_get("sfx_shovel_swing_med1"));
 window_num++;
 
 // Drop

@@ -32,3 +32,4 @@ buffer_pratfall_paused = false;
 if (state != PS_PRATFALL && move_cooldown[attack] <= 0) user_event(2);
 
 sleeperchase_used = false;
+uspec_vfx = noone;
