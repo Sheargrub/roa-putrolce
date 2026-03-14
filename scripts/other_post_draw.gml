@@ -2,7 +2,7 @@
 if ("putrolce_status_owner" not in self || !instance_exists(other_player_id) || "is_putrolce" not in other_player_id) exit;
 
 // Petrified visual
-if ((other_player_id.attack == AT_DSPECIAL && other_player_id.grabbed_player_obj == self) || putrolce_status_owner = other_player_id.player) {
+if ((other_player_id.attack == AT_DSPECIAL && other_player_id.grabbed_player_id == self) || putrolce_status_owner = other_player_id.player) {
     
     // Default behavior
     if ("putrolce_petrify_spr" not in self) {

@@ -194,7 +194,7 @@ switch(attack) {
     		}
     		if (window == 6 && window_timer == 1) {
     			set_attack_value(attack, AG_CATEGORY, 2);
-    			if (grabbed_player_obj == noone) set_window_value(attack, 6, AG_WINDOW_LENGTH, 2);
+    			if (grabbed_player_id == noone) set_window_value(attack, 6, AG_WINDOW_LENGTH, 2);
     		}
     		if (window == 7 && !hitpause) vsp = -11;
     		if (window == 8 && !hitpause) {
@@ -393,7 +393,7 @@ switch(attack) {
         	rethrow_hbox.hsp = grabbed_sleeper_id.hsp;
         	rethrow_hbox.vsp = grabbed_sleeper_id.vsp;
         	
-        	grabbed_player_obj = noone;
+        	grabbed_player_id = noone;
         	
         	spawn_hit_fx(grabbed_sleeper_id.x + 12*spr_dir, grabbed_sleeper_id.y, fx_kragg_small);
     	}
@@ -509,7 +509,7 @@ switch(attack) {
         	case 11:
         		// Hunger: adjust grab counts
         		if (window_timer == 1) {
-	        		if (stance == 1 || stance == 4 || grabbed_player_obj == noone) {
+	        		if (stance == 1 || stance == 4 || grabbed_player_id == noone) {
 		        		set_window_value(attack, window, AG_WINDOW_GOTO, 14);
 		        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_X, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_X));
 		        		set_window_value(attack, window, AG_WINDOW_GRAB_POS_Y, get_window_value(attack, 13, AG_WINDOW_GRAB_POS_Y));
@@ -567,23 +567,23 @@ if (!hitpause && !smash_charging) {
 }
 
 // command grab code
-if (instance_exists(grabbed_player_obj) && get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT)) {
+if (instance_exists(grabbed_player_id) && get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT)) {
 	
 	// first, drop the grabbed player if this is the last window of the attack, or if they somehow escaped hitstun.
-	if (window >= get_attack_value(attack, AG_NUM_WINDOWS)) { grabbed_player_obj = noone; }
-	else if (grabbed_player_obj.state != PS_HITSTUN && grabbed_player_obj.state != PS_HITSTUN_LAND) { grabbed_player_obj = noone; }
+	if (window >= get_attack_value(attack, AG_NUM_WINDOWS)) { grabbed_player_id = noone; }
+	else if (grabbed_player_id.state != PS_HITSTUN && grabbed_player_id.state != PS_HITSTUN_LAND) { grabbed_player_id = noone; }
 	
 	else {
 		var hitpause_pull = get_window_value(attack, window, AG_WINDOW_GRAB_HITPAUSE_PULL);
 		
 		// keep the grabbed player in hitstop until the grab is complete.
-		grabbed_player_obj.hitstop = 2;
-		grabbed_player_obj.hitpause = true;
+		grabbed_player_id.hitstop = 2;
+		grabbed_player_id.hitpause = true;
 		
 		// if this is the first frame of a window, store the grabbed player's relative position.
 		if (window_timer <= 1) {
-			grabbed_player_relative_x = grabbed_player_obj.x - x;
-			grabbed_player_relative_y = grabbed_player_obj.y - y;
+			grabbed_player_relative_x = grabbed_player_id.x - x;
+			grabbed_player_relative_y = grabbed_player_id.y - y;
 		}
 		
 		// pull opponent to window's grab positions
@@ -602,24 +602,24 @@ if (instance_exists(grabbed_player_obj) && get_window_value(attack, window, AG_W
 			if (hitpause) {
 				var current = floor(hitstop_full - hitstop);
 				var duration = floor(hitstop_full)
-				grabbed_player_obj.x = x + ease_circOut( round(grabbed_player_relative_x), pull_to_x, current, duration);
-				grabbed_player_obj.y = y + ease_circOut( round(grabbed_player_relative_y), pull_to_y, current, duration);
+				grabbed_player_id.x = x + ease_circOut( round(grabbed_player_relative_x), pull_to_x, current, duration);
+				grabbed_player_id.y = y + ease_circOut( round(grabbed_player_relative_y), pull_to_y, current, duration);
 			}
 			else { // upon leaving hitpause, just lock their position
-				grabbed_player_obj.x = x + pull_to_x;
-				grabbed_player_obj.y = y + pull_to_y;
+				grabbed_player_id.x = x + pull_to_x;
+				grabbed_player_id.y = y + pull_to_y;
 			}
 		}
 		
 		else { // using an easing function, smoothly pull the opponent into the grab over the duration of this window.
-			grabbed_player_obj.x = x + ease_circOut( round(grabbed_player_relative_x), pull_to_x, window_timer, window_length);
-			grabbed_player_obj.y = y + ease_circOut( round(grabbed_player_relative_y), pull_to_y, window_timer, window_length);
+			grabbed_player_id.x = x + ease_circOut( round(grabbed_player_relative_x), pull_to_x, window_timer, window_length);
+			grabbed_player_id.y = y + ease_circOut( round(grabbed_player_relative_y), pull_to_y, window_timer, window_length);
 		}
 		
 	}
 	
-} else if (instance_exists(grabbed_player_obj)) { //if grabbed player exists but attack no longer grabs
-	grabbed_player_obj = noone;
+} else if (instance_exists(grabbed_player_id)) { //if grabbed player exists but attack no longer grabs
+	grabbed_player_id = noone;
 }
 
 // walljump code

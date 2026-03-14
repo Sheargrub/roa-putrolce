@@ -19,4 +19,4 @@ if (is_voiced) {
 	sound_play(voiceline);
 }
 
-if (grabbed_player_obj == hit_player_obj) grabbed_player_obj = noone;
+if (grabbed_player_id == hit_player_obj) grabbed_player_id = noone;

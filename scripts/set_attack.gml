@@ -9,7 +9,7 @@ nspec_extended_cooldown = false;
 // reset grab variables on new attack
 // if your grab uses different attack indexes, you may want to add additional
 // checks to prevent accidental grab releases
-grabbed_player_obj = noone; 
+grabbed_player_id = noone; 
 grabbed_player_relative_x = 0;
 grabbed_player_relative_y = 0;
 if (attack != AT_DSPECIAL_2) grabbed_sleeper_id = noone;

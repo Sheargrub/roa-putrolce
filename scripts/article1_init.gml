@@ -43,7 +43,7 @@ active_hitbox = noone;
 hit_player_id = noone;
 
 // Grab variables
-grabbed_player_id = noone;
+grabbing_player_id = noone;
 is_grabbed = false;
 is_linked = false; // similar to is_grabbed, but used specifically for sleeper tag 4
 ignore_grabs = false;

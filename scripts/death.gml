@@ -12,4 +12,4 @@ if (is_voiced) {
     death_voice_timer = 10;
 }
 
-grabbed_player_obj = noone;
+grabbed_player_id = noone;

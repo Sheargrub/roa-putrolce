@@ -180,9 +180,9 @@ if (!ignore_grabs) with pHitBox {
 				is_grabbed = player_claimed && (other.putrolce_sleeper_tag == 1);
 				is_linked = player_claimed;
 				grab_petrified = (other.attack == AT_DSPECIAL);
-				grabbed_player_id = other.player_id;
-				relative_x = floor(x - grabbed_player_id.x);
-				relative_y = floor(y - grabbed_player_id.y);
+				grabbing_player_id = other.player_id;
+				relative_x = floor(x - grabbing_player_id.x);
+				relative_y = floor(y - grabbing_player_id.y);
 			}
 			
 			// SFX/VFX
@@ -248,7 +248,7 @@ if (!ignore_grabs) with pHitBox {
 			other.is_linked = false;
 			other.is_grabbed = false;
 			other.ignore_grabs = true;
-			other.grabbed_player_id = player_id;
+			other.grabbing_player_id = player_id;
 			var hunger_value = other.hunger_value;
 			with player_id {
 				hunger_change = hunger_value;
@@ -258,7 +258,7 @@ if (!ignore_grabs) with pHitBox {
     		// Emulate hit_player stuff
     		// SFX/VFX
 			spawn_hit_fx(other.x, other.y, hit_effect);
-			if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
+			if (player_id.grabbed_player_id == noone) sound_play(sound_effect);
 			uspecial_hit_player(self, other);
 			
 			// Hitstop/speed
@@ -289,7 +289,7 @@ if (!ignore_grabs) with pHitBox {
 				
 				// SFX/VFX
 				spawn_hit_fx(other.x, other.y, hit_effect);
-				if (player_id.grabbed_player_obj == noone) sound_play(sound_effect);
+				if (player_id.grabbed_player_id == noone) sound_play(sound_effect);
 				uspecial_hit_player(self, other);
 				
 				// Hitstop/speed
@@ -320,17 +320,17 @@ if (hitstop > 0 || is_grabbed || is_linked) {
 	hsp = 0;
 	vsp = 0;
     
-    if (grabbed_player_id.state != PS_ATTACK_GROUND && grabbed_player_id.state != PS_ATTACK_AIR) {
+    if (grabbing_player_id.state != PS_ATTACK_GROUND && grabbing_player_id.state != PS_ATTACK_AIR) {
     	is_grabbed = false;
     	is_linked = false;
     }
     
     else if (is_grabbed || is_linked) {
-    	spr_dir = grabbed_player_id.spr_dir * -1;
+    	spr_dir = grabbing_player_id.spr_dir * -1;
     	// template grab code from attack_update
-    	with (grabbed_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
+    	with (grabbing_player_id) var is_grabbing = get_window_value(attack, window, AG_WINDOW_GRAB_OPPONENT);
     	if (is_grabbing) {
-			with (grabbed_player_id) {
+			with (grabbing_player_id) {
 				
 				var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
 				var hitpause_pull = get_window_value(attack, window, AG_WINDOW_GRAB_HITPAUSE_PULL);

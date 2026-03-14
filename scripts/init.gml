@@ -123,7 +123,7 @@ stance_colors = [   // Mostly for fspecial afterimages
 afterimage_list = ds_list_create();
 
 // Grab management
-grabbed_player_obj              = noone;// the player that got grabbed
+grabbed_player_id              = noone;// the player that got grabbed
 grabbed_player_relative_x       = 0;    // x position in relation to the player, 
                                         // for the grabbed player to be moved to
 grabbed_player_relative_y       = 0;    // y position in relation to the player, 

@@ -88,24 +88,24 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_GRAB) == t
 		}
 		
 		//if this attack hasn't grabbed a player yet, grab the player we just hit.
-		if (!instance_exists(grabbed_player_obj)) { grabbed_player_obj = hit_player_obj; }
+		if (!instance_exists(grabbed_player_id)) { grabbed_player_id = hit_player_obj; }
 		
 		//if this attack has already grabbed a different opponent, prioritize grabbing the closest opponent.
 		else {
-			var old_grab_distance = point_distance(x, y, grabbed_player_obj.x, grabbed_player_obj.y);
+			var old_grab_distance = point_distance(x, y, grabbed_player_id.x, grabbed_player_id.y);
 			var new_grab_distance = point_distance(x, y,     hit_player_obj.x,     hit_player_obj.y);
-			if (new_grab_distance < old_grab_distance) { grabbed_player_obj = hit_player_obj; }
+			if (new_grab_distance < old_grab_distance) { grabbed_player_id = hit_player_obj; }
 			// setting it in case of an attack that continues the current window
-			grabbed_player_relative_x = grabbed_player_obj.x - x;
-			grabbed_player_relative_y = grabbed_player_obj.y - y;
+			grabbed_player_relative_x = grabbed_player_id.x - x;
+			grabbed_player_relative_y = grabbed_player_id.y - y;
 		}
 		
 	}
 }
 
 // break grab
-if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_BREAKS_GRAB) == true && instance_exists(grabbed_player_obj)) {
-	grabbed_player_obj = noone;
+if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_BREAKS_GRAB) == true && instance_exists(grabbed_player_id)) {
+	grabbed_player_id = noone;
 }
 
 
@@ -183,7 +183,7 @@ switch(my_hitboxID.attack) {
         	sound_play(sound_get("cut2"));
         	sound_play(asset_get("sfx_kragg_rock_shatter"), 0, noone, 0.9, 1.0)
         }
-        if (hbox_num == 4 && grabbed_player_obj != noone && !has_rune_petrifystatus) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
+        if (hbox_num == 4 && grabbed_player_id != noone && !has_rune_petrifystatus) spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kragg_big);
         break;
     case AT_USPECIAL:
     	// Needs to be mirrored in article1_update!!
