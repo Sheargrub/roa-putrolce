@@ -18,3 +18,5 @@ if (is_voiced) {
 	var voiceline = sound_get("voice_gotparried"+string(1+random_func(15, 4, true)));
 	sound_play(voiceline);
 }
+
+if (grabbed_player_obj == hit_player_obj) grabbed_player_obj = noone;

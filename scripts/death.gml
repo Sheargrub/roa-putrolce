@@ -11,3 +11,5 @@ sound_stop(stance_sfx_instance);
 if (is_voiced) {
     death_voice_timer = 10;
 }
+
+grabbed_player_obj = noone;
