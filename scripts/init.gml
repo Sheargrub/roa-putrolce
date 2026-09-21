@@ -207,9 +207,9 @@ putrolce_status_timer = 0;  // reflected in other_init.gml.
 sleeperchase_used = false;
 
 
-//Special alt indices
-alt_ashe = 21;
-alt_stanced = 24;
+//Special alt indices. Remember to change the values on css_draw too
+alt_ashe = 22;
+alt_stanced = 25;
 
 // Outline management
 // Can be used to give distinct outline colors to specific alts,

@@ -53,7 +53,7 @@ if (variable_instance_exists(id,"qe")){
 
 if (!variable_instance_exists(id,"ae") || ye == true){
 	
-	//Special alt indices
+	//Special alt indices. Also remember to change values on init.
 	alt_ashe = 22;
 	alt_stanced = 25;
 	
